@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="android sdk,sdk,so库包冲突,高德sdk,个推sdk" />
+  <meta name="keywords" content="commit,fragment,onCreateView,没有立即执行" />
 
 
 
@@ -90,19 +90,16 @@
 
 
 
-<meta name="description" content="项目原本只加入高德sdk的时候，获取map，添加marker一切正常 ，可是只要我加入个推sdk后 编译运行 居然报高德地图的错 ，当时了就懵了- -这个是错误日志123java.lang.UnsatisfiedLinkError: No implementation found for long com.autonavi.amap.mapcore.MapCore.nativeNewInstanc">
+<meta name="description" content="在做项目中，遇到一个很奇怪的问题 ，当调用fragmentTransaction.commit的时候 fragment的生命周期并没有立即执行，下面是我的代码123456manager = getSupportFragmentManager();FragmentTransaction ft = manager.beginTransaction();MainFragment fragment = n">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第三方sdk（我的是高德和个推） so库包冲突">
-<meta property="og:url" content="http://yewei02538.github.io/sdk-so/index.html">
+<meta property="og:title" content="FragmentTransaction.commit onCreateView没有立即执行">
+<meta property="og:url" content="http://yewei02538.github.io/detail/commit-onCreateView/index.html">
 <meta property="og:site_name" content="YipWey的博客">
-<meta property="og:description" content="项目原本只加入高德sdk的时候，获取map，添加marker一切正常 ，可是只要我加入个推sdk后 编译运行 居然报高德地图的错 ，当时了就懵了- -这个是错误日志123java.lang.UnsatisfiedLinkError: No implementation found for long com.autonavi.amap.mapcore.MapCore.nativeNewInstanc">
-<meta property="og:image" content="http://yewei02538.github.io/img/1468653788.png">
-<meta property="og:image" content="http://yewei02538.github.io/img/1468653948 .png">
-<meta property="og:updated_time" content="2016-07-21T01:45:02.953Z">
+<meta property="og:description" content="在做项目中，遇到一个很奇怪的问题 ，当调用fragmentTransaction.commit的时候 fragment的生命周期并没有立即执行，下面是我的代码123456manager = getSupportFragmentManager();FragmentTransaction ft = manager.beginTransaction();MainFragment fragment = n">
+<meta property="og:updated_time" content="2016-07-21T01:43:18.409Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第三方sdk（我的是高德和个推） so库包冲突">
-<meta name="twitter:description" content="项目原本只加入高德sdk的时候，获取map，添加marker一切正常 ，可是只要我加入个推sdk后 编译运行 居然报高德地图的错 ，当时了就懵了- -这个是错误日志123java.lang.UnsatisfiedLinkError: No implementation found for long com.autonavi.amap.mapcore.MapCore.nativeNewInstanc">
-<meta name="twitter:image" content="http://yewei02538.github.io/img/1468653788.png">
+<meta name="twitter:title" content="FragmentTransaction.commit onCreateView没有立即执行">
+<meta name="twitter:description" content="在做项目中，遇到一个很奇怪的问题 ，当调用fragmentTransaction.commit的时候 fragment的生命周期并没有立即执行，下面是我的代码123456manager = getSupportFragmentManager();FragmentTransaction ft = manager.beginTransaction();MainFragment fragment = n">
 
 
 
@@ -123,9 +120,9 @@
 
 
 
-  <link rel="canonical" href="http://yewei02538.github.io/sdk-so/"/>
+  <link rel="canonical" href="http://yewei02538.github.io/detail/commit-onCreateView/"/>
 
-  <title> 第三方sdk（我的是高德和个推） so库包冲突 - YipWey的博客 </title>
+  <title> FragmentTransaction.commit onCreateView没有立即执行 - YipWey的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -245,7 +242,7 @@
             
             
               
-                第三方sdk（我的是高德和个推） so库包冲突
+                FragmentTransaction.commit onCreateView没有立即执行
               
             
           </h1>
@@ -257,8 +254,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-16T15:18:57+08:00" content="2016-07-16">
-              2016-07-16
+            <time itemprop="dateCreated" datetime="2016-07-20T10:17:10+08:00" content="2016-07-20">
+              2016-07-20
             </time>
           </span>
 
@@ -268,8 +265,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/sdk-so/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="sdk-so/" itemprop="commentsCount"></span>
+                <a href="/detail/commit-onCreateView/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="detail/commit-onCreateView/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -292,14 +289,14 @@
       
 
       
-        <p>项目原本只加入高德sdk的时候，获取map，添加marker一切正常 ，可是只要我加入个推sdk后 编译运行 居然报高德地图的错 ，当时了就懵了- -<br>这个是错误日志<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">java.lang.UnsatisfiedLinkError: No implementation found <span class="keyword">for</span> <span class="keyword">long</span> com.autonavi.amap.mapcore.MapCore.nativeNewInstance(java.lang.String, java.lang.String) (tried Java_com_autonavi_amap_mapcore_MapCore_nativeNewInstance and Java_com_autonavi_amap_mapcore_MapCore_nativeNewInstance__Ljava_lang_String_2Ljava_lang_String_2)</div><div class="line">                                                      at com.autonavi.amap.mapcore.MapCore.nativeNewInstance(Native Method)</div><div class="line">                                                      at com.autonavi.amap.mapcore.MapCore.newMap(MapCore.java:<span class="number">83</span></div></pre></td></tr></table></figure></p>
+        <p>在做项目中，遇到一个很奇怪的问题 ，当调用fragmentTransaction.commit的时候 fragment的生命周期并没有立即执行，下面是我的代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">manager = getSupportFragmentManager();</div><div class="line">FragmentTransaction ft = manager.beginTransaction();</div><div class="line">MainFragment fragment = <span class="keyword">new</span> MainFragment();</div><div class="line">ft.add(R.id.fl_content, fragment);</div><div class="line">ft.commit();</div><div class="line">fragment.setInfo();</div></pre></td></tr></table></figure></p>
 <a id="more"></a>
-<p>错误日志可以看出是so库没有找到的原因 ，这是我的lib目录</p>
-<p><img src="/img/1468653788.png" alt=""></p>
-<p>但是有的手机却没有问题<br>google一番后其实是因为没有找到手机对应的so库 （也就是armeabi-v7a）</p>
-<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><p>把armeabi里高德的so库直接拷入到armeabi-v7a文件夹下 然后删除mips和mips64就可以了<br><img src="/img/1468653948 .png" alt=""></p>
-<div class="tip"><br>    转载请注明出处<br></div>
-
+<p>看似正常的逻辑没有问题 ，可是却fragment里面却给我报了NullPointException ,看log显示 view是null，我就奇怪了，明明onCreateView里面不是findViewById找到了嘛 ，不会啊，无意中查看了fragmentTransaction.commit()的源码才知道<br>注释是这样写的</p>
+<pre><code>* Schedules a commit of this transaction.  The commit does
+* not happen immediately; it will be scheduled as work on the main thread
+* to be done the next time that thread is ready.
+</code></pre><p>大致的意思是说 调用commit后不会立即执行，会再下一次准备好的时候，运行在主线程里面。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>调用commit后执行<br>    manager.executePendingTransactions();<br>这样就会立即执行了</p>
 
       
     </div>
@@ -325,16 +322,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/adapter-notifyDataSetChanged/" rel="next" title="adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新">
-                <i class="fa fa-chevron-left"></i> adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新
+              <a href="/detail/sdk-so/" rel="next" title="第三方sdk（我的是高德和个推） so库包冲突">
+                <i class="fa fa-chevron-left"></i> 第三方sdk（我的是高德和个推） so库包冲突
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/commit-onCreateView/" rel="prev" title="FragmentTransaction.commit onCreateView没有立即执行">
-                FragmentTransaction.commit onCreateView没有立即执行 <i class="fa fa-chevron-right"></i>
+              <a href="/detail/Android-PLDroidPlayer播放/" rel="prev" title="Android 使用PLDroidPlayer播放网络视频 根据视频角度自动旋转">
+                Android 使用PLDroidPlayer播放网络视频 根据视频角度自动旋转 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -361,8 +358,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="sdk-so/"
-           data-title="第三方sdk（我的是高德和个推） so库包冲突" data-url="http://yewei02538.github.io/sdk-so/">
+      <div class="ds-thread" data-thread-key="detail/commit-onCreateView/"
+           data-title="FragmentTransaction.commit onCreateView没有立即执行" data-url="http://yewei02538.github.io/detail/commit-onCreateView/">
       </div>
     
   </div>
@@ -459,7 +456,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#解决办法"><span class="nav-number">1.</span> <span class="nav-text">解决办法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决办法"><span class="nav-number">1.</span> <span class="nav-text">解决办法</span></a></li></ol></div>
             
           </div>
         </section>

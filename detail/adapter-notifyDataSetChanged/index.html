@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="commit,fragment,onCreateView,没有立即执行" />
+  <meta name="keywords" content="android,adapter,notifyDataSetChange,notifyDataSetChange没有反应,触摸刷新,滑动屏幕刷新" />
 
 
 
@@ -90,16 +90,16 @@
 
 
 
-<meta name="description" content="在做项目中，遇到一个很奇怪的问题 ，当调用fragmentTransaction.commit的时候 fragment的生命周期并没有立即执行，下面是我的代码123456manager = getSupportFragmentManager();FragmentTransaction ft = manager.beginTransaction();MainFragment fragment = n">
+<meta name="description" content="今天做项目遇到个比较头疼的问题，adapter.notifyDataSetChanged没有反应，要触摸屏幕才可以改变数据，上网查资料有人说是给list集合赋值的时候地址改变了（要用list.addAll()），可是我并没有改变地址 ，只是手动改了一个item的数据而已，后来发现只要延迟刷新就可以了">
 <meta property="og:type" content="article">
-<meta property="og:title" content="FragmentTransaction.commit onCreateView没有立即执行">
-<meta property="og:url" content="http://yewei02538.github.io/FragmentTransaction-commit-onCreateView没有立即执行/index.html">
+<meta property="og:title" content="adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新">
+<meta property="og:url" content="http://yewei02538.github.io/detail/adapter-notifyDataSetChanged/index.html">
 <meta property="og:site_name" content="YipWey的博客">
-<meta property="og:description" content="在做项目中，遇到一个很奇怪的问题 ，当调用fragmentTransaction.commit的时候 fragment的生命周期并没有立即执行，下面是我的代码123456manager = getSupportFragmentManager();FragmentTransaction ft = manager.beginTransaction();MainFragment fragment = n">
-<meta property="og:updated_time" content="2016-07-21T01:43:18.409Z">
+<meta property="og:description" content="今天做项目遇到个比较头疼的问题，adapter.notifyDataSetChanged没有反应，要触摸屏幕才可以改变数据，上网查资料有人说是给list集合赋值的时候地址改变了（要用list.addAll()），可是我并没有改变地址 ，只是手动改了一个item的数据而已，后来发现只要延迟刷新就可以了">
+<meta property="og:updated_time" content="2016-07-21T01:48:04.331Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FragmentTransaction.commit onCreateView没有立即执行">
-<meta name="twitter:description" content="在做项目中，遇到一个很奇怪的问题 ，当调用fragmentTransaction.commit的时候 fragment的生命周期并没有立即执行，下面是我的代码123456manager = getSupportFragmentManager();FragmentTransaction ft = manager.beginTransaction();MainFragment fragment = n">
+<meta name="twitter:title" content="adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新">
+<meta name="twitter:description" content="今天做项目遇到个比较头疼的问题，adapter.notifyDataSetChanged没有反应，要触摸屏幕才可以改变数据，上网查资料有人说是给list集合赋值的时候地址改变了（要用list.addAll()），可是我并没有改变地址 ，只是手动改了一个item的数据而已，后来发现只要延迟刷新就可以了">
 
 
 
@@ -120,9 +120,9 @@
 
 
 
-  <link rel="canonical" href="http://yewei02538.github.io/FragmentTransaction-commit-onCreateView没有立即执行/"/>
+  <link rel="canonical" href="http://yewei02538.github.io/detail/adapter-notifyDataSetChanged/"/>
 
-  <title> FragmentTransaction.commit onCreateView没有立即执行 - YipWey的博客 </title>
+  <title> adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新 - YipWey的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -242,7 +242,7 @@
             
             
               
-                FragmentTransaction.commit onCreateView没有立即执行
+                adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新
               
             
           </h1>
@@ -254,8 +254,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-20T10:17:10+08:00" content="2016-07-20">
-              2016-07-20
+            <time itemprop="dateCreated" datetime="2016-02-19T15:11:35+08:00" content="2016-02-19">
+              2016-02-19
             </time>
           </span>
 
@@ -265,8 +265,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/FragmentTransaction-commit-onCreateView没有立即执行/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="FragmentTransaction-commit-onCreateView没有立即执行/" itemprop="commentsCount"></span>
+                <a href="/detail/adapter-notifyDataSetChanged/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="detail/adapter-notifyDataSetChanged/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -289,15 +289,8 @@
       
 
       
-        <p>在做项目中，遇到一个很奇怪的问题 ，当调用fragmentTransaction.commit的时候 fragment的生命周期并没有立即执行，下面是我的代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">manager = getSupportFragmentManager();</div><div class="line">FragmentTransaction ft = manager.beginTransaction();</div><div class="line">MainFragment fragment = <span class="keyword">new</span> MainFragment();</div><div class="line">ft.add(R.id.fl_content, fragment);</div><div class="line">ft.commit();</div><div class="line">fragment.setInfo();</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>看似正常的逻辑没有问题 ，可是却fragment里面却给我报了NullPointException ,看log显示 view是null，我就奇怪了，明明onCreateView里面不是findViewById找到了嘛 ，不会啊，无意中查看了fragmentTransaction.commit()的源码才知道<br>注释是这样写的</p>
-<pre><code>* Schedules a commit of this transaction.  The commit does
-* not happen immediately; it will be scheduled as work on the main thread
-* to be done the next time that thread is ready.
-</code></pre><p>大致的意思是说 调用commit后不会立即执行，会再下一次准备好的时候，运行在主线程里面。</p>
-<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>调用commit后执行<br>    manager.executePendingTransactions();<br>这样就会立即执行了</p>
-
+        <p>今天做项目遇到个比较头疼的问题，adapter.notifyDataSetChanged没有反应，要触摸屏幕才可以改变数据，上网查资料有人说是给list集合赋值的时候地址改变了（要用list.addAll()），可是我并没有改变地址 ，只是手动改了一个item的数据而已，后来发现只要延迟刷新就可以了<br><a id="more"></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">handler.postDelayed(<span class="keyword">new</span> Runnable() &#123;  </div><div class="line">            <span class="meta">@Override</span>  </div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;  </div><div class="line">                adapter.notifyDataSetChanged();  </div><div class="line">            &#125;  </div><div class="line">        &#125;, <span class="number">500</span>);</div></pre></td></tr></table></figure></p>
+<div class="tip"><br>    转载请注明出处<br></div>
       
     </div>
 
@@ -322,16 +315,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/1001/" rel="next" title="第三方sdk（我的是高德和个推） so库包冲突">
-                <i class="fa fa-chevron-left"></i> 第三方sdk（我的是高德和个推） so库包冲突
+              <a href="/detail/fragment-viewpager嵌套/" rel="next" title="Fragment里面用ViewPager嵌套2个Fragment，第二次切换变成空白的解决办法">
+                <i class="fa fa-chevron-left"></i> Fragment里面用ViewPager嵌套2个Fragment，第二次切换变成空白的解决办法
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/Android-使用PLDroidPlayer播放网络视频-根据视频角度自动旋转/" rel="prev" title="Android 使用PLDroidPlayer播放网络视频 根据视频角度自动旋转">
-                Android 使用PLDroidPlayer播放网络视频 根据视频角度自动旋转 <i class="fa fa-chevron-right"></i>
+              <a href="/detail/sdk-so/" rel="prev" title="第三方sdk（我的是高德和个推） so库包冲突">
+                第三方sdk（我的是高德和个推） so库包冲突 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -358,8 +351,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="FragmentTransaction-commit-onCreateView没有立即执行/"
-           data-title="FragmentTransaction.commit onCreateView没有立即执行" data-url="http://yewei02538.github.io/FragmentTransaction-commit-onCreateView没有立即执行/">
+      <div class="ds-thread" data-thread-key="detail/adapter-notifyDataSetChanged/"
+           data-title="adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新" data-url="http://yewei02538.github.io/detail/adapter-notifyDataSetChanged/">
       </div>
     
   </div>
@@ -456,7 +449,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决办法"><span class="nav-number">1.</span> <span class="nav-text">解决办法</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
