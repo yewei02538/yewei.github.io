@@ -1,39 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
+
+
+    
   <url>
     <loc>http://yewei02538.github.io/adapter-notifyDataSetChanged%E6%B2%A1%E6%9C%89%E5%8F%8D%E5%BA%94%EF%BC%8C%E8%A7%A6%E6%91%B8%E6%BB%91%E5%8A%A8%E5%B1%8F%E5%B9%95%E6%89%8D%E5%88%B7%E6%96%B0/</loc>
-    
     <lastmod>2016-07-21T01:48:04.331Z</lastmod>
+    <data>
+        <display>
+        <title>adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新</title>
+        <pubTime>2016-02-19T07:11:35.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
     
-  </url>
-  
   <url>
     <loc>http://yewei02538.github.io/Android-%E4%BD%BF%E7%94%A8PLDroidPlayer%E6%92%AD%E6%94%BE%E7%BD%91%E7%BB%9C%E8%A7%86%E9%A2%91-%E6%A0%B9%E6%8D%AE%E8%A7%86%E9%A2%91%E8%A7%92%E5%BA%A6%E8%87%AA%E5%8A%A8%E6%97%8B%E8%BD%AC/</loc>
-    
     <lastmod>2016-07-21T01:47:05.215Z</lastmod>
+    <data>
+        <display>
+        <title>Android 使用PLDroidPlayer播放网络视频 根据视频角度自动旋转</title>
+        <pubTime>2016-07-20T07:56:02.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
     
-  </url>
-  
   <url>
     <loc>http://yewei02538.github.io/Fragment%E9%87%8C%E9%9D%A2%E7%94%A8ViewPager%E5%B5%8C%E5%A5%972%E4%B8%AAFragment%EF%BC%8C%E7%AC%AC%E4%BA%8C%E6%AC%A1%E5%88%87%E6%8D%A2%E5%8F%98%E6%88%90%E7%A9%BA%E7%99%BD%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</loc>
-    
     <lastmod>2016-07-21T01:45:59.068Z</lastmod>
+    <data>
+        <display>
+        <title>Fragment里面用ViewPager嵌套2个Fragment，第二次切换变成空白的解决办法</title>
+        <pubTime>2015-11-26T05:48:26.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
     
-  </url>
-  
   <url>
     <loc>http://yewei02538.github.io/%E7%AC%AC%E4%B8%89%E6%96%B9sdk%EF%BC%88%E9%AB%98%E5%BE%B7%E5%92%8C%E4%B8%AA%E6%8E%A8%EF%BC%89-so%E5%BA%93%E5%8C%85%E5%86%B2%E7%AA%81/</loc>
-    
     <lastmod>2016-07-21T01:45:02.953Z</lastmod>
+    <data>
+        <display>
+        <title>第三方sdk（我的是高德和个推） so库包冲突</title>
+        <pubTime>2016-07-16T07:18:57.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
     
-  </url>
-  
   <url>
     <loc>http://yewei02538.github.io/FragmentTransaction-commit-onCreateView%E6%B2%A1%E6%9C%89%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C/</loc>
-    
     <lastmod>2016-07-21T01:43:18.409Z</lastmod>
-    
-  </url>
-  
+    <data>
+        <display>
+        <title>FragmentTransaction.commit onCreateView没有立即执行</title>
+        <pubTime>2016-07-20T02:17:10.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
 </urlset>
