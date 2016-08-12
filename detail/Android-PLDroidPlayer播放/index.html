@@ -104,7 +104,7 @@ ijkplayer（B站下开源的框架 体积大 配置环境比较麻烦  github:ht
 
 Vitamio （  体积比较大，有商业化风险 github:https://github.com/yixia/VitamioBundle/）
 ijkplayer（B站下开源的框架 体积大 配置环境比较麻烦  github:https://github.com/B">
-<meta property="og:updated_time" content="2016-08-12T09:41:55.135Z">
+<meta property="og:updated_time" content="2016-08-12T10:07:36.676Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 使用PLDroidPlayer播放网络视频 根据视频角度自动旋转">
 <meta name="twitter:description" content="最近因为项目需求 ，需要播放网络视频  ，于是乎 研究了一番 ，说说我遇到的那些坑    
@@ -322,7 +322,7 @@ ijkplayer（B站下开源的框架 体积大 配置环境比较麻烦  github:ht
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">mVideoView.setOnVideoSizeChangedListener(<span class="keyword">new</span> PLMediaPlayer.OnVideoSizeChangedListener() &#123;</div><div class="line">           <span class="meta">@Override</span></div><div class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onVideoSizeChanged</span><span class="params">(PLMediaPlayer plMediaPlayer, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</div><div class="line">               Logger.i(<span class="string">"width:"</span> + width + <span class="string">"---heightL:"</span> + height);</div><div class="line">               <span class="keyword">if</span> (width &gt; height&amp;&amp;mVideoRotation==<span class="number">0</span>) &#123;</div><div class="line">                   <span class="comment">//旋转方向</span></div><div class="line">                   setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);</div><div class="line">               &#125;</div><div class="line">			<span class="comment">//如果视频角度是90度</span></div><div class="line">               <span class="keyword">if</span>(mVideoRotation==<span class="number">90</span>)</div><div class="line">               &#123;</div><div class="line">                  <span class="comment">//旋转视频</span></div><div class="line">                   mVideoView.setDisplayOrientation(<span class="number">270</span>);</div><div class="line">               &#125;</div><div class="line">               </div><div class="line">           &#125;</div><div class="line">       &#125;);</div></pre></td></tr></table></figure>
 <p>这样 不管是什么视频  播放终于正常了  - -  </p>
 <p>转载请注明出处  <a href="http://blog.csdn.net/yewei02538/article/details/51882933" target="_blank" rel="external">http://blog.csdn.net/yewei02538/article/details/51882933</a></p>
-<p>Demo下载地址: <a href="http://www.yipwey.com/download/PLDroidPlayerAutoRotate.zip" target="_blank" rel="external">http://www.yipwey.com/download/PLDroidPlayerAutoRotate.zip</a></p>
+<p>Demo下载地址: <a href="http://download.csdn.net/detail/yewei02538/9602032" target="_blank" rel="external">http://download.csdn.net/detail/yewei02538/9602032</a></p>
 
       
     </div>
