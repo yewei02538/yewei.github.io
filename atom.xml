@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yewei02538.github.io/"/>
-  <updated>2016-07-21T01:47:05.215Z</updated>
+  <updated>2016-08-12T09:37:00.358Z</updated>
   <id>http://yewei02538.github.io/</id>
   
   <author>
@@ -16,11 +16,103 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Dialog样式的Activity-可以在任何地方弹出的Dialog</title>
+    <link href="http://yewei02538.github.io/detail/dialogactivity/"/>
+    <id>http://yewei02538.github.io/detail/dialogactivity/</id>
+    <published>2016-08-12T07:43:20.000Z</published>
+    <updated>2016-08-12T09:37:00.358Z</updated>
+    
+    <content type="html">&lt;p&gt;最近项目用到一个需求，当收到透传消息后不管在哪个界面都要弹出一个dialog，当时觉得这还不简单嘛，new一个呀 ，于是我就在receiver里面new了一个&lt;/p&gt;
+&lt;p&gt;然后就报了如下的错&lt;/p&gt;
+&lt;p&gt;&lt;pre&gt;&lt;br&gt;android.view.WindowManager$BadTokenException: Unable to add window – token null is not for an application&lt;br&gt;android.view.ViewRootImpl.setView(ViewRootImpl.java:567)&lt;br&gt;                                                                    at android.view.WindowManagerGlobal.addView(WindowManagerGlobal.java:269)                                                                       at android.view.WindowManagerImpl.addView(WindowManagerImpl.java:69)                                                               at android.app.Dialog.show(Dialog.java:323)                                                                     at com.yipwey.dialogactivity.PushReceiver.onReceive(PushReceiver.java:16)&lt;br&gt;                                                                           at android.app.ActivityThread.handleReceiver(ActivityThread.java:2508)&lt;br&gt;                                                                           at android.app.ActivityThread.access$2000(ActivityThread.java:141)&lt;br&gt;                                                                           at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1323)&lt;br&gt;&lt;/pre&gt;&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;br&gt;下面是我写的测试代码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class PushReceiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        Dialog dialog=new Dialog(context);
+        dialog.setTitle(&amp;quot;Dialog&amp;quot;);
+        dialog.show();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在stackoverflow上找到了原因 &lt;a href=&quot;http://stackoverflow.com/questions/19024940/android-error-unable-to-add-window-token-null-is-not-for-an-application&quot; title=&quot;Unable to add window&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://stackoverflow.com/questions/19024940/android-error-unable-to-add-window-token-null-is-not-for-an-application&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;原因是因为传入的是Context，而需要的是Activity&lt;/p&gt;
+&lt;p&gt;查询SDK帮助文档：&lt;/p&gt;
+&lt;p&gt;Return the context of the single, global Application object of the current process. This generally should only be used if you need a Context whose lifecycle is separate from the current context, that is tied to the lifetime of the process rather than the current component.&lt;/p&gt;
+&lt;p&gt;在回来发现我这里是Receiver啊，并不是Activity&lt;br&gt;于是乎就要换一种方法了，也就是Dialog风格的Activity&lt;/p&gt;
+&lt;p&gt;这样既解决了这个问题，有可以再Activity里写控制的代码，下面我就抛砖引玉介绍一下吧&lt;/p&gt;
+&lt;p&gt;首先，要写一个style 并且集成 &lt;code&gt;@android:style/Theme.Dialog&lt;/code&gt;，&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;style name=&amp;quot;CustomTheme_Dialog&amp;quot; parent=&amp;quot;@android:style/Theme.Dialog&amp;quot;&amp;gt;
+       &amp;lt;item name=&amp;quot;android:windowBackground&amp;quot;&amp;gt;@android:color/transparent&amp;lt;/item&amp;gt;
+       &amp;lt;item name=&amp;quot;android:windowFrame&amp;quot;&amp;gt;@null&amp;lt;/item&amp;gt;
+       &amp;lt;item name=&amp;quot;android:windowActionBar&amp;quot;&amp;gt;false&amp;lt;/item&amp;gt;
+       &amp;lt;item name=&amp;quot;android:windowNoTitle&amp;quot;&amp;gt;true&amp;lt;/item&amp;gt;
+       &amp;lt;item name=&amp;quot;android:windowIsFloating&amp;quot;&amp;gt;true&amp;lt;/item&amp;gt;
+       &amp;lt;item name=&amp;quot;android:windowIsTranslucent&amp;quot;&amp;gt;false&amp;lt;/item&amp;gt;
+       &amp;lt;item name=&amp;quot;android:backgroundDimEnabled&amp;quot;&amp;gt;true&amp;lt;/item&amp;gt;
+&amp;lt;/style&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后再你的Manifest中的Activity添加 &lt;code&gt;android:theme=&amp;quot;@style/CustomTheme_Dialog&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;这样你的Activity就是dialog风格的了&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class DialogActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;下面是我的布局，&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;RelativeLayout
+    xmlns:android=&amp;quot;http://schemas.android.com/apk/res/android&amp;quot;
+    xmlns:tools=&amp;quot;http://schemas.android.com/tools&amp;quot;
+    android:layout_width=&amp;quot;match_parent&amp;quot;
+    android:layout_height=&amp;quot;match_parent&amp;quot;
+    android:paddingLeft=&amp;quot;@dimen/activity_horizontal_margin&amp;quot;
+    android:paddingRight=&amp;quot;@dimen/activity_horizontal_margin&amp;quot;
+    android:paddingTop=&amp;quot;@dimen/activity_vertical_margin&amp;quot;
+    android:paddingBottom=&amp;quot;@dimen/activity_vertical_margin&amp;quot;
+    tools:context=&amp;quot;com.yipwey.dialogactivity.MainActivity&amp;quot;&amp;gt;
+
+    &amp;lt;Button
+        android:id=&amp;quot;@+id/btn&amp;quot;
+        android:text=&amp;quot;Hello World!&amp;quot;
+        android:layout_centerInParent=&amp;quot;true&amp;quot;
+        android:layout_width=&amp;quot;wrap_content&amp;quot;
+        android:layout_height=&amp;quot;wrap_content&amp;quot; /&amp;gt;
+&amp;lt;/RelativeLayout&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;,然后我们运行一下&lt;/p&gt;
+&lt;p&gt;然后你会发现又报错了&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Caused by: java.lang.IllegalStateException: You need to use a Theme.AppCompat theme (or descendant) with this activity.
+                                                                               at android.support.v7.app.AppCompatDelegateImplV7.createSubDecor(AppCompatDelegateImplV7.java:343)
+                                                                               at android.support.v7.app.AppCompatDelegateImplV7.ensureSubDecor(AppCompatDelegateImplV7.java:312)
+                                                                               at android.support.v7.app.AppCompatDelegateImplV7.setContentView(AppCompatDelegateImplV7.java:277)
+                                                                               at android.support.v7.app.AppCompatActivity.setContentView(AppCompatActivity.java:140)
+                                                                               at com.yipwey.dialogactivity.MainActivity.onCreate(MainActivity.java:14)
+                                                                               at android.app.Activity.performCreate(Activity.java:5308)
+                                                                               at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1090)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&quot;/img/img_xk.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;原因是你继承了&lt;code&gt;AppCompatActivity&lt;/code&gt;,改成&lt;code&gt;Activity&lt;/code&gt;就可以了&lt;/p&gt;
+&lt;p&gt;然后就成功了&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/Screenshot_2016-08-12-17-25-15.jpeg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;如果你想点击外部不消失的话 调用 &lt;code&gt;setFinishOnTouchOutside(false);&lt;/code&gt;就可以了(注意：一定要在setContentView之前调用)&lt;/p&gt;
+&lt;p&gt;demo下载地址：&lt;a href=&quot;http://yipwey.com/download/DialogActivity.zip&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.yipwey.com/download/DialogActivity.zip&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近项目用到一个需求，当收到透传消息后不管在哪个界面都要弹出一个dialog，当时觉得这还不简单嘛，new一个呀 ，于是我就在receiver里面new了一个&lt;/p&gt;
+&lt;p&gt;然后就报了如下的错&lt;/p&gt;
+&lt;p&gt;&lt;pre&gt;&lt;br&gt;android.view.WindowManager$BadTokenException: Unable to add window – token null is not for an application&lt;br&gt;android.view.ViewRootImpl.setView(ViewRootImpl.java:567)&lt;br&gt;                                                                    at android.view.WindowManagerGlobal.addView(WindowManagerGlobal.java:269)                                                                       at android.view.WindowManagerImpl.addView(WindowManagerImpl.java:69)                                                               at android.app.Dialog.show(Dialog.java:323)                                                                     at com.yipwey.dialogactivity.PushReceiver.onReceive(PushReceiver.java:16)&lt;br&gt;                                                                           at android.app.ActivityThread.handleReceiver(ActivityThread.java:2508)&lt;br&gt;                                                                           at android.app.ActivityThread.access$2000(ActivityThread.java:141)&lt;br&gt;                                                                           at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1323)&lt;br&gt;&lt;/pre&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>Android 使用PLDroidPlayer播放网络视频 根据视频角度自动旋转</title>
     <link href="http://yewei02538.github.io/detail/Android-PLDroidPlayer%E6%92%AD%E6%94%BE/"/>
     <id>http://yewei02538.github.io/detail/Android-PLDroidPlayer播放/</id>
     <published>2016-07-20T07:56:02.000Z</published>
-    <updated>2016-07-21T01:47:05.215Z</updated>
+    <updated>2016-08-12T09:41:55.135Z</updated>
     
     <content type="html">&lt;p&gt;最近因为项目需求 ，需要播放网络视频  ，于是乎 研究了一番 ，说说我遇到的那些坑    &lt;/p&gt;
 &lt;p&gt;现在市面上有几个比较主流好用的第三方框架&lt;/p&gt;
@@ -43,6 +135,7 @@
 &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;17&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;mVideoView.setOnVideoSizeChangedListener(&lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; PLMediaPlayer.OnVideoSizeChangedListener() &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;           &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;           &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;onVideoSizeChanged&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(PLMediaPlayer plMediaPlayer, &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; width, &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; height)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;               Logger.i(&lt;span class=&quot;string&quot;&gt;&quot;width:&quot;&lt;/span&gt; + width + &lt;span class=&quot;string&quot;&gt;&quot;---heightL:&quot;&lt;/span&gt; + height);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;               &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (width &amp;gt; height&amp;amp;&amp;amp;mVideoRotation==&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;) &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;                   &lt;span class=&quot;comment&quot;&gt;//旋转方向&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;                   setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;               &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;			&lt;span class=&quot;comment&quot;&gt;//如果视频角度是90度&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;               &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(mVideoRotation==&lt;span class=&quot;number&quot;&gt;90&lt;/span&gt;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;               &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;                  &lt;span class=&quot;comment&quot;&gt;//旋转视频&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;                   mVideoView.setDisplayOrientation(&lt;span class=&quot;number&quot;&gt;270&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;               &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;               &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;           &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;       &amp;#125;);&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;这样 不管是什么视频  播放终于正常了  - -  &lt;/p&gt;
 &lt;p&gt;转载请注明出处  &lt;a href=&quot;http://blog.csdn.net/yewei02538/article/details/51882933&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://blog.csdn.net/yewei02538/article/details/51882933&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Demo下载地址: &lt;a href=&quot;http://www.yipwey.com/download/PLDroidPlayerAutoRotate.zip&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.yipwey.com/download/PLDroidPlayerAutoRotate.zip&lt;/a&gt;&lt;/p&gt;
 </content>
     
     <summary type="html">

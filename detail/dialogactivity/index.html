@@ -1,0 +1,702 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="android,Dialog,Dialog Activity,任何地方弹出的Dialog" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="最近项目用到一个需求，当收到透传消息后不管在哪个界面都要弹出一个dialog，当时觉得这还不简单嘛，new一个呀 ，于是我就在receiver里面new了一个
+然后就报了如下的错
+android.view.WindowManager$BadTokenException: Unable to add window – token null is not for an applicationandro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dialog样式的Activity-可以在任何地方弹出的Dialog">
+<meta property="og:url" content="http://yewei02538.github.io/detail/dialogactivity/index.html">
+<meta property="og:site_name" content="YipWey的博客">
+<meta property="og:description" content="最近项目用到一个需求，当收到透传消息后不管在哪个界面都要弹出一个dialog，当时觉得这还不简单嘛，new一个呀 ，于是我就在receiver里面new了一个
+然后就报了如下的错
+android.view.WindowManager$BadTokenException: Unable to add window – token null is not for an applicationandro">
+<meta property="og:image" content="http://yewei02538.github.io/img/img_xk.jpg">
+<meta property="og:image" content="http://yewei02538.github.io/img/Screenshot_2016-08-12-17-25-15.jpeg">
+<meta property="og:updated_time" content="2016-08-12T09:37:00.358Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dialog样式的Activity-可以在任何地方弹出的Dialog">
+<meta name="twitter:description" content="最近项目用到一个需求，当收到透传消息后不管在哪个界面都要弹出一个dialog，当时觉得这还不简单嘛，new一个呀 ，于是我就在receiver里面new了一个
+然后就报了如下的错
+android.view.WindowManager$BadTokenException: Unable to add window – token null is not for an applicationandro">
+<meta name="twitter:image" content="http://yewei02538.github.io/img/img_xk.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 123,
+      author: 'YipWey'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yewei02538.github.io/detail/dialogactivity/"/>
+
+  <title> Dialog样式的Activity-可以在任何地方弹出的Dialog - YipWey的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?fc2f2a7e5ecabbc7236f5f40d5f4afdb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">YipWey的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Dialog样式的Activity-可以在任何地方弹出的Dialog
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-12T15:43:20+08:00" content="2016-08-12">
+              2016-08-12
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/detail/dialogactivity/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="detail/dialogactivity/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近项目用到一个需求，当收到透传消息后不管在哪个界面都要弹出一个dialog，当时觉得这还不简单嘛，new一个呀 ，于是我就在receiver里面new了一个</p>
+<p>然后就报了如下的错</p>
+<p><pre><br>android.view.WindowManager$BadTokenException: Unable to add window – token null is not for an application<br>android.view.ViewRootImpl.setView(ViewRootImpl.java:567)<br>                                                                    at android.view.WindowManagerGlobal.addView(WindowManagerGlobal.java:269)                                                                       at android.view.WindowManagerImpl.addView(WindowManagerImpl.java:69)                                                               at android.app.Dialog.show(Dialog.java:323)                                                                     at com.yipwey.dialogactivity.PushReceiver.onReceive(PushReceiver.java:16)<br>                                                                           at android.app.ActivityThread.handleReceiver(ActivityThread.java:2508)<br>                                                                           at android.app.ActivityThread.access$2000(ActivityThread.java:141)<br>                                                                           at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1323)<br></pre><br><a id="more"></a><br>下面是我写的测试代码</p>
+<pre><code>public class PushReceiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        Dialog dialog=new Dialog(context);
+        dialog.setTitle(&quot;Dialog&quot;);
+        dialog.show();
+    }
+}
+</code></pre><p>在stackoverflow上找到了原因 <a href="http://stackoverflow.com/questions/19024940/android-error-unable-to-add-window-token-null-is-not-for-an-application" title="Unable to add window" target="_blank" rel="external">http://stackoverflow.com/questions/19024940/android-error-unable-to-add-window-token-null-is-not-for-an-application</a></p>
+<p>原因是因为传入的是Context，而需要的是Activity</p>
+<p>查询SDK帮助文档：</p>
+<p>Return the context of the single, global Application object of the current process. This generally should only be used if you need a Context whose lifecycle is separate from the current context, that is tied to the lifetime of the process rather than the current component.</p>
+<p>在回来发现我这里是Receiver啊，并不是Activity<br>于是乎就要换一种方法了，也就是Dialog风格的Activity</p>
+<p>这样既解决了这个问题，有可以再Activity里写控制的代码，下面我就抛砖引玉介绍一下吧</p>
+<p>首先，要写一个style 并且集成 <code>@android:style/Theme.Dialog</code>，</p>
+<pre><code>&lt;style name=&quot;CustomTheme_Dialog&quot; parent=&quot;@android:style/Theme.Dialog&quot;&gt;
+       &lt;item name=&quot;android:windowBackground&quot;&gt;@android:color/transparent&lt;/item&gt;
+       &lt;item name=&quot;android:windowFrame&quot;&gt;@null&lt;/item&gt;
+       &lt;item name=&quot;android:windowActionBar&quot;&gt;false&lt;/item&gt;
+       &lt;item name=&quot;android:windowNoTitle&quot;&gt;true&lt;/item&gt;
+       &lt;item name=&quot;android:windowIsFloating&quot;&gt;true&lt;/item&gt;
+       &lt;item name=&quot;android:windowIsTranslucent&quot;&gt;false&lt;/item&gt;
+       &lt;item name=&quot;android:backgroundDimEnabled&quot;&gt;true&lt;/item&gt;
+&lt;/style&gt;
+</code></pre><p>然后再你的Manifest中的Activity添加 <code>android:theme=&quot;@style/CustomTheme_Dialog&quot;</code></p>
+<p>这样你的Activity就是dialog风格的了</p>
+<pre><code>public class DialogActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+}
+</code></pre><p>下面是我的布局，</p>
+<pre><code>&lt;RelativeLayout
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:paddingLeft=&quot;@dimen/activity_horizontal_margin&quot;
+    android:paddingRight=&quot;@dimen/activity_horizontal_margin&quot;
+    android:paddingTop=&quot;@dimen/activity_vertical_margin&quot;
+    android:paddingBottom=&quot;@dimen/activity_vertical_margin&quot;
+    tools:context=&quot;com.yipwey.dialogactivity.MainActivity&quot;&gt;
+
+    &lt;Button
+        android:id=&quot;@+id/btn&quot;
+        android:text=&quot;Hello World!&quot;
+        android:layout_centerInParent=&quot;true&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot; /&gt;
+&lt;/RelativeLayout&gt;
+</code></pre><p>,然后我们运行一下</p>
+<p>然后你会发现又报错了</p>
+<pre><code>Caused by: java.lang.IllegalStateException: You need to use a Theme.AppCompat theme (or descendant) with this activity.
+                                                                               at android.support.v7.app.AppCompatDelegateImplV7.createSubDecor(AppCompatDelegateImplV7.java:343)
+                                                                               at android.support.v7.app.AppCompatDelegateImplV7.ensureSubDecor(AppCompatDelegateImplV7.java:312)
+                                                                               at android.support.v7.app.AppCompatDelegateImplV7.setContentView(AppCompatDelegateImplV7.java:277)
+                                                                               at android.support.v7.app.AppCompatActivity.setContentView(AppCompatActivity.java:140)
+                                                                               at com.yipwey.dialogactivity.MainActivity.onCreate(MainActivity.java:14)
+                                                                               at android.app.Activity.performCreate(Activity.java:5308)
+                                                                               at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1090)
+</code></pre><p><img src="/img/img_xk.jpg" alt=""></p>
+<p>原因是你继承了<code>AppCompatActivity</code>,改成<code>Activity</code>就可以了</p>
+<p>然后就成功了</p>
+<p><img src="/img/Screenshot_2016-08-12-17-25-15.jpeg" alt=""></p>
+<p>如果你想点击外部不消失的话 调用 <code>setFinishOnTouchOutside(false);</code>就可以了(注意：一定要在setContentView之前调用)</p>
+<p>demo下载地址：<a href="http://yipwey.com/download/DialogActivity.zip" target="_blank" rel="external">http://www.yipwey.com/download/DialogActivity.zip</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/detail/Android-PLDroidPlayer播放/" rel="next" title="Android 使用PLDroidPlayer播放网络视频 根据视频角度自动旋转">
+                <i class="fa fa-chevron-left"></i> Android 使用PLDroidPlayer播放网络视频 根据视频角度自动旋转
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="detail/dialogactivity/"
+           data-title="Dialog样式的Activity-可以在任何地方弹出的Dialog" data-url="http://yewei02538.github.io/detail/dialogactivity/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://img.zcool.cn/community/01096455d4612e32f875a132accf76.jpg"
+               alt="Yip Wey" />
+          <p class="site-author-name" itemprop="name">Yip Wey</p>
+          <p class="site-description motion-element" itemprop="description">Learn and live.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yewei02538" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/yewei02538" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yip Wey</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yipwey"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+</body>
+</html>

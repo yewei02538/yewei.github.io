@@ -4,12 +4,12 @@
 
     
   <url>
-    <loc>http://yewei02538.github.io/detail/adapter-notifyDataSetChanged/</loc>
-    <lastmod>2016-07-21T01:48:04.331Z</lastmod>
+    <loc>http://yewei02538.github.io/detail/Android-PLDroidPlayer%E6%92%AD%E6%94%BE/</loc>
+    <lastmod>2016-08-12T09:41:55.135Z</lastmod>
     <data>
         <display>
-        <title>adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新</title>
-        <pubTime>2016-02-19T07:11:35.000Z</pubTime>
+        <title>Android 使用PLDroidPlayer播放网络视频 根据视频角度自动旋转</title>
+        <pubTime>2016-07-20T07:56:02.000Z</pubTime>
         
          
            
@@ -19,12 +19,27 @@
 
     
   <url>
-    <loc>http://yewei02538.github.io/detail/Android-PLDroidPlayer%E6%92%AD%E6%94%BE/</loc>
-    <lastmod>2016-07-21T01:47:05.215Z</lastmod>
+    <loc>http://yewei02538.github.io/detail/dialogactivity/</loc>
+    <lastmod>2016-08-12T09:37:00.358Z</lastmod>
     <data>
         <display>
-        <title>Android 使用PLDroidPlayer播放网络视频 根据视频角度自动旋转</title>
-        <pubTime>2016-07-20T07:56:02.000Z</pubTime>
+        <title>Dialog样式的Activity-可以在任何地方弹出的Dialog</title>
+        <pubTime>2016-08-12T07:43:20.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yewei02538.github.io/detail/adapter-notifyDataSetChanged/</loc>
+    <lastmod>2016-07-21T01:48:04.331Z</lastmod>
+    <data>
+        <display>
+        <title>adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新</title>
+        <pubTime>2016-02-19T07:11:35.000Z</pubTime>
         
          
            
