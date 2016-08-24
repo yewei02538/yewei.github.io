@@ -9,5 +9,5 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 
-Sitemap: http://www.yipwey.com/sitemap.xml
-Sitemap: http://www.yipwey.com/baidusitemap.xml
+Sitemap: http://www.weyye.me/sitemap.xml
+Sitemap: http://www.weyye.me/baidusitemap.xml
