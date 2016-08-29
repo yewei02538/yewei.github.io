@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="android,Dialog,Dialog Activity,任何地方弹出的Dialog" />
+  <meta name="keywords" content="android,System.gc,System.gc(),System.gc没有立即执行" />
 
 
 
@@ -90,25 +90,19 @@
 
 
 
-<meta name="description" content="最近项目用到一个需求，当收到透传消息后不管在哪个界面都要弹出一个dialog，当时觉得这还不简单嘛，new一个呀 ，于是我就在receiver里面new了一个
-然后就报了如下的错
-android.view.WindowManager$BadTokenException: Unable to add window – token null is not for an applicationandro">
+<meta name="description" content="查看源码当我们调用System.gc()的时候，其实并不会马上进行垃圾回收，甚至不一定会执行垃圾回收，查看系统源码可以看到
+1234567891011121314151617181920/**    * Indicates to the VM that it would be a good time to run the    * garbage collector. Note that this">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Dialog样式的Activity-可以在任何地方弹出的Dialog">
-<meta property="og:url" content="http://weyye.me/detail/dialogactivity/index.html">
+<meta property="og:title" content="调用System.gc没有立即执行的解决方法">
+<meta property="og:url" content="http://weyye.me/detail/System-gc-not-called/index.html">
 <meta property="og:site_name" content="Wey Ye的博客">
-<meta property="og:description" content="最近项目用到一个需求，当收到透传消息后不管在哪个界面都要弹出一个dialog，当时觉得这还不简单嘛，new一个呀 ，于是我就在receiver里面new了一个
-然后就报了如下的错
-android.view.WindowManager$BadTokenException: Unable to add window – token null is not for an applicationandro">
-<meta property="og:image" content="http://weyye.me/img/img_xk.jpg">
-<meta property="og:image" content="http://weyye.me/img/Screenshot_2016-08-12-17-25-15.jpeg">
-<meta property="og:updated_time" content="2016-08-12T10:03:29.857Z">
+<meta property="og:description" content="查看源码当我们调用System.gc()的时候，其实并不会马上进行垃圾回收，甚至不一定会执行垃圾回收，查看系统源码可以看到
+1234567891011121314151617181920/**    * Indicates to the VM that it would be a good time to run the    * garbage collector. Note that this">
+<meta property="og:updated_time" content="2016-08-29T08:38:22.130Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dialog样式的Activity-可以在任何地方弹出的Dialog">
-<meta name="twitter:description" content="最近项目用到一个需求，当收到透传消息后不管在哪个界面都要弹出一个dialog，当时觉得这还不简单嘛，new一个呀 ，于是我就在receiver里面new了一个
-然后就报了如下的错
-android.view.WindowManager$BadTokenException: Unable to add window – token null is not for an applicationandro">
-<meta name="twitter:image" content="http://weyye.me/img/img_xk.jpg">
+<meta name="twitter:title" content="调用System.gc没有立即执行的解决方法">
+<meta name="twitter:description" content="查看源码当我们调用System.gc()的时候，其实并不会马上进行垃圾回收，甚至不一定会执行垃圾回收，查看系统源码可以看到
+1234567891011121314151617181920/**    * Indicates to the VM that it would be a good time to run the    * garbage collector. Note that this">
 
 
 
@@ -129,9 +123,9 @@ android.view.WindowManager$BadTokenException: Unable to add window – token nul
 
 
 
-  <link rel="canonical" href="http://weyye.me/detail/dialogactivity/"/>
+  <link rel="canonical" href="http://weyye.me/detail/System-gc-not-called/"/>
 
-  <title> Dialog样式的Activity-可以在任何地方弹出的Dialog - Wey Ye的博客 </title>
+  <title> 调用System.gc没有立即执行的解决方法 - Wey Ye的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -251,7 +245,7 @@ android.view.WindowManager$BadTokenException: Unable to add window – token nul
             
             
               
-                Dialog样式的Activity-可以在任何地方弹出的Dialog
+                调用System.gc没有立即执行的解决方法
               
             
           </h1>
@@ -263,8 +257,8 @@ android.view.WindowManager$BadTokenException: Unable to add window – token nul
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-12T15:43:20+08:00" content="2016-08-12">
-              2016-08-12
+            <time itemprop="dateCreated" datetime="2016-08-29T16:04:21+08:00" content="2016-08-29">
+              2016-08-29
             </time>
           </span>
 
@@ -274,8 +268,8 @@ android.view.WindowManager$BadTokenException: Unable to add window – token nul
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/detail/dialogactivity/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="detail/dialogactivity/" itemprop="commentsCount"></span>
+                <a href="/detail/System-gc-not-called/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="detail/System-gc-not-called/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -298,78 +292,16 @@ android.view.WindowManager$BadTokenException: Unable to add window – token nul
       
 
       
-        <p>最近项目用到一个需求，当收到透传消息后不管在哪个界面都要弹出一个dialog，当时觉得这还不简单嘛，new一个呀 ，于是我就在receiver里面new了一个</p>
-<p>然后就报了如下的错</p>
-<p><pre><br>android.view.WindowManager$BadTokenException: Unable to add window – token null is not for an application<br>android.view.ViewRootImpl.setView(ViewRootImpl.java:567)<br>                                                                    at android.view.WindowManagerGlobal.addView(WindowManagerGlobal.java:269)                                                                       at android.view.WindowManagerImpl.addView(WindowManagerImpl.java:69)                                                               at android.app.Dialog.show(Dialog.java:323)                                                                     at com.yipwey.dialogactivity.PushReceiver.onReceive(PushReceiver.java:16)<br>                                                                           at android.app.ActivityThread.handleReceiver(ActivityThread.java:2508)<br>                                                                           at android.app.ActivityThread.access$2000(ActivityThread.java:141)<br>                                                                           at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1323)<br></pre><br><a id="more"></a><br>下面是我写的测试代码</p>
-<pre><code>public class PushReceiver extends BroadcastReceiver {
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        Dialog dialog=new Dialog(context);
-        dialog.setTitle(&quot;Dialog&quot;);
-        dialog.show();
-    }
-}
-</code></pre><p>在stackoverflow上找到了原因 <a href="http://stackoverflow.com/questions/19024940/android-error-unable-to-add-window-token-null-is-not-for-an-application" title="Unable to add window" target="_blank" rel="external">http://stackoverflow.com/questions/19024940/android-error-unable-to-add-window-token-null-is-not-for-an-application</a></p>
-<p>原因是因为传入的是Context，而需要的是Activity</p>
-<p>查询SDK帮助文档：</p>
-<p>Return the context of the single, global Application object of the current process. This generally should only be used if you need a Context whose lifecycle is separate from the current context, that is tied to the lifetime of the process rather than the current component.</p>
-<p>在回来发现我这里是Receiver啊，并不是Activity<br>于是乎就要换一种方法了，也就是Dialog风格的Activity</p>
-<p>这样既解决了这个问题，有可以再Activity里写控制的代码，下面我就抛砖引玉介绍一下吧</p>
-<p>首先，要写一个style 并且集成 <code>@android:style/Theme.Dialog</code>，</p>
-<pre><code>&lt;style name=&quot;CustomTheme_Dialog&quot; parent=&quot;@android:style/Theme.Dialog&quot;&gt;
-       &lt;item name=&quot;android:windowBackground&quot;&gt;@android:color/transparent&lt;/item&gt;
-       &lt;item name=&quot;android:windowFrame&quot;&gt;@null&lt;/item&gt;
-       &lt;item name=&quot;android:windowActionBar&quot;&gt;false&lt;/item&gt;
-       &lt;item name=&quot;android:windowNoTitle&quot;&gt;true&lt;/item&gt;
-       &lt;item name=&quot;android:windowIsFloating&quot;&gt;true&lt;/item&gt;
-       &lt;item name=&quot;android:windowIsTranslucent&quot;&gt;false&lt;/item&gt;
-       &lt;item name=&quot;android:backgroundDimEnabled&quot;&gt;true&lt;/item&gt;
-&lt;/style&gt;
-</code></pre><p>然后再你的Manifest中的Activity添加 <code>android:theme=&quot;@style/CustomTheme_Dialog&quot;</code></p>
-<p>这样你的Activity就是dialog风格的了</p>
-<pre><code>public class DialogActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
-}
-</code></pre><p>下面是我的布局，</p>
-<pre><code>&lt;RelativeLayout
-    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;match_parent&quot;
-    android:paddingLeft=&quot;@dimen/activity_horizontal_margin&quot;
-    android:paddingRight=&quot;@dimen/activity_horizontal_margin&quot;
-    android:paddingTop=&quot;@dimen/activity_vertical_margin&quot;
-    android:paddingBottom=&quot;@dimen/activity_vertical_margin&quot;
-    tools:context=&quot;com.yipwey.dialogactivity.MainActivity&quot;&gt;
-
-    &lt;Button
-        android:id=&quot;@+id/btn&quot;
-        android:text=&quot;Hello World!&quot;
-        android:layout_centerInParent=&quot;true&quot;
-        android:layout_width=&quot;wrap_content&quot;
-        android:layout_height=&quot;wrap_content&quot; /&gt;
-&lt;/RelativeLayout&gt;
-</code></pre><p>,然后我们运行一下</p>
-<p>然后你会发现又报错了</p>
-<pre><code>Caused by: java.lang.IllegalStateException: You need to use a Theme.AppCompat theme (or descendant) with this activity.
-                                                                               at android.support.v7.app.AppCompatDelegateImplV7.createSubDecor(AppCompatDelegateImplV7.java:343)
-                                                                               at android.support.v7.app.AppCompatDelegateImplV7.ensureSubDecor(AppCompatDelegateImplV7.java:312)
-                                                                               at android.support.v7.app.AppCompatDelegateImplV7.setContentView(AppCompatDelegateImplV7.java:277)
-                                                                               at android.support.v7.app.AppCompatActivity.setContentView(AppCompatActivity.java:140)
-                                                                               at com.yipwey.dialogactivity.MainActivity.onCreate(MainActivity.java:14)
-                                                                               at android.app.Activity.performCreate(Activity.java:5308)
-                                                                               at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1090)
-</code></pre><p><img src="/img/img_xk.jpg" alt=""></p>
-<p>原因是你继承了<code>AppCompatActivity</code>,改成<code>Activity</code>就可以了</p>
-<p>然后就成功了</p>
-<p><img src="/img/Screenshot_2016-08-12-17-25-15.jpeg" alt=""></p>
-<p>如果你想点击外部不消失的话 调用 <code>setFinishOnTouchOutside(false);</code>就可以了(注意：一定要在setContentView之前调用)</p>
-<p>demo下载地址：<a href="http://download.csdn.net/detail/yewei02538/9602028" target="_blank" rel="external">http://download.csdn.net/detail/yewei02538/9602028</a></p>
+        <h2 id="查看源码"><a href="#查看源码" class="headerlink" title="查看源码"></a>查看源码</h2><p>当我们调用System.gc()的时候，其实并不会马上进行垃圾回收，甚至不一定会执行垃圾回收，查看系统源码可以看到</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line">    * Indicates to the VM that it would be a good time to run the</div><div class="line">    * garbage collector. Note that this is a hint only. There is no guarantee</div><div class="line">    * that the garbage collector will actually be run.</div><div class="line">    */</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">gc</span><span class="params">()</span> </span>&#123;</div><div class="line">       <span class="keyword">boolean</span> shouldRunGC;</div><div class="line">       <span class="keyword">synchronized</span>(lock) &#123;</div><div class="line">           shouldRunGC = justRanFinalization;</div><div class="line">           <span class="keyword">if</span> (shouldRunGC) &#123;</div><div class="line">               justRanFinalization = <span class="keyword">false</span>;</div><div class="line">           &#125; <span class="keyword">else</span> &#123;</div><div class="line">               runGC = <span class="keyword">true</span>;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">if</span> (shouldRunGC) &#123;</div><div class="line">           Runtime.getRuntime().gc();</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>也就是<code>justRanFinalization=true</code>的时候才会执行</p>
+<p>查找发现当调用runFinalization()的时候<code>justRanFinalization</code>变为<code>true</code><br>下面是runFinalization()的源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line">* Provides a hint to the VM that it would be useful to attempt</div><div class="line">* to perform any outstanding object finalization.</div><div class="line">*/</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">runFinalization</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">boolean</span> shouldRunGC;</div><div class="line">        <span class="keyword">synchronized</span>(lock) &#123;</div><div class="line">            shouldRunGC = runGC;</div><div class="line">            runGC = <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (shouldRunGC) &#123;</div><div class="line">            Runtime.getRuntime().gc();</div><div class="line">        &#125;</div><div class="line">        Runtime.getRuntime().runFinalization();</div><div class="line">        <span class="keyword">synchronized</span>(lock) &#123;</div><div class="line">            justRanFinalization = <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其实当我们直接调用<code>System.gc()</code>只会把这次gc请求记录下来，等到<code>runFinalization=true</code>的时候才会先去执行GC，<code>runFinalization=true</code>之后会在允许一次system.gc()。之后在call System.gc()还会重复上面的行为。<br>所以System.gc()要跟System.runFinalization()一起搭配使用才好。<br>查看<code>ZygoteInit.java</code> 里面 gc()和runFinalizationSync()是配合使用的，这样才有效果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">gcAndFinalize</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">final</span> VMRuntime runtime = VMRuntime.getRuntime();</div><div class="line"></div><div class="line">    <span class="comment">/* runFinalizationSync() lets finalizers be called in Zygote,</span></div><div class="line">    * which doesn't have a HeapWorker thread.</div><div class="line">    */</div><div class="line">    System.gc();</div><div class="line">    runtime.runFinalizationSync();</div><div class="line">    System.gc();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>由此可见，当我们需要调用的<code>System.gc()</code>的时候 要这样才会执行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">System.gc();</div><div class="line">runtime.runFinalizationSync();</div><div class="line">System.gc();</div></pre></td></tr></table></figure>
+<p>不过个人建议不到万不得已不要调用,因为jvm有自己的gc策略，根本不需要我们来手动</p>
 
       
     </div>
@@ -395,17 +327,13 @@ android.view.WindowManager$BadTokenException: Unable to add window – token nul
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/detail/Android-PLDroidPlayer播放/" rel="next" title="Android 使用PLDroidPlayer播放网络视频 根据视频角度自动旋转">
-                <i class="fa fa-chevron-left"></i> Android 使用PLDroidPlayer播放网络视频 根据视频角度自动旋转
+              <a href="/detail/dialogactivity/" rel="next" title="Dialog样式的Activity-可以在任何地方弹出的Dialog">
+                <i class="fa fa-chevron-left"></i> Dialog样式的Activity-可以在任何地方弹出的Dialog
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/detail/System-gc-not-called/" rel="prev" title="调用System.gc没有立即执行的解决方法">
-                调用System.gc没有立即执行的解决方法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -431,8 +359,8 @@ android.view.WindowManager$BadTokenException: Unable to add window – token nul
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="detail/dialogactivity/"
-           data-title="Dialog样式的Activity-可以在任何地方弹出的Dialog" data-url="http://weyye.me/detail/dialogactivity/">
+      <div class="ds-thread" data-thread-key="detail/System-gc-not-called/"
+           data-title="调用System.gc没有立即执行的解决方法" data-url="http://weyye.me/detail/System-gc-not-called/">
       </div>
     
   </div>
@@ -529,7 +457,7 @@ android.view.WindowManager$BadTokenException: Unable to add window – token nul
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看源码"><span class="nav-number">1.</span> <span class="nav-text">查看源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a></li></ol></div>
             
           </div>
         </section>
