@@ -2,6 +2,13 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <sitemap>
+    <loc>http://weyye.me/detail/empty-layout/</loc>
+    
+    <lastmod>2016-08-31T01:08:41.431Z</lastmod>
+    
+  </sitemap>
+  
+  <sitemap>
     <loc>http://weyye.me/detail/System-gc-not-called/</loc>
     
     <lastmod>2016-08-29T08:40:32.233Z</lastmod>
