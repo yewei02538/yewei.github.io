@@ -105,7 +105,7 @@
 
 你肯定会说，findvie">
 <meta property="og:image" content="http://weyye.me/img/device-2016-08-30-180056 00_00_00-00_00_10~1.gif">
-<meta property="og:updated_time" content="2016-08-31T01:08:41.431Z">
+<meta property="og:updated_time" content="2016-08-31T02:01:31.653Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通用的EmptyLayout-展示不用状态的界面">
 <meta name="twitter:description" content="前言在做项目的时候，经常会遇到列表数据为空的时候展示的空布局，如果你用的是ListView ,目测会经常使用ListView的一个方法setEmptyView ,如果你用的是RecyclerView,你也许会用自定义View来实现，但是，这些方法虽然使用起来简单，但是如果你提供一个复杂的布局，例如：
@@ -307,7 +307,7 @@
 <blockquote>
 <p>在数据加载失败后，添加一个Button让用户可以选择重新加载数据。</p>
 </blockquote>
-<p>你肯定会说，findviewbyId找到这个button，给它设置点击事件，一个两个可以接受，但是，界面多了呢？ 那你说了那么多，有没有好的解决办法呢？ 当然有 而且是几行代码搞定的</p>
+<p>你肯定会说，findviewbyId找到这个button，给它设置点击事件，一个两个可以接受，但是，界面多了呢？ 那你说了那么多，有没有好的解决办法呢？ 当然有 而且是几行代码搞定的<br><a id="more"></a></p>
 <h2 id="自定义View"><a href="#自定义View" class="headerlink" title="自定义View"></a>自定义View</h2><p>接下来就是重头戏 开始编码了 ，首先我们需要继承<code>FrameLayout</code>来实现这样的布局</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmptyLayout</span> <span class="keyword">extends</span> <span class="title">FrameLayout</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EmptyLayout</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>(context, <span class="keyword">null</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EmptyLayout</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>(context, attrs, <span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EmptyLayout</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>为了灵活性，我自定义属性来添加所需要的布局，<code>values</code>下面新建<code>attrs.xml</code></p>

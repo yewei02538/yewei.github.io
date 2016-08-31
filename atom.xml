@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://weyye.me/"/>
-  <updated>2016-08-31T01:08:41.431Z</updated>
+  <updated>2016-08-31T02:01:31.653Z</updated>
   <id>http://weyye.me/</id>
   
   <author>
@@ -20,13 +20,13 @@
     <link href="http://weyye.me/detail/empty-layout/"/>
     <id>http://weyye.me/detail/empty-layout/</id>
     <published>2016-08-30T08:04:20.000Z</published>
-    <updated>2016-08-31T01:08:41.431Z</updated>
+    <updated>2016-08-31T02:01:31.653Z</updated>
     
     <content type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在做项目的时候，经常会遇到列表数据为空的时候展示的空布局，如果你用的是&lt;code&gt;ListView&lt;/code&gt; ,目测会经常使用&lt;code&gt;ListView&lt;/code&gt;的一个方法&lt;code&gt;setEmptyView&lt;/code&gt; ,如果你用的是&lt;code&gt;RecyclerView&lt;/code&gt;,你也许会用自定义View来实现，但是，这些方法虽然使用起来简单，但是如果你提供一个复杂的布局，例如：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;在数据加载失败后，添加一个Button让用户可以选择重新加载数据。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;你肯定会说，findviewbyId找到这个button，给它设置点击事件，一个两个可以接受，但是，界面多了呢？ 那你说了那么多，有没有好的解决办法呢？ 当然有 而且是几行代码搞定的&lt;/p&gt;
+&lt;p&gt;你肯定会说，findviewbyId找到这个button，给它设置点击事件，一个两个可以接受，但是，界面多了呢？ 那你说了那么多，有没有好的解决办法呢？ 当然有 而且是几行代码搞定的&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;自定义View&quot;&gt;&lt;a href=&quot;#自定义View&quot; class=&quot;headerlink&quot; title=&quot;自定义View&quot;&gt;&lt;/a&gt;自定义View&lt;/h2&gt;&lt;p&gt;接下来就是重头戏 开始编码了 ，首先我们需要继承&lt;code&gt;FrameLayout&lt;/code&gt;来实现这样的布局&lt;/p&gt;
 &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;EmptyLayout&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;FrameLayout&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;EmptyLayout&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(Context context)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;(context, &lt;span class=&quot;keyword&quot;&gt;null&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;EmptyLayout&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(Context context, AttributeSet attrs)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;(context, attrs, &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;EmptyLayout&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(Context context, AttributeSet attrs, &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; defStyleAttr)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;		&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	&amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;为了灵活性，我自定义属性来添加所需要的布局，&lt;code&gt;values&lt;/code&gt;下面新建&lt;code&gt;attrs.xml&lt;/code&gt;&lt;/p&gt;
@@ -61,7 +61,11 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在做项目的时候，经常会遇到列表数据为空的时候展示的空布局，如果你用的是&lt;code&gt;ListView&lt;/code&gt; ,目测会经常使用&lt;code
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在做项目的时候，经常会遇到列表数据为空的时候展示的空布局，如果你用的是&lt;code&gt;ListView&lt;/code&gt; ,目测会经常使用&lt;code&gt;ListView&lt;/code&gt;的一个方法&lt;code&gt;setEmptyView&lt;/code&gt; ,如果你用的是&lt;code&gt;RecyclerView&lt;/code&gt;,你也许会用自定义View来实现，但是，这些方法虽然使用起来简单，但是如果你提供一个复杂的布局，例如：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在数据加载失败后，添加一个Button让用户可以选择重新加载数据。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;你肯定会说，findviewbyId找到这个button，给它设置点击事件，一个两个可以接受，但是，界面多了呢？ 那你说了那么多，有没有好的解决办法呢？ 当然有 而且是几行代码搞定的&lt;br&gt;
     
     </summary>
     
