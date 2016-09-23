@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://weyye.me/"/>
-  <updated>2016-09-23T09:17:13.596Z</updated>
+  <updated>2016-09-23T09:18:23.883Z</updated>
   <id>http://weyye.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://weyye.me/detail/my-google-search/"/>
     <id>http://weyye.me/detail/my-google-search/</id>
     <published>2016-09-23T06:51:44.000Z</published>
-    <updated>2016-09-23T09:17:13.596Z</updated>
+    <updated>2016-09-23T09:18:23.883Z</updated>
     
     <content type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;自从google退出中国市场后，很多人使用百度搜索，但是作为程序员的我们，应该去使用google搜索，因为很多资料是百度搜索不到的，而且没有广告，毕竟墙外的世界是非常精彩滴。&lt;/p&gt;
 &lt;h2 id=&quot;如何科学上网&quot;&gt;&lt;a href=&quot;#如何科学上网&quot; class=&quot;headerlink&quot; title=&quot;如何科学上网&quot;&gt;&lt;/a&gt;如何科学上网&lt;/h2&gt;&lt;ul&gt;
@@ -28,11 +28,11 @@
 &lt;li&gt;google浏览器插件：之前可以，现在很多插件都没和谐了&lt;/li&gt;
 &lt;li&gt;修改系统hosts： 这个是最简单粗暴的，而且速度又快，谁用谁知道&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&quot;hosts下载地址&quot;&gt;&lt;a href=&quot;#hosts下载地址&quot; class=&quot;headerlink&quot; title=&quot;hosts下载地址&quot;&gt;&lt;/a&gt;hosts下载地址&lt;/h2&gt;&lt;blockquote&gt;
+&lt;h2 id=&quot;hosts下载地址&quot;&gt;&lt;a href=&quot;#hosts下载地址&quot; class=&quot;headerlink&quot; title=&quot;hosts下载地址&quot;&gt;&lt;/a&gt;hosts下载地址&lt;/h2&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;blockquote&gt;
 &lt;p&gt;IP有一段的时效性，并不能保证能永久使用，我会持续更新最新的hosts的文件提供给大家&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;a href=&quot;http://weyye.me/download/hosts.zip&quot;&gt;下载地址&lt;/a&gt;&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;h2 id=&quot;修改系统hosts&quot;&gt;&lt;a href=&quot;#修改系统hosts&quot; class=&quot;headerlink&quot; title=&quot;修改系统hosts&quot;&gt;&lt;/a&gt;修改系统hosts&lt;/h2&gt;&lt;p&gt;1、找到hosts这个文件，在Windows 系统下是位于C盘/windows/system32/drivers/etc目录里。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/img/20160923165124.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;2、把下载下来的&lt;code&gt;hosts.zip&lt;/code&gt;解压后得到hosts，然后直接覆盖就可以了&lt;/p&gt;
@@ -55,10 +55,7 @@
 &lt;li&gt;google浏览器插件：之前可以，现在很多插件都没和谐了&lt;/li&gt;
 &lt;li&gt;修改系统hosts： 这个是最简单粗暴的，而且速度又快，谁用谁知道&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&quot;hosts下载地址&quot;&gt;&lt;a href=&quot;#hosts下载地址&quot; class=&quot;headerlink&quot; title=&quot;hosts下载地址&quot;&gt;&lt;/a&gt;hosts下载地址&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;IP有一段的时效性，并不能保证能永久使用，我会持续更新最新的hosts的文件提供给大家&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http://weyye.me/download/hosts.zip&quot;&gt;下载地址&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;hosts下载地址&quot;&gt;&lt;a href=&quot;#hosts下载地址&quot; class=&quot;headerlink&quot; title=&quot;hosts下载地址&quot;&gt;&lt;/a&gt;hosts下载地址&lt;/h2&gt;
     
     </summary>
     
