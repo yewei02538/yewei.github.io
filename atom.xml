@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://weyye.me/"/>
-  <updated>2016-09-23T09:21:34.707Z</updated>
+  <updated>2016-09-27T00:48:40.141Z</updated>
   <id>http://weyye.me/</id>
   
   <author>
@@ -14,6 +14,87 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android破解高德地图sdk使用map免key</title>
+    <link href="http://weyye.me/detail/crack-amap/"/>
+    <id>http://weyye.me/detail/crack-amap/</id>
+    <published>2016-09-26T06:24:59.000Z</published>
+    <updated>2016-09-27T00:48:40.141Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;开发项目中，经常会使用到地图，于是我会使用一些第三方的sdk，但是基本上所有的sdk使用时都需要申请key，填包名和sha1值，使(Ji)用(Qi)方(Fan)便(Suo)。作为一个android攻城狮，简直不能忍啊，于是乎看了下源码，决定破解一下，演示使用的是高德地图，至于百度，呵呵，下面看我慢慢道来&lt;/p&gt;
+&lt;h2 id=&quot;所需工具&quot;&gt;&lt;a href=&quot;#所需工具&quot; class=&quot;headerlink&quot; title=&quot;所需工具&quot;&gt;&lt;/a&gt;所需工具&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;高德地图sdk最新版AMap_3DMap_V4.0.1_20160923.jar&lt;/li&gt;
+&lt;li&gt;Android Studio&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://pan.baidu.com/s/1jIRnpGy&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;jd-gui&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;分析代码&quot;&gt;&lt;a href=&quot;#分析代码&quot; class=&quot;headerlink&quot; title=&quot;分析代码&quot;&gt;&lt;/a&gt;分析代码&lt;/h2&gt;&lt;p&gt;在使用高德地图sdk的时候需要我们申请这个key，而这个key是需要我们提供包名和签名的sha1值生成的 因此 ，sdk在校验的时候肯定需要以下3个条件&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;签名的sha1值&lt;/li&gt;
+&lt;li&gt;包名&lt;/li&gt;
+&lt;li&gt;申请成功的key&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&quot;appkeyhttp://lbs.amap.com/dev/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;戳我申请&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;那么我们如果找到高德地图sdk的入口了，申请了一个key，可不可以写死在代码里面呢？这样就可以免去每次申请的烦恼，那么我们来尝试一下&lt;/p&gt;
+&lt;p&gt;首先我们打开jd-gui,然后从把从官网下下来最新的jar包拖进去，来看下jar包的目录结构&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/20160926145358.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;我去，这么多，而且都是混淆过的，难道你要我一个个的找吗？No！这个当然是有技巧的。首先我们来思考一下&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;为什么我们需要申请到的key&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;申请key的时候，为什么还要输入包名和sha1值，我乱填不行吗&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;答案是 当然不行，当我们输入包名和sha1值提交的时候，其实在后台已经产生一条数据，标示着用这个sha1的签名生成出对应包名的app才可以使用。&lt;/p&gt;
+&lt;p&gt;既然高德要获取包名，那么我们平时是怎么样获取app的包名的呢？&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), &lt;span class=&quot;number&quot;&gt;64&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;String packageName=packageInfo.packageName;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;那么我们不妨搜索一下&lt;code&gt;packageName&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;按下快捷键ctrl+shift+s,打开搜索界面搜索 &lt;code&gt;packageName&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/20160926152501.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;这只隐藏深处的小精灵被我抓到了 ，哈哈&lt;/p&gt;
+&lt;p&gt;ok，双击打开看下代码&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/20160926152955.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;关键的地方我已经框出来了，其意思 先判断全局变量&lt;code&gt;e&lt;/code&gt; 有没有值，有值直接返回，没有就获取自身app的签名的sha1和包名，然后用:去连接，最后&lt;code&gt;return e;&lt;/code&gt; ，ok，找到这个全局变量我们把这个变量写死&lt;/p&gt;
+&lt;h2 id=&quot;修改代码&quot;&gt;&lt;a href=&quot;#修改代码&quot; class=&quot;headerlink&quot; title=&quot;修改代码&quot;&gt;&lt;/a&gt;修改代码&lt;/h2&gt;&lt;p&gt;使用 Android Studio 新建一个 Android Library 的 Module ，包名与  jar 包要修改的类包名相同,新建一个类，与要修改的类名相同&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/20160926154945.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;复制我们jd-gui中找到的class的内容到我们新建的类中，同时将 SDK 的 jar 包作为这个 Module 的依赖包，保证这个 Module 可以正常编译&lt;/p&gt;
+&lt;p&gt;我们修改变量e的值也就是 sha1:packageName，&lt;/p&gt;
+&lt;p&gt;观察这个类发现全是静态方法，由此可判断是工具类，所以key应该也会在这里面获取，我在继续查看下代码&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/20160926155811.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;这个就是获取我们在&lt;code&gt;AndroidManifest&lt;/code&gt;填入的key，我们继续把这个变量写死，填入我们的key&lt;/p&gt;
+&lt;p&gt;sha1有了，key有了，我们在来修改下包名，我们继续找&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/20160926160211.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;我们继续修改b的值&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/20160926160355.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;ok，大功告成。我们来打包成jar包，那么Android Studio 如何打包 jar 呢？&lt;/p&gt;
+&lt;p&gt;我们在这个修改的用来修改的 Module 的 build.gradle 中添加以下代码&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;task &lt;span class=&quot;title&quot;&gt;makeJar&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(type: Copy)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    delete &lt;span class=&quot;string&quot;&gt;&#39;build/libs/lib.jar&#39;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    from(&lt;span class=&quot;string&quot;&gt;&#39;build/intermediates/bundles/release/&#39;&lt;/span&gt;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    into(&lt;span class=&quot;string&quot;&gt;&#39;build/libs/&#39;&lt;/span&gt;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    include(&lt;span class=&quot;string&quot;&gt;&#39;classes.jar&#39;&lt;/span&gt;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    rename (&lt;span class=&quot;string&quot;&gt;&#39;classes.jar&#39;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&#39;lib.jar&#39;&lt;/span&gt;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;makeJar.dependsOn(build)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;在工程目录下执行&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;gradlew makeJar&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;/img/20160926162721.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;即可得到 jar 文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/20160926162806.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;用压缩软件打开&lt;code&gt;lib.jar&lt;/code&gt;和&lt;code&gt;AMap_3DMap_V4.0.1_20160923&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;找到&lt;code&gt;lib.jar&lt;/code&gt;的&lt;code&gt;eu.class&lt;/code&gt; 替换 到&lt;code&gt;AMap_3DMap_V4.0.1_20160923&lt;/code&gt;里的&lt;code&gt;eu.class&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/20160926163211.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;大功告成~&lt;/p&gt;
+&lt;h2 id=&quot;测试&quot;&gt;&lt;a href=&quot;#测试&quot; class=&quot;headerlink&quot; title=&quot;测试&quot;&gt;&lt;/a&gt;测试&lt;/h2&gt;&lt;p&gt;使用修改后的 SDK jar 包替换原来的 jar 包进行地图测试&lt;/p&gt;
+&lt;p&gt;测试成功,包名和签名可以随意换咯，再也不用麻烦的每次申请 key 啦！&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/20160926164713.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;最后&quot;&gt;&lt;a href=&quot;#最后&quot; class=&quot;headerlink&quot; title=&quot;最后&quot;&gt;&lt;/a&gt;最后&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/yewei02538/AmapDemo&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;戳我传送GitHub&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;demo中定位也是破解后免key，下一篇会讲解如何定位免key&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;开发项目中，经常会使用到地图，于是我会使用一些第三方的sdk，但是基本上所有的sdk使用时都需要申请key，填包名和sha1值，使(Ji)用
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>修改hosts进入google世界</title>

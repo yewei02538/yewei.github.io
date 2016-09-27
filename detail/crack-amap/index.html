@@ -1,0 +1,702 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="android,高德地图破解,高德sdk破解,sdk免key,不用每次申请,key" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前言开发项目中，经常会使用到地图，于是我会使用一些第三方的sdk，但是基本上所有的sdk使用时都需要申请key，填包名和sha1值，使(Ji)用(Qi)方(Fan)便(Suo)。作为一个android攻城狮，简直不能忍啊，于是乎看了下源码，决定破解一下，演示使用的是高德地图，至于百度，呵呵，下面看我慢慢道来
+所需工具
+高德地图sdk最新版AMap_3DMap_V4.0.1_20160923.jar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android破解高德地图sdk使用map免key">
+<meta property="og:url" content="http://weyye.me/detail/crack-amap/index.html">
+<meta property="og:site_name" content="Wey Ye的博客">
+<meta property="og:description" content="前言开发项目中，经常会使用到地图，于是我会使用一些第三方的sdk，但是基本上所有的sdk使用时都需要申请key，填包名和sha1值，使(Ji)用(Qi)方(Fan)便(Suo)。作为一个android攻城狮，简直不能忍啊，于是乎看了下源码，决定破解一下，演示使用的是高德地图，至于百度，呵呵，下面看我慢慢道来
+所需工具
+高德地图sdk最新版AMap_3DMap_V4.0.1_20160923.jar">
+<meta property="og:image" content="http://weyye.me/img/20160926145358.png">
+<meta property="og:image" content="http://weyye.me/img/20160926152501.png">
+<meta property="og:image" content="http://weyye.me/img/20160926152955.png">
+<meta property="og:image" content="http://weyye.me/img/20160926154945.png">
+<meta property="og:image" content="http://weyye.me/img/20160926155811.png">
+<meta property="og:image" content="http://weyye.me/img/20160926160211.png">
+<meta property="og:image" content="http://weyye.me/img/20160926160355.png">
+<meta property="og:image" content="http://weyye.me/img/20160926162721.png">
+<meta property="og:image" content="http://weyye.me/img/20160926162806.png">
+<meta property="og:image" content="http://weyye.me/img/20160926163211.png">
+<meta property="og:image" content="http://weyye.me/img/20160926164713.png">
+<meta property="og:updated_time" content="2016-09-27T00:48:40.141Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android破解高德地图sdk使用map免key">
+<meta name="twitter:description" content="前言开发项目中，经常会使用到地图，于是我会使用一些第三方的sdk，但是基本上所有的sdk使用时都需要申请key，填包名和sha1值，使(Ji)用(Qi)方(Fan)便(Suo)。作为一个android攻城狮，简直不能忍啊，于是乎看了下源码，决定破解一下，演示使用的是高德地图，至于百度，呵呵，下面看我慢慢道来
+所需工具
+高德地图sdk最新版AMap_3DMap_V4.0.1_20160923.jar">
+<meta name="twitter:image" content="http://weyye.me/img/20160926145358.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 123,
+      author: 'YipWey'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://weyye.me/detail/crack-amap/"/>
+
+  <title> Android破解高德地图sdk使用map免key - Wey Ye的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b7e5f6ac58c952eaf3e7b49fb65496f8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Wey Ye的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android破解高德地图sdk使用map免key
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-26T14:24:59+08:00" content="2016-09-26">
+              2016-09-26
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/detail/crack-amap/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="detail/crack-amap/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>开发项目中，经常会使用到地图，于是我会使用一些第三方的sdk，但是基本上所有的sdk使用时都需要申请key，填包名和sha1值，使(Ji)用(Qi)方(Fan)便(Suo)。作为一个android攻城狮，简直不能忍啊，于是乎看了下源码，决定破解一下，演示使用的是高德地图，至于百度，呵呵，下面看我慢慢道来</p>
+<h2 id="所需工具"><a href="#所需工具" class="headerlink" title="所需工具"></a>所需工具</h2><ul>
+<li>高德地图sdk最新版AMap_3DMap_V4.0.1_20160923.jar</li>
+<li>Android Studio</li>
+<li><a href="http://pan.baidu.com/s/1jIRnpGy" target="_blank" rel="external">jd-gui</a></li>
+</ul>
+<h2 id="分析代码"><a href="#分析代码" class="headerlink" title="分析代码"></a>分析代码</h2><p>在使用高德地图sdk的时候需要我们申请这个key，而这个key是需要我们提供包名和签名的sha1值生成的 因此 ，sdk在校验的时候肯定需要以下3个条件</p>
+<ul>
+<li>签名的sha1值</li>
+<li>包名</li>
+<li>申请成功的key</li>
+</ul>
+<p><a href="appkeyhttp://lbs.amap.com/dev/" target="_blank" rel="external">戳我申请</a></p>
+<p>那么我们如果找到高德地图sdk的入口了，申请了一个key，可不可以写死在代码里面呢？这样就可以免去每次申请的烦恼，那么我们来尝试一下</p>
+<p>首先我们打开jd-gui,然后从把从官网下下来最新的jar包拖进去，来看下jar包的目录结构</p>
+<p><img src="/img/20160926145358.png" alt=""></p>
+<p>我去，这么多，而且都是混淆过的，难道你要我一个个的找吗？No！这个当然是有技巧的。首先我们来思考一下</p>
+<ul>
+<li><p>为什么我们需要申请到的key</p>
+</li>
+<li><p>申请key的时候，为什么还要输入包名和sha1值，我乱填不行吗</p>
+</li>
+</ul>
+<p>答案是 当然不行，当我们输入包名和sha1值提交的时候，其实在后台已经产生一条数据，标示着用这个sha1的签名生成出对应包名的app才可以使用。</p>
+<p>既然高德要获取包名，那么我们平时是怎么样获取app的包名的呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), <span class="number">64</span>);</div><div class="line">String packageName=packageInfo.packageName;</div></pre></td></tr></table></figure>
+<p>那么我们不妨搜索一下<code>packageName</code></p>
+<p>按下快捷键ctrl+shift+s,打开搜索界面搜索 <code>packageName</code></p>
+<p><img src="/img/20160926152501.png" alt=""></p>
+<p>这只隐藏深处的小精灵被我抓到了 ，哈哈</p>
+<p>ok，双击打开看下代码</p>
+<p><img src="/img/20160926152955.png" alt=""></p>
+<p>关键的地方我已经框出来了，其意思 先判断全局变量<code>e</code> 有没有值，有值直接返回，没有就获取自身app的签名的sha1和包名，然后用:去连接，最后<code>return e;</code> ，ok，找到这个全局变量我们把这个变量写死</p>
+<h2 id="修改代码"><a href="#修改代码" class="headerlink" title="修改代码"></a>修改代码</h2><p>使用 Android Studio 新建一个 Android Library 的 Module ，包名与  jar 包要修改的类包名相同,新建一个类，与要修改的类名相同</p>
+<p><img src="/img/20160926154945.png" alt=""></p>
+<p>复制我们jd-gui中找到的class的内容到我们新建的类中，同时将 SDK 的 jar 包作为这个 Module 的依赖包，保证这个 Module 可以正常编译</p>
+<p>我们修改变量e的值也就是 sha1:packageName，</p>
+<p>观察这个类发现全是静态方法，由此可判断是工具类，所以key应该也会在这里面获取，我在继续查看下代码</p>
+<p><img src="/img/20160926155811.png" alt=""></p>
+<p>这个就是获取我们在<code>AndroidManifest</code>填入的key，我们继续把这个变量写死，填入我们的key</p>
+<p>sha1有了，key有了，我们在来修改下包名，我们继续找</p>
+<p><img src="/img/20160926160211.png" alt=""></p>
+<p>我们继续修改b的值</p>
+<p><img src="/img/20160926160355.png" alt=""></p>
+<p>ok，大功告成。我们来打包成jar包，那么Android Studio 如何打包 jar 呢？</p>
+<p>我们在这个修改的用来修改的 Module 的 build.gradle 中添加以下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function">task <span class="title">makeJar</span><span class="params">(type: Copy)</span> </span>&#123;</div><div class="line"></div><div class="line">    delete <span class="string">'build/libs/lib.jar'</span></div><div class="line"></div><div class="line">    from(<span class="string">'build/intermediates/bundles/release/'</span>)</div><div class="line"></div><div class="line">    into(<span class="string">'build/libs/'</span>)</div><div class="line"></div><div class="line">    include(<span class="string">'classes.jar'</span>)</div><div class="line"></div><div class="line">    rename (<span class="string">'classes.jar'</span>, <span class="string">'lib.jar'</span>)</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">makeJar.dependsOn(build)</div></pre></td></tr></table></figure>
+<p>在工程目录下执行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">gradlew makeJar</div></pre></td></tr></table></figure>
+<p><img src="/img/20160926162721.png" alt=""></p>
+<p>即可得到 jar 文件</p>
+<p><img src="/img/20160926162806.png" alt=""></p>
+<p>用压缩软件打开<code>lib.jar</code>和<code>AMap_3DMap_V4.0.1_20160923</code></p>
+<p>找到<code>lib.jar</code>的<code>eu.class</code> 替换 到<code>AMap_3DMap_V4.0.1_20160923</code>里的<code>eu.class</code></p>
+<p><img src="/img/20160926163211.png" alt=""></p>
+<p>大功告成~</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>使用修改后的 SDK jar 包替换原来的 jar 包进行地图测试</p>
+<p>测试成功,包名和签名可以随意换咯，再也不用麻烦的每次申请 key 啦！</p>
+<p><img src="/img/20160926164713.png" alt=""></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p><a href="https://github.com/yewei02538/AmapDemo" target="_blank" rel="external">戳我传送GitHub</a></p>
+<blockquote>
+<p>demo中定位也是破解后免key，下一篇会讲解如何定位免key</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/detail/my-google-search/" rel="next" title="修改hosts进入google世界">
+                <i class="fa fa-chevron-left"></i> 修改hosts进入google世界
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="detail/crack-amap/"
+           data-title="Android破解高德地图sdk使用map免key" data-url="http://weyye.me/detail/crack-amap/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://img.zcool.cn/community/01096455d4612e32f875a132accf76.jpg"
+               alt="Wey Ye" />
+          <p class="site-author-name" itemprop="name">Wey Ye</p>
+          <p class="site-description motion-element" itemprop="description">Learn and live.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yewei02538" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/yewei02538" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#所需工具"><span class="nav-number">2.</span> <span class="nav-text">所需工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析代码"><span class="nav-number">3.</span> <span class="nav-text">分析代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改代码"><span class="nav-number">4.</span> <span class="nav-text">修改代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">5.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">6.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wey Ye</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yipwey"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+</body>
+</html>
