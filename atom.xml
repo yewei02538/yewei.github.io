@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://weyye.me/"/>
-  <updated>2016-09-27T00:48:40.141Z</updated>
+  <updated>2016-09-27T00:51:17.698Z</updated>
   <id>http://weyye.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://weyye.me/detail/crack-amap/"/>
     <id>http://weyye.me/detail/crack-amap/</id>
     <published>2016-09-26T06:24:59.000Z</published>
-    <updated>2016-09-27T00:48:40.141Z</updated>
+    <updated>2016-09-27T00:51:17.698Z</updated>
     
     <content type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;开发项目中，经常会使用到地图，于是我会使用一些第三方的sdk，但是基本上所有的sdk使用时都需要申请key，填包名和sha1值，使(Ji)用(Qi)方(Fan)便(Suo)。作为一个android攻城狮，简直不能忍啊，于是乎看了下源码，决定破解一下，演示使用的是高德地图，至于百度，呵呵，下面看我慢慢道来&lt;/p&gt;
 &lt;h2 id=&quot;所需工具&quot;&gt;&lt;a href=&quot;#所需工具&quot; class=&quot;headerlink&quot; title=&quot;所需工具&quot;&gt;&lt;/a&gt;所需工具&lt;/h2&gt;&lt;ul&gt;
@@ -34,6 +34,7 @@
 &lt;li&gt;包名&lt;/li&gt;
 &lt;li&gt;申请成功的key&lt;/li&gt;
 &lt;/ul&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;p&gt;&lt;a href=&quot;appkeyhttp://lbs.amap.com/dev/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;戳我申请&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;那么我们如果找到高德地图sdk的入口了，申请了一个key，可不可以写死在代码里面呢？这样就可以免去每次申请的烦恼，那么我们来尝试一下&lt;/p&gt;
 &lt;p&gt;首先我们打开jd-gui,然后从把从官网下下来最新的jar包拖进去，来看下jar包的目录结构&lt;/p&gt;
@@ -89,7 +90,18 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;开发项目中，经常会使用到地图，于是我会使用一些第三方的sdk，但是基本上所有的sdk使用时都需要申请key，填包名和sha1值，使(Ji)用
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;开发项目中，经常会使用到地图，于是我会使用一些第三方的sdk，但是基本上所有的sdk使用时都需要申请key，填包名和sha1值，使(Ji)用(Qi)方(Fan)便(Suo)。作为一个android攻城狮，简直不能忍啊，于是乎看了下源码，决定破解一下，演示使用的是高德地图，至于百度，呵呵，下面看我慢慢道来&lt;/p&gt;
+&lt;h2 id=&quot;所需工具&quot;&gt;&lt;a href=&quot;#所需工具&quot; class=&quot;headerlink&quot; title=&quot;所需工具&quot;&gt;&lt;/a&gt;所需工具&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;高德地图sdk最新版AMap_3DMap_V4.0.1_20160923.jar&lt;/li&gt;
+&lt;li&gt;Android Studio&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://pan.baidu.com/s/1jIRnpGy&quot;&gt;jd-gui&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;分析代码&quot;&gt;&lt;a href=&quot;#分析代码&quot; class=&quot;headerlink&quot; title=&quot;分析代码&quot;&gt;&lt;/a&gt;分析代码&lt;/h2&gt;&lt;p&gt;在使用高德地图sdk的时候需要我们申请这个key，而这个key是需要我们提供包名和签名的sha1值生成的 因此 ，sdk在校验的时候肯定需要以下3个条件&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;签名的sha1值&lt;/li&gt;
+&lt;li&gt;包名&lt;/li&gt;
+&lt;li&gt;申请成功的key&lt;/li&gt;
+&lt;/ul&gt;
     
     </summary>
     
