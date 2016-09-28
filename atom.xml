@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://weyye.me/"/>
-  <updated>2016-09-28T06:57:28.008Z</updated>
+  <updated>2016-09-28T07:03:31.675Z</updated>
   <id>http://weyye.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://weyye.me/detail/duplicate-files-copied/"/>
     <id>http://weyye.me/detail/duplicate-files-copied/</id>
     <published>2016-09-28T06:45:40.000Z</published>
-    <updated>2016-09-28T06:57:28.008Z</updated>
+    <updated>2016-09-28T07:03:31.675Z</updated>
     
     <content type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;之前做项目一直使用的高德地图，这次做的项目客户必须使用腾讯地图，然后又去折腾了下腾讯地图，说说我遇到的bug&lt;/p&gt;
 &lt;h2 id=&quot;Bug&quot;&gt;&lt;a href=&quot;#Bug&quot; class=&quot;headerlink&quot; title=&quot;Bug&quot;&gt;&lt;/a&gt;Bug&lt;/h2&gt;&lt;p&gt;由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几个项目都用的是Rxjava，但是当我导入腾讯地图sdk后，却报了这个错&lt;/p&gt;
