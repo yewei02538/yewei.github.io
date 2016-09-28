@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://weyye.me/"/>
-  <updated>2016-09-27T00:51:17.698Z</updated>
+  <updated>2016-09-28T06:57:28.008Z</updated>
   <id>http://weyye.me/</id>
   
   <author>
@@ -14,6 +14,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用RxJava加入腾讯地图后报错</title>
+    <link href="http://weyye.me/detail/duplicate-files-copied/"/>
+    <id>http://weyye.me/detail/duplicate-files-copied/</id>
+    <published>2016-09-28T06:45:40.000Z</published>
+    <updated>2016-09-28T06:57:28.008Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;之前做项目一直使用的高德地图，这次做的项目客户必须使用腾讯地图，然后又去折腾了下腾讯地图，说说我遇到的bug&lt;/p&gt;
+&lt;h2 id=&quot;Bug&quot;&gt;&lt;a href=&quot;#Bug&quot; class=&quot;headerlink&quot; title=&quot;Bug&quot;&gt;&lt;/a&gt;Bug&lt;/h2&gt;&lt;p&gt;由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几个项目都用的是Rxjava，但是当我导入腾讯地图sdk后，却报了这个错&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;Error:Execution failed &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; task &lt;span class=&quot;string&quot;&gt;&#39;:app:transformResourcesWithMergeJavaResForDebug&#39;&lt;/span&gt;.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt; com.android.build.api.transform.TransformException: com.android.builder.packaging.DuplicateFileException: Duplicate files copied in APK META-INF/rxjava.properties&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	File1: E:\Android Project\YiBangKe\app\libs\TencentMapSDK_Vector_v3.0.4.jar&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	File2: C:\Users\Administrator\.gradle\caches\modules-&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;\files-&lt;span class=&quot;number&quot;&gt;2.1&lt;/span&gt;\io.reactivex\rxjava\&lt;span class=&quot;number&quot;&gt;1.1&lt;/span&gt;.1\b494968f6050d494de55dc3ce005e59c7eb40012\rxjava-&lt;span class=&quot;number&quot;&gt;1.1&lt;/span&gt;.1.jar&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;报错原因应该是因为腾讯地图也加入了RxJava&lt;/p&gt;
+&lt;h2 id=&quot;解决办法&quot;&gt;&lt;a href=&quot;#解决办法&quot; class=&quot;headerlink&quot; title=&quot;解决办法&quot;&gt;&lt;/a&gt;解决办法&lt;/h2&gt;&lt;p&gt;在app的&lt;code&gt;build.gradle&lt;/code&gt;下面加入&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;android &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    packagingOptions &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        exclude &lt;span class=&quot;string&quot;&gt;&#39;META-INF/rxjava.properties&#39;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;之前做项目一直使用的高德地图，这次做的项目客户必须使用腾讯地图，然后又去折腾了下腾讯地图，说说我遇到的bug&lt;/p&gt;
+&lt;h2 id=&quot;Bug&quot;&gt;&lt;a href=&quot;#Bug&quot; class=&quot;headerlink&quot; title=&quot;Bug&quot;&gt;&lt;/a&gt;Bug&lt;/h2&gt;&lt;p&gt;由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几个项目都用的是Rxjava，但是当我导入腾讯地图sdk后，却报了这个错&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;Error:Execution failed &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; task &lt;span class=&quot;string&quot;&gt;&#39;:app:transformResourcesWithMergeJavaResForDebug&#39;&lt;/span&gt;.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt; com.android.build.api.transform.TransformException: com.android.builder.packaging.DuplicateFileException: Duplicate files copied in APK META-INF/rxjava.properties&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	File1: E:\Android Project\YiBangKe\app\libs\TencentMapSDK_Vector_v3.0.4.jar&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	File2: C:\Users\Administrator\.gradle\caches\modules-&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;\files-&lt;span class=&quot;number&quot;&gt;2.1&lt;/span&gt;\io.reactivex\rxjava\&lt;span class=&quot;number&quot;&gt;1.1&lt;/span&gt;.1\b494968f6050d494de55dc3ce005e59c7eb40012\rxjava-&lt;span class=&quot;number&quot;&gt;1.1&lt;/span&gt;.1.jar&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Android破解高德地图sdk使用map免key</title>

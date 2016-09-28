@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="android,adapter,notifyDataSetChange,notifyDataSetChange没有反应,触摸刷新,滑动屏幕刷新" />
+  <meta name="keywords" content="android,个人技术博客,移动开发,google" />
 
 
 
@@ -90,16 +90,12 @@
 
 
 
-<meta name="description" content="今天做项目遇到个比较头疼的问题，adapter.notifyDataSetChanged没有反应，要触摸屏幕才可以改变数据，上网查资料有人说是给list集合赋值的时候地址改变了（要用list.addAll()），可是我并没有改变地址 ，只是手动改了一个item的数据而已，后来发现只要延迟刷新就可以了">
-<meta property="og:type" content="article">
-<meta property="og:title" content="adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新">
-<meta property="og:url" content="http://weyye.me/detail/adapter-notifyDataSetChanged/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Wey Ye的博客">
+<meta property="og:url" content="http://weyye.me/page/2/index.html">
 <meta property="og:site_name" content="Wey Ye的博客">
-<meta property="og:description" content="今天做项目遇到个比较头疼的问题，adapter.notifyDataSetChanged没有反应，要触摸屏幕才可以改变数据，上网查资料有人说是给list集合赋值的时候地址改变了（要用list.addAll()），可是我并没有改变地址 ，只是手动改了一个item的数据而已，后来发现只要延迟刷新就可以了">
-<meta property="og:updated_time" content="2016-07-21T01:48:04.331Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新">
-<meta name="twitter:description" content="今天做项目遇到个比较头疼的问题，adapter.notifyDataSetChanged没有反应，要触摸屏幕才可以改变数据，上网查资料有人说是给list集合赋值的时候地址改变了（要用list.addAll()），可是我并没有改变地址 ，只是手动改了一个item的数据而已，后来发现只要延迟刷新就可以了">
+<meta name="twitter:title" content="Wey Ye的博客">
 
 
 
@@ -120,9 +116,9 @@
 
 
 
-  <link rel="canonical" href="http://weyye.me/detail/adapter-notifyDataSetChanged/"/>
+  <link rel="canonical" href="http://weyye.me/page/2/"/>
 
-  <title> adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新 - Wey Ye的博客 </title>
+  <title> Wey Ye的博客 - Learn and live. - android,个人技术博客,移动开发,google </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -153,7 +149,9 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -220,9 +218,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
   
@@ -242,7 +240,10 @@
             
             
               
-                adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新
+                
+                <a class="post-title-link" href="/detail/fragment-viewpager嵌套/" itemprop="url">
+                  Fragment里面用ViewPager嵌套2个Fragment，第二次切换变成空白的解决办法
+                </a>
               
             
           </h1>
@@ -254,8 +255,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-02-19T15:11:35+08:00" content="2016-02-19">
-              2016-02-19
+            <time itemprop="dateCreated" datetime="2015-11-26T13:48:26+08:00" content="2015-11-26">
+              2015-11-26
             </time>
           </span>
 
@@ -265,8 +266,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/detail/adapter-notifyDataSetChanged/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="detail/adapter-notifyDataSetChanged/" itemprop="commentsCount"></span>
+                <a href="/detail/fragment-viewpager嵌套/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="detail/fragment-viewpager嵌套/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -289,22 +290,23 @@
       
 
       
-        <p>今天做项目遇到个比较头疼的问题，adapter.notifyDataSetChanged没有反应，要触摸屏幕才可以改变数据，上网查资料有人说是给list集合赋值的时候地址改变了（要用list.addAll()），可是我并没有改变地址 ，只是手动改了一个item的数据而已，后来发现只要延迟刷新就可以了<br><a id="more"></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">handler.postDelayed(<span class="keyword">new</span> Runnable() &#123;  </div><div class="line">            <span class="meta">@Override</span>  </div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;  </div><div class="line">                adapter.notifyDataSetChanged();  </div><div class="line">            &#125;  </div><div class="line">        &#125;, <span class="number">500</span>);</div></pre></td></tr></table></figure></p>
-<div class="tip"><br>    转载请注明出处<br></div>
+        
+          <p>今天做项目遇到一个问题 ，</p>
+<p>主界面用5个fragment组成，其中一个fragment里面 用了个ViewPager ，然后再这个ViewPager里面又嵌套了2个Fragment，第一次加载没有  但是第二次加载的时候 ，就变成空白<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/detail/fragment-viewpager嵌套/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
       
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
-      
-        
-
       
     </div>
 
@@ -312,36 +314,23 @@
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/detail/fragment-viewpager嵌套/" rel="next" title="Fragment里面用ViewPager嵌套2个Fragment，第二次切换变成空白的解决办法">
-                <i class="fa fa-chevron-left"></i> Fragment里面用ViewPager嵌套2个Fragment，第二次切换变成空白的解决办法
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/detail/sdk-so/" rel="prev" title="第三方sdk（我的是高德和个推） so库包冲突">
-                第三方sdk（我的是高德和个推） so库包冲突 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
       
+      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
@@ -349,14 +338,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-      <div class="ds-thread" data-thread-key="detail/adapter-notifyDataSetChanged/"
-           data-title="adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新" data-url="http://weyye.me/detail/adapter-notifyDataSetChanged/">
-      </div>
-    
-  </div>
-
 
         </div>
         
@@ -376,17 +357,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://img.zcool.cn/community/01096455d4612e32f875a132accf76.jpg"
@@ -442,17 +414,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <p class="post-toc-empty">此文章未包含目录</p>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -556,10 +517,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
 
   
 

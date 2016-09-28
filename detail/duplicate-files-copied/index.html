@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="android,adapter,notifyDataSetChange,notifyDataSetChange没有反应,触摸刷新,滑动屏幕刷新" />
+  <meta name="keywords" content="android,Duplicate files copied in APK META-INF/rxjava.properties" />
 
 
 
@@ -90,16 +90,22 @@
 
 
 
-<meta name="description" content="今天做项目遇到个比较头疼的问题，adapter.notifyDataSetChanged没有反应，要触摸屏幕才可以改变数据，上网查资料有人说是给list集合赋值的时候地址改变了（要用list.addAll()），可是我并没有改变地址 ，只是手动改了一个item的数据而已，后来发现只要延迟刷新就可以了">
+<meta name="description" content="前言之前做项目一直使用的高德地图，这次做的项目客户必须使用腾讯地图，然后又去折腾了下腾讯地图，说说我遇到的bug
+Bug由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几个项目都用的是Rxjava，但是当我导入腾讯地图sdk后，却报了这个错
+1234Error:Execution failed for task &apos;:app:transformResourcesWithMergeJavaRe">
 <meta property="og:type" content="article">
-<meta property="og:title" content="adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新">
-<meta property="og:url" content="http://weyye.me/detail/adapter-notifyDataSetChanged/index.html">
+<meta property="og:title" content="使用RxJava加入腾讯地图后报错">
+<meta property="og:url" content="http://weyye.me/detail/duplicate-files-copied/index.html">
 <meta property="og:site_name" content="Wey Ye的博客">
-<meta property="og:description" content="今天做项目遇到个比较头疼的问题，adapter.notifyDataSetChanged没有反应，要触摸屏幕才可以改变数据，上网查资料有人说是给list集合赋值的时候地址改变了（要用list.addAll()），可是我并没有改变地址 ，只是手动改了一个item的数据而已，后来发现只要延迟刷新就可以了">
-<meta property="og:updated_time" content="2016-07-21T01:48:04.331Z">
+<meta property="og:description" content="前言之前做项目一直使用的高德地图，这次做的项目客户必须使用腾讯地图，然后又去折腾了下腾讯地图，说说我遇到的bug
+Bug由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几个项目都用的是Rxjava，但是当我导入腾讯地图sdk后，却报了这个错
+1234Error:Execution failed for task &apos;:app:transformResourcesWithMergeJavaRe">
+<meta property="og:updated_time" content="2016-09-28T06:57:28.008Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新">
-<meta name="twitter:description" content="今天做项目遇到个比较头疼的问题，adapter.notifyDataSetChanged没有反应，要触摸屏幕才可以改变数据，上网查资料有人说是给list集合赋值的时候地址改变了（要用list.addAll()），可是我并没有改变地址 ，只是手动改了一个item的数据而已，后来发现只要延迟刷新就可以了">
+<meta name="twitter:title" content="使用RxJava加入腾讯地图后报错">
+<meta name="twitter:description" content="前言之前做项目一直使用的高德地图，这次做的项目客户必须使用腾讯地图，然后又去折腾了下腾讯地图，说说我遇到的bug
+Bug由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几个项目都用的是Rxjava，但是当我导入腾讯地图sdk后，却报了这个错
+1234Error:Execution failed for task &apos;:app:transformResourcesWithMergeJavaRe">
 
 
 
@@ -120,9 +126,9 @@
 
 
 
-  <link rel="canonical" href="http://weyye.me/detail/adapter-notifyDataSetChanged/"/>
+  <link rel="canonical" href="http://weyye.me/detail/duplicate-files-copied/"/>
 
-  <title> adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新 - Wey Ye的博客 </title>
+  <title> 使用RxJava加入腾讯地图后报错 - Wey Ye的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -242,7 +248,7 @@
             
             
               
-                adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新
+                使用RxJava加入腾讯地图后报错
               
             
           </h1>
@@ -254,8 +260,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-02-19T15:11:35+08:00" content="2016-02-19">
-              2016-02-19
+            <time itemprop="dateCreated" datetime="2016-09-28T14:45:40+08:00" content="2016-09-28">
+              2016-09-28
             </time>
           </span>
 
@@ -265,8 +271,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/detail/adapter-notifyDataSetChanged/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="detail/adapter-notifyDataSetChanged/" itemprop="commentsCount"></span>
+                <a href="/detail/duplicate-files-copied/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="detail/duplicate-files-copied/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -289,8 +295,13 @@
       
 
       
-        <p>今天做项目遇到个比较头疼的问题，adapter.notifyDataSetChanged没有反应，要触摸屏幕才可以改变数据，上网查资料有人说是给list集合赋值的时候地址改变了（要用list.addAll()），可是我并没有改变地址 ，只是手动改了一个item的数据而已，后来发现只要延迟刷新就可以了<br><a id="more"></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">handler.postDelayed(<span class="keyword">new</span> Runnable() &#123;  </div><div class="line">            <span class="meta">@Override</span>  </div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;  </div><div class="line">                adapter.notifyDataSetChanged();  </div><div class="line">            &#125;  </div><div class="line">        &#125;, <span class="number">500</span>);</div></pre></td></tr></table></figure></p>
-<div class="tip"><br>    转载请注明出处<br></div>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前做项目一直使用的高德地图，这次做的项目客户必须使用腾讯地图，然后又去折腾了下腾讯地图，说说我遇到的bug</p>
+<h2 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h2><p>由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几个项目都用的是Rxjava，但是当我导入腾讯地图sdk后，却报了这个错</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Error:Execution failed <span class="keyword">for</span> task <span class="string">':app:transformResourcesWithMergeJavaResForDebug'</span>.</div><div class="line">&gt; com.android.build.api.transform.TransformException: com.android.builder.packaging.DuplicateFileException: Duplicate files copied in APK META-INF/rxjava.properties</div><div class="line">	File1: E:\Android Project\YiBangKe\app\libs\TencentMapSDK_Vector_v3.0.4.jar</div><div class="line">	File2: C:\Users\Administrator\.gradle\caches\modules-<span class="number">2</span>\files-<span class="number">2.1</span>\io.reactivex\rxjava\<span class="number">1.1</span>.1\b494968f6050d494de55dc3ce005e59c7eb40012\rxjava-<span class="number">1.1</span>.1.jar</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>报错原因应该是因为腾讯地图也加入了RxJava</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>在app的<code>build.gradle</code>下面加入</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    packagingOptions &#123;</div><div class="line">        exclude <span class="string">'META-INF/rxjava.properties'</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -315,17 +326,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/detail/fragment-viewpager嵌套/" rel="next" title="Fragment里面用ViewPager嵌套2个Fragment，第二次切换变成空白的解决办法">
-                <i class="fa fa-chevron-left"></i> Fragment里面用ViewPager嵌套2个Fragment，第二次切换变成空白的解决办法
+              <a href="/detail/crack-amap/" rel="next" title="Android破解高德地图sdk使用map免key">
+                <i class="fa fa-chevron-left"></i> Android破解高德地图sdk使用map免key
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/detail/sdk-so/" rel="prev" title="第三方sdk（我的是高德和个推） so库包冲突">
-                第三方sdk（我的是高德和个推） so库包冲突 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -351,8 +358,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="detail/adapter-notifyDataSetChanged/"
-           data-title="adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新" data-url="http://weyye.me/detail/adapter-notifyDataSetChanged/">
+      <div class="ds-thread" data-thread-key="detail/duplicate-files-copied/"
+           data-title="使用RxJava加入腾讯地图后报错" data-url="http://weyye.me/detail/duplicate-files-copied/">
       </div>
     
   </div>
@@ -449,7 +456,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bug"><span class="nav-number">2.</span> <span class="nav-text">Bug</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决办法"><span class="nav-number">3.</span> <span class="nav-text">解决办法</span></a></li></ol></div>
             
           </div>
         </section>
