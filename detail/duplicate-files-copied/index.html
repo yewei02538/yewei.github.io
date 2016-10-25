@@ -90,22 +90,26 @@
 
 
 
-<meta name="description" content="前言之前做项目一直使用的高德地图，这次做的项目客户必须使用腾讯地图，然后又去折腾了下腾讯地图，说说我遇到的bug
-Bug由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几个项目都用的是Rxjava，但是当我导入腾讯地图sdk后，却报了这个错
-1234Error:Execution failed for task &apos;:app:transformResourcesWithMergeJavaRe">
+<meta name="description" content="前言之前做项目一直使用的高德地图，这次做的项目客户必须使用腾讯地图，然后又去折腾了下腾讯地图，说说我遇到的哪些bug
+Bug1:使用RxJava集成sdk报错由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几个项目都用的是Rxjava，但是当我导入腾讯地图sdk后，却报了这个错
+1234Error:Execution failed for task &apos;:app:transformResou">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用RxJava加入腾讯地图后报错">
+<meta property="og:title" content="说说使用腾讯地图sdk遇到的那些坑">
 <meta property="og:url" content="http://weyye.me/detail/duplicate-files-copied/index.html">
 <meta property="og:site_name" content="Wey Ye的博客">
-<meta property="og:description" content="前言之前做项目一直使用的高德地图，这次做的项目客户必须使用腾讯地图，然后又去折腾了下腾讯地图，说说我遇到的bug
-Bug由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几个项目都用的是Rxjava，但是当我导入腾讯地图sdk后，却报了这个错
-1234Error:Execution failed for task &apos;:app:transformResourcesWithMergeJavaRe">
-<meta property="og:updated_time" content="2016-09-28T07:03:31.675Z">
+<meta property="og:description" content="前言之前做项目一直使用的高德地图，这次做的项目客户必须使用腾讯地图，然后又去折腾了下腾讯地图，说说我遇到的哪些bug
+Bug1:使用RxJava集成sdk报错由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几个项目都用的是Rxjava，但是当我导入腾讯地图sdk后，却报了这个错
+1234Error:Execution failed for task &apos;:app:transformResou">
+<meta property="og:image" content="http://weyye.me/img/20160928174539.png">
+<meta property="og:image" content="http://weyye.me/img/20160928174704.png">
+<meta property="og:image" content="http://weyye.me/img/20160928174805.png">
+<meta property="og:updated_time" content="2016-10-17T08:37:29.360Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用RxJava加入腾讯地图后报错">
-<meta name="twitter:description" content="前言之前做项目一直使用的高德地图，这次做的项目客户必须使用腾讯地图，然后又去折腾了下腾讯地图，说说我遇到的bug
-Bug由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几个项目都用的是Rxjava，但是当我导入腾讯地图sdk后，却报了这个错
-1234Error:Execution failed for task &apos;:app:transformResourcesWithMergeJavaRe">
+<meta name="twitter:title" content="说说使用腾讯地图sdk遇到的那些坑">
+<meta name="twitter:description" content="前言之前做项目一直使用的高德地图，这次做的项目客户必须使用腾讯地图，然后又去折腾了下腾讯地图，说说我遇到的哪些bug
+Bug1:使用RxJava集成sdk报错由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几个项目都用的是Rxjava，但是当我导入腾讯地图sdk后，却报了这个错
+1234Error:Execution failed for task &apos;:app:transformResou">
+<meta name="twitter:image" content="http://weyye.me/img/20160928174539.png">
 
 
 
@@ -128,7 +132,7 @@ Bug由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几�
 
   <link rel="canonical" href="http://weyye.me/detail/duplicate-files-copied/"/>
 
-  <title> 使用RxJava加入腾讯地图后报错 - Wey Ye的博客 </title>
+  <title> 说说使用腾讯地图sdk遇到的那些坑 - Wey Ye的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -248,7 +252,7 @@ Bug由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几�
             
             
               
-                使用RxJava加入腾讯地图后报错
+                说说使用腾讯地图sdk遇到的那些坑
               
             
           </h1>
@@ -295,13 +299,29 @@ Bug由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几�
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前做项目一直使用的高德地图，这次做的项目客户必须使用腾讯地图，然后又去折腾了下腾讯地图，说说我遇到的bug</p>
-<h2 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h2><p>由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几个项目都用的是Rxjava，但是当我导入腾讯地图sdk后，却报了这个错</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前做项目一直使用的高德地图，这次做的项目客户必须使用腾讯地图，然后又去折腾了下腾讯地图，说说我遇到的哪些bug</p>
+<h2 id="Bug1-使用RxJava集成sdk报错"><a href="#Bug1-使用RxJava集成sdk报错" class="headerlink" title="Bug1:使用RxJava集成sdk报错"></a>Bug1:使用RxJava集成sdk报错</h2><p>由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几个项目都用的是Rxjava，但是当我导入腾讯地图sdk后，却报了这个错</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Error:Execution failed <span class="keyword">for</span> task <span class="string">':app:transformResourcesWithMergeJavaResForDebug'</span>.</div><div class="line">&gt; com.android.build.api.transform.TransformException: com.android.builder.packaging.DuplicateFileException: Duplicate files copied in APK META-INF/rxjava.properties</div><div class="line">	File1: E:\Android Project\YiBangKe\app\libs\TencentMapSDK_Vector_v3.0.4.jar</div><div class="line">	File2: C:\Users\Administrator\.gradle\caches\modules-<span class="number">2</span>\files-<span class="number">2.1</span>\io.reactivex\rxjava\<span class="number">1.1</span>.1\b494968f6050d494de55dc3ce005e59c7eb40012\rxjava-<span class="number">1.1</span>.1.jar</div></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>报错原因应该是因为腾讯地图也加入了RxJava</p>
 <h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>在app的<code>build.gradle</code>下面加入</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    packagingOptions &#123;</div><div class="line">        exclude <span class="string">'META-INF/rxjava.properties'</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Bug2-getMap-空指针"><a href="#Bug2-getMap-空指针" class="headerlink" title="Bug2:getMap()空指针"></a>Bug2:getMap()空指针</h2><p>使用地图官方建议是使用的SupportMapFragment,于是乎按照官方demo代码写下来</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">FragmentManager fm = getSupportFragmentManager();</div><div class="line">		SupportMapFragment map = (SupportMapFragment)fm.findFragmentById(R.id.frag_map);</div><div class="line">		tencentMap = map.getMap();</div><div class="line">		tencentMap.moveCamera(CameraUpdateFactory.newCameraPosition(<span class="keyword">new</span> </div><div class="line">				CameraPosition(<span class="keyword">new</span> LatLng(<span class="number">34.611524</span>,<span class="number">105.058565</span>), <span class="number">3</span>, <span class="number">0</span>, <span class="number">0</span>)));</div><div class="line">		tencentMap.getUiSettings().setZoomControlsEnabled(<span class="keyword">false</span>);</div></pre></td></tr></table></figure>
+<p>这个是布局</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;fragment</div><div class="line">        android:id=<span class="string">"@+id/frag_map"</span></div><div class="line">        <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.tencent.tencentmap.mapsdk.maps.SupportMapFragment"</span></div><div class="line">        android:layout_width=<span class="string">"match_parent"</span></div><div class="line">        android:layout_height=<span class="string">"match_parent"</span>/&gt;</div></pre></td></tr></table></figure>
+<p>然后运行后报了下面这个错误</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Caused by: java.lang.NullPointerException: Attempt to invoke virtual method <span class="string">'com.tencent.tencentmap.mapsdk.maps.TencentMap com.tencent.tencentmap.mapsdk.maps.MapView.getMap()'</span> on a <span class="keyword">null</span> object reference</div><div class="line"><span class="number">09</span>-<span class="number">28</span> <span class="number">17</span>:<span class="number">46</span>:<span class="number">03.824</span> <span class="number">10311</span>-<span class="number">10311</span>/com.baishan.yibangke W/System.err:     at com.tencent.tencentmap.mapsdk.maps.SupportMapFragment.getMap(SupportMapFragment.java:<span class="number">65</span>)</div><div class="line"><span class="number">09</span>-<span class="number">28</span> <span class="number">17</span>:<span class="number">46</span>:<span class="number">03.824</span> <span class="number">10311</span>-<span class="number">10311</span>/com.baishan.yibangke W/System.err:     at com.baishan.yibangke.presenter.MainPresenter.initMap(MainPresenter.java:<span class="number">47</span>)</div><div class="line"><span class="number">09</span>-<span class="number">28</span> <span class="number">17</span>:<span class="number">46</span>:<span class="number">03.824</span> <span class="number">10311</span>-<span class="number">10311</span>/com.baishan.yibangke W/System.err:     at com.baishan.yibangke.ui.fragment.MainFragment.processLogic(MainFragment.java:<span class="number">74</span>)</div></pre></td></tr></table></figure>
+<p>MapView.getMap()是个空对象，也就是MapView，这个怎么会是null?我就奇了怪了，然后就看了下<code>SupportMapFragment</code>的代码</p>
+<p><img src="/img/20160928174539.png" alt=""></p>
+<p>也就是<code>mapV</code>是空，我们在看下在哪里赋值</p>
+<p><img src="/img/20160928174704.png" alt=""></p>
+<p>在这里初始化了 ，我们在继续跟踪看谁调用了这个方法</p>
+<p><img src="/img/20160928174805.png" alt=""></p>
+<p><code>newInstance</code>调用了，可是demo里面根本没有调用这个方法啊。。。你不说这谁知道。。。</p>
+<h2 id="解决办法-1"><a href="#解决办法-1" class="headerlink" title="解决办法"></a>解决办法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">FragmentManager fm = getActivity().getSupportFragmentManager();</div><div class="line">        SupportMapFragment mapFragment=SupportMapFragment.newInstance(getActivity());</div><div class="line">        fm.beginTransaction().add(R.id.fl_content, mapFragment).commit();</div></pre></td></tr></table></figure>
+<p>在获取map之前手动掉一次，让它初始化即可</p>
+
       
     </div>
 
@@ -334,6 +354,10 @@ Bug由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几�
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/detail/crack-amap-location/" rel="prev" title="Android破解高德地图sdk使用定位免key">
+                Android破解高德地图sdk使用定位免key <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -359,7 +383,7 @@ Bug由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几�
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="detail/duplicate-files-copied/"
-           data-title="使用RxJava加入腾讯地图后报错" data-url="http://weyye.me/detail/duplicate-files-copied/">
+           data-title="说说使用腾讯地图sdk遇到的那些坑" data-url="http://weyye.me/detail/duplicate-files-copied/">
       </div>
     
   </div>
@@ -404,7 +428,7 @@ Bug由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -456,7 +480,7 @@ Bug由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bug"><span class="nav-number">2.</span> <span class="nav-text">Bug</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决办法"><span class="nav-number">3.</span> <span class="nav-text">解决办法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bug1-使用RxJava集成sdk报错"><span class="nav-number">2.</span> <span class="nav-text">Bug1:使用RxJava集成sdk报错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决办法"><span class="nav-number">3.</span> <span class="nav-text">解决办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bug2-getMap-空指针"><span class="nav-number">4.</span> <span class="nav-text">Bug2:getMap()空指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决办法-1"><span class="nav-number">5.</span> <span class="nav-text">解决办法</span></a></li></ol></div>
             
           </div>
         </section>
