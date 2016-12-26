@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://weyye.me/"/>
-  <updated>2016-10-17T08:37:29.360Z</updated>
+  <updated>2016-12-23T09:56:39.901Z</updated>
   <id>http://weyye.me/</id>
   
   <author>
@@ -14,6 +14,56 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android Hook Listener实现处理多次多次点击</title>
+    <link href="http://weyye.me/detail/listener-hook/"/>
+    <id>http://weyye.me/detail/listener-hook/</id>
+    <published>2016-12-23T09:27:21.000Z</published>
+    <updated>2016-12-23T09:56:39.901Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在做项目的时候 ，发现了一个问题，由于公司的网比较卡，所以每次点击按钮调接口的时候都会有延时，这样就造成“界面无反应”的现象，这样用户会觉得没点到就有可能会多次点击按钮，网上有很多解决多次点击的例子（比如直接在onclick里面判断、自定义OnClickListener），但是我觉得用起来不怎么方便，而且现在项目做的也差不多了，如果一个一个找一个一个改，不仅可能会漏掉而且会。。。疯掉。。。 如果你项目刚开始觉得没关系，那如果产品经理提出这样一种需求&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在便于修改不侵入业务代码的情况下监听所有的点击事件，并记录所有的点击数，用于统计热点页面和其他一些分析工作。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;难道一个个找吗。。。如果你项目使用了&lt;code&gt;ButterKnife&lt;/code&gt;，那你估计这几天有点玩了。。。&lt;/p&gt;
+&lt;h2 id=&quot;思路&quot;&gt;&lt;a href=&quot;#思路&quot; class=&quot;headerlink&quot; title=&quot;思路&quot;&gt;&lt;/a&gt;思路&lt;/h2&gt;&lt;p&gt;这里面主要涉及三个方面的知识点&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在做项目的时候 ，发现了一个问题，由于公司的网比较卡，所以每次点击按钮调接口的时候都会有延时，这样就造成“界面无反应”的现象，这样用户会觉得
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Android图片资源混淆</title>
+    <link href="http://weyye.me/detail/Android-AndResGuard/"/>
+    <id>http://weyye.me/detail/Android-AndResGuard/</id>
+    <published>2016-12-01T05:16:44.000Z</published>
+    <updated>2016-12-01T06:27:58.058Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在Android中，为了防止黑客和破解者反编译、窃取自己的劳动成果，都会采用混淆,官方提供的是&lt;code&gt;ProGuard&lt;/code&gt;来进行代码混淆，从而实现相对的代码安。可是往往忽略对资源文件保护，下面总结一下混淆资源的几种方式&lt;/p&gt;
+&lt;h2 id=&quot;混淆方式&quot;&gt;&lt;a href=&quot;#混淆方式&quot; class=&quot;headerlink&quot; title=&quot;混淆方式&quot;&gt;&lt;/a&gt;混淆方式&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;美团资源混淆&lt;/li&gt;
+&lt;li&gt;微信资源混淆&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;美团采用的修改AAPT在生成resources.arsc和*.ap_时把资源文件的名称进行替换，从而保护资源。也就是编译阶段已经给混淆了，但是debug的时候去混淆感觉没必要。如果可以得话我希望在我们正式打包的时候然后进行混淆，这也是微信采用的混淆方式，美团混淆可以查看&lt;a href=&quot;http://tech.meituan.com/mt-android-resource-obfuscation.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;美团博客&lt;/a&gt;,其实原理都差不多，这里分析下微信的混淆&lt;/p&gt;
+&lt;h2 id=&quot;Android查找资源的流程&quot;&gt;&lt;a href=&quot;#Android查找资源的流程&quot; class=&quot;headerlink&quot; title=&quot;Android查找资源的流程&quot;&gt;&lt;/a&gt;Android查找资源的流程&lt;/h2&gt;&lt;p&gt;每当我们放入资源文件的时候，会给我们在R文件里面生成一个16进制int值，以便于我们找到它来使用，&lt;/p&gt;
+&lt;p&gt;这里引用下美团的几句话：在Android系统中，每一个应用程序一般都会配置很多资源，用来适配不同密度、大小和方向的屏幕，以及适配不同的国家、地区和语言等等。这些资源是在应用程序运行时自动根据设备的当前配置信息进行适配的。这也就是说，给定一个相同的资源ID，在不同的设备配置之下，查找到的可能是不同的资源。这个过程主要是靠Android资源管理框架来完成的，&lt;code&gt;AssetManager&lt;/code&gt;和&lt;code&gt;Resources&lt;/code&gt; Resources类可以根据ID来查找资源，而AssetManager类根据文件名来查找资源,&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在Android中，为了防止黑客和破解者反编译、窃取自己的劳动成果，都会采用混淆,官方提供的是&lt;code&gt;ProGuard&lt;/code&gt;来进
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>说说使用腾讯地图sdk遇到的那些坑</title>

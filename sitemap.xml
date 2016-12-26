@@ -2,6 +2,20 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <sitemap>
+    <loc>http://weyye.me/detail/listener-hook/</loc>
+    
+    <lastmod>2016-12-23T09:56:39.901Z</lastmod>
+    
+  </sitemap>
+  
+  <sitemap>
+    <loc>http://weyye.me/detail/Android-AndResGuard/</loc>
+    
+    <lastmod>2016-12-01T06:27:58.058Z</lastmod>
+    
+  </sitemap>
+  
+  <sitemap>
     <loc>http://weyye.me/detail/empty-layout/</loc>
     
     <lastmod>2016-10-25T01:14:22.988Z</lastmod>
