@@ -201,30 +201,6 @@
   </entry>
   
   <entry>
-    <title>About Me</title>
-    <link href="http://weyye.me/detail/about/"/>
-    <id>http://weyye.me/detail/about/</id>
-    <published>2016-12-26T06:56:02.000Z</published>
-    <updated>2016-12-26T08:52:04.336Z</updated>
-    
-    <content type="html">&lt;p&gt;一个沉默的Android developer&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Github&lt;/strong&gt;：&lt;a href=&quot;https://github.com/yewei02538&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/yewei02538&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Mail&lt;/strong&gt;:&lt;a href=&quot;mailto:yewei02538@163.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;yewei02538@163.com&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;QQ: 90cf77badbdf712d1ca6b6a7f444b9f6&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;You can find me, if you want.&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;一个沉默的Android developer&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Github&lt;/strong&gt;：&lt;a href=&quot;https://github.com/yewei02538&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://gith
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
     <title>说说使用腾讯地图sdk遇到的那些坑</title>
     <link href="http://weyye.me/detail/duplicate-files-copied/"/>
     <id>http://weyye.me/detail/duplicate-files-copied/</id>

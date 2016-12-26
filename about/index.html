@@ -4,7 +4,7 @@
     <!-- Title -->
     
     <title>
-        FragmentTransaction.commit onCreateView没有立即执行 | Wey Ye的博客
+        About Me | Wey Ye的博客
     </title>
     
     <!-- Favicons -->
@@ -40,7 +40,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://weyye.me">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="FragmentTransaction.commit onCreateView没有立即执行 | Wey Ye的博客">
+    <meta property="og:title" content="About Me | Wey Ye的博客">
     <meta property="og:description" content="null">
     
      <!--[if lte IE 9]>
@@ -201,33 +201,6 @@
 				
                 <!-- Post TOC -->
 
-    
-	<!-- Back Button -->
-<!--
-	<div class="material-back" id="backhome-div" tabindex="0">
-		<a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="#" onclick="window.history.back();return false;" target="_self" role="button" data-upgraded=",MaterialButton,MaterialRipple">
-			<i class="material-icons" role="presentation">arrow_back</i>
-			<span class="mdl-button__ripple-container">
-				<span class="mdl-ripple"></span>
-			</span>
-		</a>
-	</div>			
--->
-	<!-- Left aligned menu below button -->
-	<button id="post-toc-trigger-btn"
-			class="mdl-button mdl-js-button mdl-button--icon">
-	  <i class="material-icons">format_list_numbered</i>
-	</button>
-
-	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
-		for="post-toc-trigger-btn">
-			
-			<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决办法"><span class="post-toc-number">1.</span> <span class="post-toc-text">解决办法</span></a></li></ol>
-		
-<!--			<li class="mdl-menu__item">Some Action</li>-->
-	</ul>
-
-
 
 <!-- Layouts -->
 
@@ -256,7 +229,7 @@
 		
 	
         <p class="article-headline-p">
-            FragmentTransaction.commit onCreateView没有立即执行
+            About Me
         </p>
     </div>
 
@@ -274,7 +247,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Wey Ye</strong>
-        <span>7月 20, 2016</span>
+        <span>12月 26, 2016</span>
     </div>
     
     <div class="section-spacer"></div>
@@ -309,21 +282,21 @@
     
     
     <!-- Share Twitter -->
-    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=FragmentTransaction.commit onCreateView没有立即执行&url=http://weyye.me//detail/commit-onCreateView/index.html&via=Wey Ye" target="_blank">
+    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=About Me&url=http://weyye.me//about/index.html&via=Wey Ye" target="_blank">
         <li class="mdl-menu__item">
             分享到 Twitter
         </li>
     </a>
     
     <!-- Share Google+ -->
-    <a class="post_share-link" href="https://plus.google.com/share?url=http://weyye.me//detail/commit-onCreateView/index.html" target="_blank">
+    <a class="post_share-link" href="https://plus.google.com/share?url=http://weyye.me//about/index.html" target="_blank">
         <li class="mdl-menu__item">
             分享到 Google+
         </li>
     </a>
     
     <!-- Share Weibo -->
-    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=FragmentTransaction.commit onCreateView没有立即执行&url=http://weyye.me//detail/commit-onCreateView/index.html&pic=&searchPic=false&style=simple" target="_blank">
+    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=About Me&url=http://weyye.me//about/index.html&pic=&searchPic=false&style=simple" target="_blank">
         <li class="mdl-menu__item">
             分享到微博
         </li>
@@ -335,14 +308,11 @@
                 <!-- Post Content -->
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
-		<p>在做项目中，遇到一个很奇怪的问题 ，当调用fragmentTransaction.commit的时候 fragment的生命周期并没有立即执行，下面是我的代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">manager = getSupportFragmentManager();</div><div class="line">FragmentTransaction ft = manager.beginTransaction();</div><div class="line">MainFragment fragment = <span class="keyword">new</span> MainFragment();</div><div class="line">ft.add(R.id.fl_content, fragment);</div><div class="line">ft.commit();</div><div class="line">fragment.setInfo();</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>看似正常的逻辑没有问题 ，可是却fragment里面却给我报了NullPointException ,看log显示 view是null，我就奇怪了，明明onCreateView里面不是findViewById找到了嘛 ，不会啊，无意中查看了fragmentTransaction.commit()的源码才知道<br>注释是这样写的</p>
-<pre><code>* Schedules a commit of this transaction.  The commit does
-* not happen immediately; it will be scheduled as work on the main thread
-* to be done the next time that thread is ready.
-</code></pre><p>大致的意思是说 调用commit后不会立即执行，会再下一次准备好的时候，运行在主线程里面。</p>
-<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>调用commit后执行<br>    manager.executePendingTransactions();<br>这样就会立即执行了</p>
+		<p>一个沉默的Android developer..</p>
+<p><strong>Github:</strong><a href="https://github.com/yewei02538" target="_blank" rel="external">https://github.com/yewei02538</a></p>
+<p><strong>Mail:</strong><a href="mailto:yewei02538@163.com" target="_blank" rel="external">yewei02538@163.com</a></p>
+<p><strong>QQ:90CF77BADBDF712D1CA6B6A7F444B9F6</strong></p>
+<p>You can find me, if you want.</p>
 
 	
 	
@@ -371,9 +341,9 @@
 <div id="comments">
     <!-- 多说评论框 start -->
         <div class="ds-thread" 
-            data-thread-key="detail/commit-onCreateView/" 
-            data-url="http://weyye.me/detail/commit-onCreateView/"
-            data-title="FragmentTransaction.commit onCreateView没有立即执行"></div>
+            data-thread-key="about/index.html" 
+            data-url="http://weyye.me/about/index.html"
+            data-title="About Me"></div>
     <!-- 多说评论框 end -->
 </div>
 
@@ -387,27 +357,11 @@
     
     <!-- Prev Nav -->
     
-        <a href="/detail/Android-PLDroidPlayer播放/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
-    
-        <a href="/detail/sdk-so/" id="post_nav-older" class="next-content">
-            旧篇
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
     
 </nav>
         </div>
@@ -574,13 +528,6 @@ It will not impact the appearance and can give developers a lot of support :)
 
 				
 				
-				
-					<!-- Footer Top Button -->
-					<div class="toTop-wrap">
-    <a href="#top" class="toTop">
-        <i class="material-icons footer_top-i">expand_less</i>
-    </a>
-</div>
 				
 				
 				<!--Footer-->
