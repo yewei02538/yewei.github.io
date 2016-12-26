@@ -222,7 +222,7 @@
 	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
 		for="post-toc-trigger-btn">
 			
-			<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#主要流程"><span class="post-toc-number">2.</span> <span class="post-toc-text">主要流程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#App的程序入口"><span class="post-toc-number">3.</span> <span class="post-toc-text">App的程序入口</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为什么主线程使用Looper-loop-不会堵塞"><span class="post-toc-number">4.</span> <span class="post-toc-text">为什么主线程使用Looper.loop()不会堵塞</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ActivityThread-attach"><span class="post-toc-number">5.</span> <span class="post-toc-text">ActivityThread.attach()</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Activity是怎样启动的"><span class="post-toc-number">6.</span> <span class="post-toc-text">Activity是怎样启动的</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Android-Studio查看源码的小技巧"><span class="post-toc-number">7.</span> <span class="post-toc-text">Android Studio查看源码的小技巧</span></a></li></ol>
+			<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#"><span class="post-toc-number">2.</span> <span class="post-toc-text"></span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#主要流程"><span class="post-toc-number">3.</span> <span class="post-toc-text">主要流程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#App的程序入口"><span class="post-toc-number">4.</span> <span class="post-toc-text">App的程序入口</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为什么主线程使用Looper-loop-不会堵塞"><span class="post-toc-number">5.</span> <span class="post-toc-text">为什么主线程使用Looper.loop()不会堵塞</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ActivityThread-attach"><span class="post-toc-number">6.</span> <span class="post-toc-text">ActivityThread.attach()</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Activity是怎样启动的"><span class="post-toc-number">7.</span> <span class="post-toc-text">Activity是怎样启动的</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Android-Studio查看源码的小技巧"><span class="post-toc-number">8.</span> <span class="post-toc-text">Android Studio查看源码的小技巧</span></a></li></ol>
 		
 <!--			<li class="mdl-menu__item">Some Action</li>-->
 	</ul>
@@ -336,7 +336,7 @@
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
 		<blockquote>
-<p>转载请标明出处： <a href="http://www.jianshu.com/p/dde57a4eb402" target="_blank" rel="external">http://www.jianshu.com/p/dde57a4eb402</a><br>本文出自:<a href="http://weyye.me">【Wey Ye的博客】</a></p>
+<p>转载请标明出处： <a href="http://www.weyye.me/detail/android-source-activity-oncreate/" target="_blank" rel="external">http://www.weyye.me/detail/android-source-activity-oncreate/</a><br>本文出自:<a href="http://weyye.me">【Wey Ye的博客】</a></p>
 </blockquote>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
 <li><strong>一个app的程序是怎么启动的？入口在哪里？</strong></li>
@@ -347,8 +347,7 @@
 <li><strong>等等..</strong></li>
 </ul>
 <p>是不是一直有这样的疑问？很懵逼对不对 - - ，那我们就站在巨人的丁丁上来解决一下这些问题，如果文中出现一些错误，还望指正，互相学习</p>
-<hr>
-<h2 id="主要流程"><a href="#主要流程" class="headerlink" title="主要流程"></a>主要流程</h2><p> 大家都知道 <code>Android</code>是基于<code>Linux</code>系统的，而在<code>Linux</code>中，所有的进程都是由<code>init</code>进程直接或者是间接<code>fork</code>出来的，当我开机的时候<code>init</code>进程就会<code>fork</code>出一个<code>Android</code>的第一个新的进程<br><strong>Zygote</strong>,中文翻译过来要”受精卵”，一个很有意识的名字。为什么这么说呢，当我们<code>Zygote</code>进程跑起来后，<code>Android</code>为了实现实现资源共用和更快的启动速度，通过<code>Zygote</code>进程直接去<code>fork</code>出一些子进程，这就是为什么要<strong>”受精卵”</strong>的原因，也就是我们的<code>app</code>全部都是基于<code>Zygote</code>上的 ，没有<code>Zygote</code>就没有我们，当<code>Zygote</code>初始化完成之后，首先会<code>fork</code>它的第一个子进程<strong>SystemServer</strong>,这个类非常的重要，为什么这么说呢？因为系统里面重要的服务都是在这个进程里面开启的，比如<code>ActivityManagerService</code>、<code>PackageManagerService</code>、<code>WindowManagerService</code>等等，有木有觉得似曾相识<br>当<code>SystemServer</code>跑起来后，这些重要的服务也会随之创建,系统初始化完成之后我们就会进到系统桌面-&gt;<strong>Launcher</strong>，其实<code>Launcher</code>也是一个<code>app</code>，它继承自<code>Activity</code>，当我们点击桌面上的app后，系统就会为我们的app创建一个进程，然后启动我们App的第一个类<strong>ActivityThread</strong>,其实说到底我们的app就是一个<code>main</code>函数,也就是启动了<code>ActivityThread.main()</code>。我们重点来看下这个类</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h2 id="主要流程"><a href="#主要流程" class="headerlink" title="主要流程"></a>主要流程</h2><p> 大家都知道 <code>Android</code>是基于<code>Linux</code>系统的，而在<code>Linux</code>中，所有的进程都是由<code>init</code>进程直接或者是间接<code>fork</code>出来的，当我开机的时候<code>init</code>进程就会<code>fork</code>出一个<code>Android</code>的第一个新的进程<br><strong>Zygote</strong>,中文翻译过来要”受精卵”，一个很有意识的名字。为什么这么说呢，当我们<code>Zygote</code>进程跑起来后，<code>Android</code>为了实现实现资源共用和更快的启动速度，通过<code>Zygote</code>进程直接去<code>fork</code>出一些子进程，这就是为什么要<strong>”受精卵”</strong>的原因，也就是我们的<code>app</code>全部都是基于<code>Zygote</code>上的 ，没有<code>Zygote</code>就没有我们，当<code>Zygote</code>初始化完成之后，首先会<code>fork</code>它的第一个子进程<strong>SystemServer</strong>,这个类非常的重要，为什么这么说呢？因为系统里面重要的服务都是在这个进程里面开启的，比如<code>ActivityManagerService</code>、<code>PackageManagerService</code>、<code>WindowManagerService</code>等等，有木有觉得似曾相识<br>当<code>SystemServer</code>跑起来后，这些重要的服务也会随之创建,系统初始化完成之后我们就会进到系统桌面-&gt;<strong>Launcher</strong>，其实<code>Launcher</code>也是一个<code>app</code>，它继承自<code>Activity</code>，当我们点击桌面上的app后，系统就会为我们的app创建一个进程，然后启动我们App的第一个类<strong>ActivityThread</strong>,其实说到底我们的app就是一个<code>main</code>函数,也就是启动了<code>ActivityThread.main()</code>。我们重点来看下这个类</p>
 <h2 id="App的程序入口"><a href="#App的程序入口" class="headerlink" title="App的程序入口"></a>App的程序入口</h2><blockquote>
 <p>都说主线程更新ui，主线程不能有耗时操作，主线程是在哪里创建的呢？我们来看下ActivityThread.main()。</p>
 </blockquote>
@@ -489,7 +488,7 @@
 <p><a href="http://blog.csdn.net/luoshengyang/article/details/6768304" target="_blank" rel="external">Android系统进程Zygote启动过程的源代码分析</a></p>
 <p>##最后<br>讲了那么多，对于我们这些开发者来说，看源码是非常有必要，文中我只贴出了部分代码，完整的代码还要自己去看，这样印象也会非常深刻，看一遍不会，我们看两边，虽然一脸懵比，但是我们要相信自己，这点挫折怎能难倒我们程序员？最后的最后，如果文中有错误的地方还望大家指出</p>
 <blockquote>
-<p>博主整理不易，转载请注明出处:<br><a href="http://www.jianshu.com/p/dde57a4eb402" target="_blank" rel="external">http://www.jianshu.com/p/dde57a4eb402</a></p>
+<p>博主整理不易，转载请注明出处:<br><a href="http://www.weyye.me/detail/android-source-activity-oncreate/" target="_blank" rel="external">http://www.weyye.me/detail/android-source-activity-oncreate/</a></p>
 </blockquote>
 
 	

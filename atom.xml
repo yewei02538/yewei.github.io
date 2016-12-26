@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://weyye.me/"/>
-  <updated>2016-12-26T08:36:46.533Z</updated>
+  <updated>2016-12-26T09:22:24.187Z</updated>
   <id>http://weyye.me/</id>
   
   <author>
@@ -20,10 +20,10 @@
     <link href="http://weyye.me/detail/android-source-activity-oncreate/"/>
     <id>http://weyye.me/detail/android-source-activity-oncreate/</id>
     <published>2016-12-26T08:25:22.000Z</published>
-    <updated>2016-12-26T08:36:46.533Z</updated>
+    <updated>2016-12-26T09:22:24.187Z</updated>
     
     <content type="html">&lt;blockquote&gt;
-&lt;p&gt;转载请标明出处： &lt;a href=&quot;http://www.jianshu.com/p/dde57a4eb402&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.jianshu.com/p/dde57a4eb402&lt;/a&gt;&lt;br&gt;本文出自:&lt;a href=&quot;http://weyye.me&quot;&gt;【Wey Ye的博客】&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;转载请标明出处： &lt;a href=&quot;http://www.weyye.me/detail/android-source-activity-oncreate/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.weyye.me/detail/android-source-activity-oncreate/&lt;/a&gt;&lt;br&gt;本文出自:&lt;a href=&quot;http://weyye.me&quot;&gt;【Wey Ye的博客】&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;一个app的程序是怎么启动的？入口在哪里？&lt;/strong&gt;&lt;/li&gt;
@@ -34,8 +34,7 @@
 &lt;li&gt;&lt;strong&gt;等等..&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;是不是一直有这样的疑问？很懵逼对不对 - - ，那我们就站在巨人的丁丁上来解决一下这些问题，如果文中出现一些错误，还望指正，互相学习&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&quot;主要流程&quot;&gt;&lt;a href=&quot;#主要流程&quot; class=&quot;headerlink&quot; title=&quot;主要流程&quot;&gt;&lt;/a&gt;主要流程&lt;/h2&gt;&lt;p&gt; 大家都知道 &lt;code&gt;Android&lt;/code&gt;是基于&lt;code&gt;Linux&lt;/code&gt;系统的，而在&lt;code&gt;Linux&lt;/code&gt;中，所有的进程都是由&lt;code&gt;init&lt;/code&gt;进程直接或者是间接&lt;code&gt;fork&lt;/code&gt;出来的，当我开机的时候&lt;code&gt;init&lt;/code&gt;进程就会&lt;code&gt;fork&lt;/code&gt;出一个&lt;code&gt;Android&lt;/code&gt;的第一个新的进程&lt;br&gt;&lt;strong&gt;Zygote&lt;/strong&gt;,中文翻译过来要”受精卵”，一个很有意识的名字。为什么这么说呢，当我们&lt;code&gt;Zygote&lt;/code&gt;进程跑起来后，&lt;code&gt;Android&lt;/code&gt;为了实现实现资源共用和更快的启动速度，通过&lt;code&gt;Zygote&lt;/code&gt;进程直接去&lt;code&gt;fork&lt;/code&gt;出一些子进程，这就是为什么要&lt;strong&gt;”受精卵”&lt;/strong&gt;的原因，也就是我们的&lt;code&gt;app&lt;/code&gt;全部都是基于&lt;code&gt;Zygote&lt;/code&gt;上的 ，没有&lt;code&gt;Zygote&lt;/code&gt;就没有我们，当&lt;code&gt;Zygote&lt;/code&gt;初始化完成之后，首先会&lt;code&gt;fork&lt;/code&gt;它的第一个子进程&lt;strong&gt;SystemServer&lt;/strong&gt;,这个类非常的重要，为什么这么说呢？因为系统里面重要的服务都是在这个进程里面开启的，比如&lt;code&gt;ActivityManagerService&lt;/code&gt;、&lt;code&gt;PackageManagerService&lt;/code&gt;、&lt;code&gt;WindowManagerService&lt;/code&gt;等等，有木有觉得似曾相识&lt;br&gt;当&lt;code&gt;SystemServer&lt;/code&gt;跑起来后，这些重要的服务也会随之创建,系统初始化完成之后我们就会进到系统桌面-&amp;gt;&lt;strong&gt;Launcher&lt;/strong&gt;，其实&lt;code&gt;Launcher&lt;/code&gt;也是一个&lt;code&gt;app&lt;/code&gt;，它继承自&lt;code&gt;Activity&lt;/code&gt;，当我们点击桌面上的app后，系统就会为我们的app创建一个进程，然后启动我们App的第一个类&lt;strong&gt;ActivityThread&lt;/strong&gt;,其实说到底我们的app就是一个&lt;code&gt;main&lt;/code&gt;函数,也就是启动了&lt;code&gt;ActivityThread.main()&lt;/code&gt;。我们重点来看下这个类&lt;/p&gt;
+&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;h2 id=&quot;主要流程&quot;&gt;&lt;a href=&quot;#主要流程&quot; class=&quot;headerlink&quot; title=&quot;主要流程&quot;&gt;&lt;/a&gt;主要流程&lt;/h2&gt;&lt;p&gt; 大家都知道 &lt;code&gt;Android&lt;/code&gt;是基于&lt;code&gt;Linux&lt;/code&gt;系统的，而在&lt;code&gt;Linux&lt;/code&gt;中，所有的进程都是由&lt;code&gt;init&lt;/code&gt;进程直接或者是间接&lt;code&gt;fork&lt;/code&gt;出来的，当我开机的时候&lt;code&gt;init&lt;/code&gt;进程就会&lt;code&gt;fork&lt;/code&gt;出一个&lt;code&gt;Android&lt;/code&gt;的第一个新的进程&lt;br&gt;&lt;strong&gt;Zygote&lt;/strong&gt;,中文翻译过来要”受精卵”，一个很有意识的名字。为什么这么说呢，当我们&lt;code&gt;Zygote&lt;/code&gt;进程跑起来后，&lt;code&gt;Android&lt;/code&gt;为了实现实现资源共用和更快的启动速度，通过&lt;code&gt;Zygote&lt;/code&gt;进程直接去&lt;code&gt;fork&lt;/code&gt;出一些子进程，这就是为什么要&lt;strong&gt;”受精卵”&lt;/strong&gt;的原因，也就是我们的&lt;code&gt;app&lt;/code&gt;全部都是基于&lt;code&gt;Zygote&lt;/code&gt;上的 ，没有&lt;code&gt;Zygote&lt;/code&gt;就没有我们，当&lt;code&gt;Zygote&lt;/code&gt;初始化完成之后，首先会&lt;code&gt;fork&lt;/code&gt;它的第一个子进程&lt;strong&gt;SystemServer&lt;/strong&gt;,这个类非常的重要，为什么这么说呢？因为系统里面重要的服务都是在这个进程里面开启的，比如&lt;code&gt;ActivityManagerService&lt;/code&gt;、&lt;code&gt;PackageManagerService&lt;/code&gt;、&lt;code&gt;WindowManagerService&lt;/code&gt;等等，有木有觉得似曾相识&lt;br&gt;当&lt;code&gt;SystemServer&lt;/code&gt;跑起来后，这些重要的服务也会随之创建,系统初始化完成之后我们就会进到系统桌面-&amp;gt;&lt;strong&gt;Launcher&lt;/strong&gt;，其实&lt;code&gt;Launcher&lt;/code&gt;也是一个&lt;code&gt;app&lt;/code&gt;，它继承自&lt;code&gt;Activity&lt;/code&gt;，当我们点击桌面上的app后，系统就会为我们的app创建一个进程，然后启动我们App的第一个类&lt;strong&gt;ActivityThread&lt;/strong&gt;,其实说到底我们的app就是一个&lt;code&gt;main&lt;/code&gt;函数,也就是启动了&lt;code&gt;ActivityThread.main()&lt;/code&gt;。我们重点来看下这个类&lt;/p&gt;
 &lt;h2 id=&quot;App的程序入口&quot;&gt;&lt;a href=&quot;#App的程序入口&quot; class=&quot;headerlink&quot; title=&quot;App的程序入口&quot;&gt;&lt;/a&gt;App的程序入口&lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;都说主线程更新ui，主线程不能有耗时操作，主线程是在哪里创建的呢？我们来看下ActivityThread.main()。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -176,14 +175,25 @@
 &lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/luoshengyang/article/details/6768304&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android系统进程Zygote启动过程的源代码分析&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;##最后&lt;br&gt;讲了那么多，对于我们这些开发者来说，看源码是非常有必要，文中我只贴出了部分代码，完整的代码还要自己去看，这样印象也会非常深刻，看一遍不会，我们看两边，虽然一脸懵比，但是我们要相信自己，这点挫折怎能难倒我们程序员？最后的最后，如果文中有错误的地方还望大家指出&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;博主整理不易，转载请注明出处:&lt;br&gt;&lt;a href=&quot;http://www.jianshu.com/p/dde57a4eb402&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.jianshu.com/p/dde57a4eb402&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;博主整理不易，转载请注明出处:&lt;br&gt;&lt;a href=&quot;http://www.weyye.me/detail/android-source-activity-oncreate/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.weyye.me/detail/android-source-activity-oncreate/&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 </content>
     
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt;转载请标明出处： &lt;a href=&quot;http://www.jianshu.com/p/dde57a4eb402&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.jianshu.com/p/dde57a4eb40
+&lt;p&gt;转载请标明出处： &lt;a href=&quot;http://www.weyye.me/detail/android-source-activity-oncreate/&quot;&gt;http://www.weyye.me/detail/android-source-activity-oncreate/&lt;/a&gt;&lt;br&gt;本文出自:&lt;a href=&quot;http://weyye.me&quot;&gt;【Wey Ye的博客】&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;一个app的程序是怎么启动的？入口在哪里？&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;听说ActivityManagerServices很屌，Why？&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Activity生命周期到底是谁调用的？&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Application又是在哪里初始化的？onCreate又是如何被调用的？&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;面试官常常会问：为什么主线程使用looper.loop不会阻塞?&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;等等..&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;是不是一直有这样的疑问？很懵逼对不对 - - ，那我们就站在巨人的丁丁上来解决一下这些问题，如果文中出现一些错误，还望指正，互相学习&lt;/p&gt;
+&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;
     
     </summary>
     
@@ -195,7 +205,7 @@
     <link href="http://weyye.me/detail/about/"/>
     <id>http://weyye.me/detail/about/</id>
     <published>2016-12-26T06:56:02.000Z</published>
-    <updated>2016-12-26T08:20:42.764Z</updated>
+    <updated>2016-12-26T08:52:04.336Z</updated>
     
     <content type="html">&lt;p&gt;一个沉默的Android developer&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Github&lt;/strong&gt;：&lt;a href=&quot;https://github.com/yewei02538&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/yewei02538&lt;/a&gt;&lt;/p&gt;
