@@ -4,11 +4,26 @@
 
     
   <url>
-    <loc>http://weyye.me/detail/about/</loc>
-    <lastmod>2016-12-26T07:34:00.887Z</lastmod>
+    <loc>http://weyye.me/detail/android-source-activity-oncreate/</loc>
+    <lastmod>2016-12-26T08:36:46.533Z</lastmod>
     <data>
         <display>
-        <title>about</title>
+        <title>Android走进源码告诉你app是如何被启动的</title>
+        <pubTime>2016-12-26T08:25:22.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://weyye.me/detail/about/</loc>
+    <lastmod>2016-12-26T08:20:42.764Z</lastmod>
+    <data>
+        <display>
+        <title>About Me</title>
         <pubTime>2016-12-26T06:56:02.000Z</pubTime>
         
          
