@@ -4,7 +4,7 @@
     <!-- Title -->
     
     <title>
-        Wey Ye的博客
+        archive_a: 2016/8 | Wey Ye的博客
     </title>
     
     <!-- Favicons -->
@@ -40,7 +40,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://weyye.me">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Wey Ye的博客">
+    <meta property="og:title" content="archive_a: 2016/8 | Wey Ye的博客">
     <meta property="og:description" content="null">
     
      <!--[if lte IE 9]>
@@ -218,17 +218,21 @@
 	
 				
 		<!-- Post Title -->
-		<p class="article-headline-p"><a href="/detail/adapter-notifyDataSetChanged/">adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新</a></p>
+		<p class="article-headline-p"><a href="/detail/empty-layout/">Android通用的EmptyLayout-展示不用状态的界面</a></p>
 	</div>
 
     <!-- Post Excerpt -->
     <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
         
-            今天做项目遇到个比较头疼的问题，adapter.notifyDataSetChanged没有反应，要触摸屏幕才可以改变数据，上网查资料有人说是给list集合赋值的时候地址改变了（要用list.addAll()），可是我并没有改变地址 ，只是手动改了一个item的数据而已，后来发现只要延迟刷新就可以了
+            前言在做项目的时候，经常会遇到列表数据为空的时候展示的空布局，如果你用的是ListView ,目测会经常使用ListView的一个方法setEmptyView ,如果你用的是RecyclerView,你也许会用自定义View来实现，但是，这些方法虽然使用起来简单，但是如果你提供一个复杂的布局，例如：
+
+在数据加载失败后，添加一个Button让用户可以选择重新加载数据。
+
+你肯定会说，findviewbyId找到这个button，给它设置点击事件，一个两个可以接受，但是，界面多了呢？ 那你说了那么多，有没有好的解决办法呢？ 当然有 而且是几行代码搞定的
         
         &nbsp;&nbsp;&nbsp;
         <span>
-            <a href="/detail/adapter-notifyDataSetChanged/" target="_self">继续阅读</a>
+            <a href="/detail/empty-layout/" target="_self">继续阅读</a>
         </span>
     </div>
     <!-- Post_entry Info-->
@@ -240,7 +244,7 @@
             </div>
             <div>
                 <strong>Wey Ye</strong>
-                <span>2月 19, 2016</span>
+                <span>8月 30, 2016</span>
             </div>
         </div>
         <div id="post_entry-right-info">
@@ -253,7 +257,7 @@
                 <!-- Comment Number -->
                 &nbsp;|&nbsp;
                 <span class="post_entry-comment" >
-                        <span class="ds-thread-count" data-thread-key="detail/adapter-notifyDataSetChanged/" data-count-type="comments"></span>
+                        <span class="ds-thread-count" data-thread-key="detail/empty-layout/" data-count-type="comments"></span>
                 </span>
             
             
@@ -282,18 +286,19 @@
 	
 				
 		<!-- Post Title -->
-		<p class="article-headline-p"><a href="/detail/fragment-viewpager嵌套/">Fragment里面用ViewPager嵌套2个Fragment，第二次切换变成空白的解决办法</a></p>
+		<p class="article-headline-p"><a href="/detail/System-gc-not-called/">调用System.gc没有立即执行的解决方法</a></p>
 	</div>
 
     <!-- Post Excerpt -->
     <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
         
-            今天做项目遇到一个问题 ，
-主界面用5个fragment组成，其中一个fragment里面 用了个ViewPager ，然后再这个ViewPager里面又嵌套了2个Fragment，第一次加载没有  但是第二次加载的时候 ，就变成空白
+            查看源码当我们调用System.gc()的时候，其实并不会马上进行垃圾回收，甚至不一定会执行垃圾回收，查看系统源码可以看到
+1234567891011121314151617181920/**    * Indicates to the VM that it would be a good time to run the    * garbage collector. Note that this is a hint only. There is no guarantee    * that the garbage collector will actually be run.    */   public static void gc() &#123;       boolean shouldRunGC;       synchronized(lock) &#123;           shouldRunGC = justRanFinalization;           if (shouldRunGC) &#123;               justRanFinalization = false;           &#125; else &#123;               runGC = true;           &#125;       &#125;       if (shouldRunGC) &#123;           Runtime.getRuntime().gc();       &#125;   &#125;
+也就是justRanFinalization=true的时候才会执行
         
         &nbsp;&nbsp;&nbsp;
         <span>
-            <a href="/detail/fragment-viewpager嵌套/" target="_self">继续阅读</a>
+            <a href="/detail/System-gc-not-called/" target="_self">继续阅读</a>
         </span>
     </div>
     <!-- Post_entry Info-->
@@ -305,7 +310,7 @@
             </div>
             <div>
                 <strong>Wey Ye</strong>
-                <span>11月 26, 2015</span>
+                <span>8月 29, 2016</span>
             </div>
         </div>
         <div id="post_entry-right-info">
@@ -318,7 +323,7 @@
                 <!-- Comment Number -->
                 &nbsp;|&nbsp;
                 <span class="post_entry-comment" >
-                        <span class="ds-thread-count" data-thread-key="detail/fragment-viewpager嵌套/" data-count-type="comments"></span>
+                        <span class="ds-thread-count" data-thread-key="detail/System-gc-not-called/" data-count-type="comments"></span>
                 </span>
             
             
@@ -334,10 +339,71 @@
 		
 		
     
-		<!-- Index nav -->
-        <nav class="material-nav mdl-cell mdl-cell--12-col">
-            <a class="extend prev" rel="prev" href="/"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons" role="presentation">arrow_back</i></button></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-        </nav>
+		
+			<!-- Paradox Thumbnail -->
+        	<div class="post_entry-module mdl-card mdl-cell mdl-cell--12-col fade out">
+    
+    <!-- Post Thumbnail -->
+	
+		
+			<!-- Random Thumbnail -->
+			<div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+		
+	
+				
+		<!-- Post Title -->
+		<p class="article-headline-p"><a href="/detail/dialogactivity/">Dialog样式的Activity-可以在任何地方弹出的Dialog</a></p>
+	</div>
+
+    <!-- Post Excerpt -->
+    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
+        
+            最近项目用到一个需求，当收到透传消息后不管在哪个界面都要弹出一个dialog，当时觉得这还不简单嘛，new一个呀 ，于是我就在receiver里面new了一个
+然后就报了如下的错
+android.view.WindowManager$BadTokenException: Unable to add window – token null is not for an applicationandroid.view.ViewRootImpl.setView(ViewRootImpl.java:567)                                                                    at android.view.WindowManagerGlobal.addView(WindowManagerGlobal.java:269)                                                                       at android.view.WindowManagerImpl.addView(WindowManagerImpl.java:69)                                                               at android.app.Dialog.show(Dialog.java:323)                                                                     at com.yipwey.dialogactivity.PushReceiver.onReceive(PushReceiver.java:16)                                                                           at android.app.ActivityThread.handleReceiver(ActivityThread.java:2508)                                                                           at android.app.ActivityThread.access$2000(ActivityThread.java:141)                                                                           at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1323)
+        
+        &nbsp;&nbsp;&nbsp;
+        <span>
+            <a href="/detail/dialogactivity/" target="_self">继续阅读</a>
+        </span>
+    </div>
+    <!-- Post_entry Info-->
+    <div id="post_entry-info">
+        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
+            <!-- Author Avatar -->
+            <div id="author-avatar">
+                <img src="/img/avatar.jpg" width="44px" height="44px" alt="Wey Ye's avatar">
+            </div>
+            <div>
+                <strong>Wey Ye</strong>
+                <span>8月 12, 2016</span>
+            </div>
+        </div>
+        <div id="post_entry-right-info">
+            <!-- Category -->
+            <span class="post_entry-category">
+                
+            </span>
+            
+            
+                <!-- Comment Number -->
+                &nbsp;|&nbsp;
+                <span class="post_entry-comment" >
+                        <span class="ds-thread-count" data-thread-key="detail/dialogactivity/" data-count-type="comments"></span>
+                </span>
+            
+            
+            <!-- Post Views -->
+            <span class="post_entry-views">
+                
+            </span>
+        </div>
+    </div>
+            
+</div>
+
+		
+		
     
     
 	

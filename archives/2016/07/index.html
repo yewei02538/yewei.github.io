@@ -4,7 +4,7 @@
     <!-- Title -->
     
     <title>
-        Wey Ye的博客
+        archive_a: 2016/7 | Wey Ye的博客
     </title>
     
     <!-- Favicons -->
@@ -40,7 +40,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://weyye.me">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Wey Ye的博客">
+    <meta property="og:title" content="archive_a: 2016/7 | Wey Ye的博客">
     <meta property="og:description" content="null">
     
      <!--[if lte IE 9]>
@@ -218,17 +218,22 @@
 	
 				
 		<!-- Post Title -->
-		<p class="article-headline-p"><a href="/detail/adapter-notifyDataSetChanged/">adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新</a></p>
+		<p class="article-headline-p"><a href="/detail/Android-PLDroidPlayer播放/">Android 使用PLDroidPlayer播放网络视频 根据视频角度自动旋转</a></p>
 	</div>
 
     <!-- Post Excerpt -->
     <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
         
-            今天做项目遇到个比较头疼的问题，adapter.notifyDataSetChanged没有反应，要触摸屏幕才可以改变数据，上网查资料有人说是给list集合赋值的时候地址改变了（要用list.addAll()），可是我并没有改变地址 ，只是手动改了一个item的数据而已，后来发现只要延迟刷新就可以了
+            最近因为项目需求 ，需要播放网络视频  ，于是乎 研究了一番 ，说说我遇到的那些坑    
+现在市面上有几个比较主流好用的第三方框架
+
+Vitamio （  体积比较大，有商业化风险 github:https://github.com/yixia/VitamioBundle/）
+ijkplayer（B站下开源的框架 体积大 配置环境比较麻烦  github:https://github.com/Bilibili/ijkplayer ）
+PLDroidPlayer（七牛根据ijkplayer二次开发的 定制简单 github:https://github.com/pili-engineering/PLDroidPlayer）
         
         &nbsp;&nbsp;&nbsp;
         <span>
-            <a href="/detail/adapter-notifyDataSetChanged/" target="_self">继续阅读</a>
+            <a href="/detail/Android-PLDroidPlayer播放/" target="_self">继续阅读</a>
         </span>
     </div>
     <!-- Post_entry Info-->
@@ -240,7 +245,7 @@
             </div>
             <div>
                 <strong>Wey Ye</strong>
-                <span>2月 19, 2016</span>
+                <span>7月 20, 2016</span>
             </div>
         </div>
         <div id="post_entry-right-info">
@@ -253,7 +258,7 @@
                 <!-- Comment Number -->
                 &nbsp;|&nbsp;
                 <span class="post_entry-comment" >
-                        <span class="ds-thread-count" data-thread-key="detail/adapter-notifyDataSetChanged/" data-count-type="comments"></span>
+                        <span class="ds-thread-count" data-thread-key="detail/Android-PLDroidPlayer播放/" data-count-type="comments"></span>
                 </span>
             
             
@@ -282,18 +287,17 @@
 	
 				
 		<!-- Post Title -->
-		<p class="article-headline-p"><a href="/detail/fragment-viewpager嵌套/">Fragment里面用ViewPager嵌套2个Fragment，第二次切换变成空白的解决办法</a></p>
+		<p class="article-headline-p"><a href="/detail/commit-onCreateView/">FragmentTransaction.commit onCreateView没有立即执行</a></p>
 	</div>
 
     <!-- Post Excerpt -->
     <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
         
-            今天做项目遇到一个问题 ，
-主界面用5个fragment组成，其中一个fragment里面 用了个ViewPager ，然后再这个ViewPager里面又嵌套了2个Fragment，第一次加载没有  但是第二次加载的时候 ，就变成空白
+            在做项目中，遇到一个很奇怪的问题 ，当调用fragmentTransaction.commit的时候 fragment的生命周期并没有立即执行，下面是我的代码123456manager = getSupportFragmentManager();FragmentTransaction ft = manager.beginTransaction();MainFragment fragment = new MainFragment();ft.add(R.id.fl_content, fragment);ft.commit();fragment.setInfo();
         
         &nbsp;&nbsp;&nbsp;
         <span>
-            <a href="/detail/fragment-viewpager嵌套/" target="_self">继续阅读</a>
+            <a href="/detail/commit-onCreateView/" target="_self">继续阅读</a>
         </span>
     </div>
     <!-- Post_entry Info-->
@@ -305,7 +309,7 @@
             </div>
             <div>
                 <strong>Wey Ye</strong>
-                <span>11月 26, 2015</span>
+                <span>7月 20, 2016</span>
             </div>
         </div>
         <div id="post_entry-right-info">
@@ -318,7 +322,7 @@
                 <!-- Comment Number -->
                 &nbsp;|&nbsp;
                 <span class="post_entry-comment" >
-                        <span class="ds-thread-count" data-thread-key="detail/fragment-viewpager嵌套/" data-count-type="comments"></span>
+                        <span class="ds-thread-count" data-thread-key="detail/commit-onCreateView/" data-count-type="comments"></span>
                 </span>
             
             
@@ -334,10 +338,69 @@
 		
 		
     
-		<!-- Index nav -->
-        <nav class="material-nav mdl-cell mdl-cell--12-col">
-            <a class="extend prev" rel="prev" href="/"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"><i class="material-icons" role="presentation">arrow_back</i></button></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-        </nav>
+		
+			<!-- Paradox Thumbnail -->
+        	<div class="post_entry-module mdl-card mdl-cell mdl-cell--12-col fade out">
+    
+    <!-- Post Thumbnail -->
+	
+		
+			<!-- Random Thumbnail -->
+			<div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+		
+	
+				
+		<!-- Post Title -->
+		<p class="article-headline-p"><a href="/detail/sdk-so/">第三方sdk（我的是高德和个推） so库包冲突</a></p>
+	</div>
+
+    <!-- Post Excerpt -->
+    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
+        
+            项目原本只加入高德sdk的时候，获取map，添加marker一切正常 ，可是只要我加入个推sdk后 编译运行 居然报高德地图的错 ，当时了就懵了- -这个是错误日志123java.lang.UnsatisfiedLinkError: No implementation found for long com.autonavi.amap.mapcore.MapCore.nativeNewInstance(java.lang.String, java.lang.String) (tried Java_com_autonavi_amap_mapcore_MapCore_nativeNewInstance and Java_com_autonavi_amap_mapcore_MapCore_nativeNewInstance__Ljava_lang_String_2Ljava_lang_String_2)                                                      at com.autonavi.amap.mapcore.MapCore.nativeNewInstance(Native Method)                                                      at com.autonavi.amap.mapcore.MapCore.newMap(MapCore.java:83
+        
+        &nbsp;&nbsp;&nbsp;
+        <span>
+            <a href="/detail/sdk-so/" target="_self">继续阅读</a>
+        </span>
+    </div>
+    <!-- Post_entry Info-->
+    <div id="post_entry-info">
+        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
+            <!-- Author Avatar -->
+            <div id="author-avatar">
+                <img src="/img/avatar.jpg" width="44px" height="44px" alt="Wey Ye's avatar">
+            </div>
+            <div>
+                <strong>Wey Ye</strong>
+                <span>7月 16, 2016</span>
+            </div>
+        </div>
+        <div id="post_entry-right-info">
+            <!-- Category -->
+            <span class="post_entry-category">
+                
+            </span>
+            
+            
+                <!-- Comment Number -->
+                &nbsp;|&nbsp;
+                <span class="post_entry-comment" >
+                        <span class="ds-thread-count" data-thread-key="detail/sdk-so/" data-count-type="comments"></span>
+                </span>
+            
+            
+            <!-- Post Views -->
+            <span class="post_entry-views">
+                
+            </span>
+        </div>
+    </div>
+            
+</div>
+
+		
+		
     
     
 	

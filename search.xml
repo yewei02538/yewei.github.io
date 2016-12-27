@@ -1,367 +1,12 @@
-<!DOCTYPE html>
-<html>
-    <head>
-    <!-- Title -->
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
     
-    <title>
-        Android走进源码告诉你app是如何被启动的 | Wey Ye的博客
-    </title>
-    
-    <!-- Favicons -->
-    <link rel="icon shortcut" type="image/ico" href="/favicon.ico">
-    <link rel="icon" sizes="192x192" href="/favicon.png">
-    <link rel="apple-touch-icon" href="/favicon.png">
-    
-    <!-- Meta & INfo -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#0097A7">
-    <meta name="author" content="Wey Ye">
-    <meta name="description" content="null">
-    <meta name="keywords" content="android,个人技术博客,移动开发,google">
-    
-    <!--iOS -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <meta name="apple-mobile-web-app-title" content="Title">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="480">
-    
-    <!-- Add to homescreen for Chrome on Android -->
-    <meta name="mobile-web-app-capable" content="yes">
-    
-    <!-- Add to homescreen for Safari on iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Wey Ye的博客">
-    
-    <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://weyye.me">
-    <meta property="og:type" content="blog">
-    <meta property="og:title" content="Android走进源码告诉你app是如何被启动的 | Wey Ye的博客">
-    <meta property="og:description" content="null">
-    
-     <!--[if lte IE 9]>
-        <link rel="stylesheet" href="/css/ie-blocker.css">
-        
-        
-            <script src="/js/ie-blocker.zhCN.js"></script>
-        
-    <![endif]-->
-    
-    <!-- Import CSS -->
-    <link rel="stylesheet" href="/css/material.min.css">
-    <link rel="stylesheet" href="/css/style.min.css">
-    <!-- Config CSS -->
-
-
-<!-- Other Styles -->
-<style>
-	body, html{
-		font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-	}
-	
-    a{
-        color: #00838F
-    }
-    
-    .mdl-card__media,
-    #search-label,
-    #search-form-label:after,
-    #scheme-Paradox .hot_tags-count,
-    #scheme-Paradox .sidebar_archives-count,
-    #scheme-Paradox .sidebar-colored .sidebar-header,
-    #scheme-Paradox .sidebar-colored .sidebar-badge{
-        background-color: #0097A7 !important
-    }
-    
-	/* Sidebar User Drop Down Menu Text Color */
-	#scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
-    #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus{
-        color: #0097A7 !important
-    }
-    
-    #post_entry-right-info,
-    .sidebar-colored .sidebar-nav li:hover > a,
-    .sidebar-colored .sidebar-nav li:hover > a i,
-    .sidebar-colored .sidebar-nav li > a:hover,
-    .sidebar-colored .sidebar-nav li > a:hover i,
-    .sidebar-colored .sidebar-nav li > a:focus i,
-    .sidebar-colored .sidebar-nav > .open > a,
-    .sidebar-colored .sidebar-nav > .open > a:hover,
-    .sidebar-colored .sidebar-nav > .open > a:focus,
-    #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a{
-        color: #0097A7 !important
-    }
-    
-    .toTop{
-        background: #757575 !important
-    }
-		
-	.material-layout .material-post>.material-nav,
-	.material-layout .material-index>.material-nav,
-	.material-nav a{
-		color: #757575;
-	}
-		
-	#scheme-Paradox .MD-burger-layer {
-		background-color: #757575;
-	}
-
-	#scheme-Paradox #post-toc-trigger-btn{
-		color: #757575;
-	}
-	
-	.post-toc a:hover{
-		color: #00838F;
-		text-decoration: underline;
-	}
-</style>
-
-
-<!-- Theme Background Related-->
-
-    <style>
-        body{
-            background-color: #F5F5F5
-        }
-		
-		/* blog_info bottom background */
-        #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
-            background-color: #fff;
-        }
-    </style>
-
-
-
-
-<!-- Fade Effect -->
-
-    <style>
-        .fade {
-            transition: all 800ms linear;
-            -webkit-transform: translate3d(0,0,0);
-            -moz-transform: translate3d(0,0,0);
-            -ms-transform: translate3d(0,0,0);
-            -o-transform: translate3d(0,0,0);
-            transform: translate3d(0,0,0);
-            opacity: 1;
-        }
-
-        .fade.out{
-            opacity: 0;
-        }
-    </style>
-
-	<script src="/js/jquery.min.js"></script>
-	
-	<link rel="stylesheet" href="/css/highlight/solarized-white.css">
-	
-	<!-- UC Browser Compatible-->
-	<script>
-		var agent = navigator.userAgent.toLowerCase();
-		if(agent.indexOf('ucbrowser')>0) {
-			document.write('<link rel="stylesheet" href="/css/uc.css">');
-		   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
-		}
-	</script>
-    
-    <!-- Custom Head -->
-    
-        
-			<!-- baidu_analytics -->
-			<script> var _hmt = _hmt || []; (function() { var hm = document.createElement('script'); hm.src = 'https://hm.baidu.com/hm.js?b7e5f6ac58c952eaf3e7b49fb65496f8'; var s = document.getElementsByTagName('script')[0];  s.parentNode.insertBefore(hm, s); })(); </script>
-        
-    
-</head>
-	
-	
-
-    <body id="scheme-Paradox">
-
-		
-        <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
-				
-			
-			
-            <!-- Main Container -->
-            <main class="material-layout__content" id="main">
-				
-                <!-- Top Anchor -->
-                <div id="top"></div>
-				
-				
-                <!-- Hamburger Button -->
-                <button class="MD-burger-icon sidebar-toggle">
-                    <span class="MD-burger-layer"></span>
-                </button>
-				
-				
-                <!-- Post TOC -->
-
-    
-	<!-- Back Button -->
-<!--
-	<div class="material-back" id="backhome-div" tabindex="0">
-		<a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="#" onclick="window.history.back();return false;" target="_self" role="button" data-upgraded=",MaterialButton,MaterialRipple">
-			<i class="material-icons" role="presentation">arrow_back</i>
-			<span class="mdl-button__ripple-container">
-				<span class="mdl-ripple"></span>
-			</span>
-		</a>
-	</div>			
--->
-	<!-- Left aligned menu below button -->
-	<button id="post-toc-trigger-btn"
-			class="mdl-button mdl-js-button mdl-button--icon">
-	  <i class="material-icons">format_list_numbered</i>
-	</button>
-
-	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
-		for="post-toc-trigger-btn">
-			
-			<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#"><span class="post-toc-number">2.</span> <span class="post-toc-text"></span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#主要流程"><span class="post-toc-number">3.</span> <span class="post-toc-text">主要流程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#App的程序入口"><span class="post-toc-number">4.</span> <span class="post-toc-text">App的程序入口</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为什么主线程使用Looper-loop-不会堵塞"><span class="post-toc-number">5.</span> <span class="post-toc-text">为什么主线程使用Looper.loop()不会堵塞</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ActivityThread-attach"><span class="post-toc-number">6.</span> <span class="post-toc-text">ActivityThread.attach()</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Activity是怎样启动的"><span class="post-toc-number">7.</span> <span class="post-toc-text">Activity是怎样启动的</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Android-Studio查看源码的小技巧"><span class="post-toc-number">8.</span> <span class="post-toc-text">Android Studio查看源码的小技巧</span></a></li></ol>
-		
-<!--			<li class="mdl-menu__item">Some Action</li>-->
-	</ul>
-
-
-
-<!-- Layouts -->
-
-    <!-- Post Module -->
-    <div class="material-post_container">
-		
-        <div class="material-post mdl-grid">
-            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
-
-                <!-- Post Header(Thumbnail & Title) -->
-                
-	<!-- Paradox Post Header -->
-	
-		
-			<!-- Random Thumbnail -->
-			<div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-				<script>
-    
-    var randomNum;
-    randomNum = Math.floor(Math.random() * 5 + 1);
-    
-    $(".post_thumbnail-random").css('background-image', 'url(' + '/img/random/' + randomNum + '.png' + ')');
-    
-</script>
-
-		
-	
-        <p class="article-headline-p">
-            Android走进源码告诉你app是如何被启动的
-        </p>
-    </div>
-
-	
-
-				
-				
-					<!-- Paradox Post Info -->
-					<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-    
-    <!-- Author Avatar -->
-    <div id="author-avatar">
-        <img src="/img/avatar.jpg" width="44px" height="44px" alt="Author Avatar"/>
-    </div>
-    <!-- Author Name & Date -->
-    <div>
-        <strong>Wey Ye</strong>
-        <span>12月 26, 2016</span>
-    </div>
-    
-    <div class="section-spacer"></div>
-	
-    <!-- Favorite -->
-<!--
-    <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
-        <i class="material-icons" role="presentation">favorite</i>
-        <span class="visuallyhidden">favorites</span>
-    </button>
--->
-
-    <!-- Qrcode -->
-    
-
-
-    <!-- Tags (bookmark) -->
-    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-        <i class="material-icons" role="presentation">bookmark</i>
-        <span class="visuallyhidden">bookmark</span>
-    </button>
-    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
-        <li class="mdl-menu__item">
-        
-    </ul>
-    
-    <!-- Share -->
-    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-    <i class="material-icons" role="presentation">share</i>
-    <span class="visuallyhidden">share</span>
-</button>
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
-
-    
-
-    
-
-    <!-- Share Twitter -->
-    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Android走进源码告诉你app是如何被启动的&url=http://weyye.me//detail/android-source-activity-oncreate/index.html&via=Wey Ye" target="_blank">
-        <li class="mdl-menu__item">
-            分享到 Twitter
-        </li>
-    </a>
-
-    <!-- Share Google+ -->
-    <a class="post_share-link" href="https://plus.google.com/share?url=http://weyye.me//detail/android-source-activity-oncreate/index.html" target="_blank">
-        <li class="mdl-menu__item">
-            分享到 Google+
-        </li>
-    </a>
-
-    <!-- Share Weibo -->
-    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Android走进源码告诉你app是如何被启动的&url=http://weyye.me//detail/android-source-activity-oncreate/index.html&pic=&searchPic=false&style=simple" target="_blank">
-        <li class="mdl-menu__item">
-            分享到微博
-        </li>
-    </a>
-
-    <!-- Share LinkedIn -->
-    <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://weyye.me//detail/android-source-activity-oncreate/index.html&title=Android走进源码告诉你app是如何被启动的" target="_blank">
-        <li class="mdl-menu__item">
-            分享到 LinkedIn
-        </li>
-    </a>
-
-    <!-- Share QQ -->
-    <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Wey Ye的博客&title=Android走进源码告诉你app是如何被启动的&summary=null&pics=http://weyye.me/favicon.ico&url=http://weyye.me/detail/android-source-activity-oncreate/index.html" target="_blank">
-        <li class="mdl-menu__item">
-            分享到 QQ
-        </li>
-    </a>
-
-    <!-- Share Telegram -->
-    <a class="post_share-link" href="https://telegram.me/share/url?url=http://weyye.me/detail/android-source-activity-oncreate/index.html&text=Android走进源码告诉你app是如何被启动的" target="_blank">
-        <li class="mdl-menu__item">
-            分享到 Telegram
-        </li>
-    </a>
-</ul>
-
-</div>
-				
-
-                <!-- Post Content -->
-                <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
-	
-		<blockquote>
+    <entry>
+      <title><![CDATA[Android走进源码告诉你app是如何被启动的]]></title>
+      <url>http://weyye.me/detail/android-source-activity-oncreate/</url>
+      <content type="html"><![CDATA[<blockquote>
 <p>转载请标明出处： <a href="http://www.weyye.me/detail/android-source-activity-oncreate/" target="_blank" rel="external">http://www.weyye.me/detail/android-source-activity-oncreate/</a><br>本文出自:<a href="http://weyye.me">【Wey Ye的博客】</a></p>
 </blockquote>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
@@ -516,477 +161,350 @@
 <blockquote>
 <p>博主整理不易，转载请注明出处:<br><a href="http://www.weyye.me/detail/android-source-activity-oncreate/" target="_blank" rel="external">http://www.weyye.me/detail/android-source-activity-oncreate/</a></p>
 </blockquote>
-
-	
-	
-	
-	
-</div>
-				
-				
-
-                <!-- Post Comments -->
-                
-                    
-    <!-- 使用多说评论 -->
-    <link rel="stylesheet" href="/css/duoshuo.min.css">
-<style>
-    #ds-thread #ds-reset .ds-post-button{
-        background-color: #0097A7 !important;
-    }
-    #ds-wrapper #ds-reset .ds-icons-32{
-        background-color: #0097A7 !important;
-    }
-    #ds-reset .ds-highlight {
-        color: #0097A7 !important;
-    }
-</style>
-<div id="comments">
-    <!-- 多说评论框 start -->
-        <div class="ds-thread" 
-            data-thread-key="detail/android-source-activity-oncreate/" 
-            data-url="http://weyye.me/detail/android-source-activity-oncreate/"
-            data-title="Android走进源码告诉你app是如何被启动的"></div>
-    <!-- 多说评论框 end -->
-</div>
-
-
-
-                
-            </div>
-
-            <!-- Post Prev & Next Nav -->
-            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+]]></content>
+    </entry>
     
-    <!-- Prev Nav -->
+    <entry>
+      <title><![CDATA[说说使用腾讯地图sdk遇到的那些坑]]></title>
+      <url>http://weyye.me/detail/duplicate-files-copied/</url>
+      <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前做项目一直使用的高德地图，这次做的项目客户必须使用腾讯地图，然后又去折腾了下腾讯地图，说说我遇到的哪些bug</p>
+<h2 id="Bug1-使用RxJava集成sdk报错"><a href="#Bug1-使用RxJava集成sdk报错" class="headerlink" title="Bug1:使用RxJava集成sdk报错"></a>Bug1:使用RxJava集成sdk报错</h2><p>由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几个项目都用的是Rxjava，但是当我导入腾讯地图sdk后，却报了这个错</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Error:Execution failed <span class="keyword">for</span> task <span class="string">':app:transformResourcesWithMergeJavaResForDebug'</span>.</div><div class="line">&gt; com.android.build.api.transform.TransformException: com.android.builder.packaging.DuplicateFileException: Duplicate files copied in APK META-INF/rxjava.properties</div><div class="line">	File1: E:\Android Project\YiBangKe\app\libs\TencentMapSDK_Vector_v3.0.4.jar</div><div class="line">	File2: C:\Users\Administrator\.gradle\caches\modules-<span class="number">2</span>\files-<span class="number">2.1</span>\io.reactivex\rxjava\<span class="number">1.1</span>.1\b494968f6050d494de55dc3ce005e59c7eb40012\rxjava-<span class="number">1.1</span>.1.jar</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>报错原因应该是因为腾讯地图也加入了RxJava</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>在app的<code>build.gradle</code>下面加入</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    packagingOptions &#123;</div><div class="line">        exclude <span class="string">'META-INF/rxjava.properties'</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Bug2-getMap-空指针"><a href="#Bug2-getMap-空指针" class="headerlink" title="Bug2:getMap()空指针"></a>Bug2:getMap()空指针</h2><p>使用地图官方建议是使用的SupportMapFragment,于是乎按照官方demo代码写下来</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">FragmentManager fm = getSupportFragmentManager();</div><div class="line">		SupportMapFragment map = (SupportMapFragment)fm.findFragmentById(R.id.frag_map);</div><div class="line">		tencentMap = map.getMap();</div><div class="line">		tencentMap.moveCamera(CameraUpdateFactory.newCameraPosition(<span class="keyword">new</span> </div><div class="line">				CameraPosition(<span class="keyword">new</span> LatLng(<span class="number">34.611524</span>,<span class="number">105.058565</span>), <span class="number">3</span>, <span class="number">0</span>, <span class="number">0</span>)));</div><div class="line">		tencentMap.getUiSettings().setZoomControlsEnabled(<span class="keyword">false</span>);</div></pre></td></tr></table></figure>
+<p>这个是布局</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;fragment</div><div class="line">        android:id=<span class="string">"@+id/frag_map"</span></div><div class="line">        <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.tencent.tencentmap.mapsdk.maps.SupportMapFragment"</span></div><div class="line">        android:layout_width=<span class="string">"match_parent"</span></div><div class="line">        android:layout_height=<span class="string">"match_parent"</span>/&gt;</div></pre></td></tr></table></figure>
+<p>然后运行后报了下面这个错误</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Caused by: java.lang.NullPointerException: Attempt to invoke virtual method <span class="string">'com.tencent.tencentmap.mapsdk.maps.TencentMap com.tencent.tencentmap.mapsdk.maps.MapView.getMap()'</span> on a <span class="keyword">null</span> object reference</div><div class="line"><span class="number">09</span>-<span class="number">28</span> <span class="number">17</span>:<span class="number">46</span>:<span class="number">03.824</span> <span class="number">10311</span>-<span class="number">10311</span>/com.baishan.yibangke W/System.err:     at com.tencent.tencentmap.mapsdk.maps.SupportMapFragment.getMap(SupportMapFragment.java:<span class="number">65</span>)</div><div class="line"><span class="number">09</span>-<span class="number">28</span> <span class="number">17</span>:<span class="number">46</span>:<span class="number">03.824</span> <span class="number">10311</span>-<span class="number">10311</span>/com.baishan.yibangke W/System.err:     at com.baishan.yibangke.presenter.MainPresenter.initMap(MainPresenter.java:<span class="number">47</span>)</div><div class="line"><span class="number">09</span>-<span class="number">28</span> <span class="number">17</span>:<span class="number">46</span>:<span class="number">03.824</span> <span class="number">10311</span>-<span class="number">10311</span>/com.baishan.yibangke W/System.err:     at com.baishan.yibangke.ui.fragment.MainFragment.processLogic(MainFragment.java:<span class="number">74</span>)</div></pre></td></tr></table></figure>
+<p>MapView.getMap()是个空对象，也就是MapView，这个怎么会是null?我就奇了怪了，然后就看了下<code>SupportMapFragment</code>的代码</p>
+<p><img src="/img/20160928174539.png" alt=""></p>
+<p>也就是<code>mapV</code>是空，我们在看下在哪里赋值</p>
+<p><img src="/img/20160928174704.png" alt=""></p>
+<p>在这里初始化了 ，我们在继续跟踪看谁调用了这个方法</p>
+<p><img src="/img/20160928174805.png" alt=""></p>
+<p><code>newInstance</code>调用了，可是demo里面根本没有调用这个方法啊。。。你不说这谁知道。。。</p>
+<h2 id="解决办法-1"><a href="#解决办法-1" class="headerlink" title="解决办法"></a>解决办法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">FragmentManager fm = getActivity().getSupportFragmentManager();</div><div class="line">        SupportMapFragment mapFragment=SupportMapFragment.newInstance(getActivity());</div><div class="line">        fm.beginTransaction().add(R.id.fl_content, mapFragment).commit();</div></pre></td></tr></table></figure>
+<p>在获取map之前手动掉一次，让它初始化即可</p>
+]]></content>
+    </entry>
     
-
-    <!-- Section Spacer -->
-    <div class="section-spacer"></div>
-
-    <!-- Next Nav -->
-    
-        <a href="/detail/duplicate-files-copied/" id="post_nav-older" class="next-content">
-            旧篇
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
-    
-</nav>
-        </div>
-    </div>
-
-				
-				
-					<!-- Overlay For Active Sidebar -->
-<div class="sidebar-overlay "></div>
-
-<!-- Material sidebar -->
-<aside id="sidebar" class="sidebar sidebar-colored  sidebar-fixed-left" role="navigation">
-	<div id="sidebar-main">
-	    <!-- Sidebar Header -->
-		<div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
-    <!-- Top bar -->
-    <div class="top-bar"></div>
-
-    <!-- Sidebar toggle button -->
-    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
-    <i class="material-icons">clear_all</i>
-    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
-
-    <!-- Sidebar Avatar -->
-    <div class="sidebar-image">
-        <img src="/img/avatar.jpg" alt="Wey Ye's avatar">
-    </div>
-
-    <!-- Sidebar Email -->
-    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
-        yewei02538@163.com
-        <b class="caret"></b>
-    </a>
-</div>
-
-		<!-- Sidebar Navigation  -->
-		<ul class="nav sidebar-nav">
-    <!-- User dropdown  -->
-    <li class="dropdown">
-        <ul id="settings-dropdown" class="dropdown-menu">
-			
-                <li>
-                    <a href="#" target="_blank" title="Email Me">
-						<i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
-                        Email Me
-                    </a>
-                </li>
-            
-        </ul>
-    </li>
-
-    <!-- Homepage -->
-    <li id="sidebar-first-li">
-        <a href="/" target="_self">
-            <i class="material-icons sidebar-material-icons">home</i>
-             主页
-        </a>
-    </li>
-
-    <!-- I'm Feeling Lucky -->
-<!--
-    <li class="dropdown">
-        <a href="" target="_self">
-            <i class="material-icons sidebar-material-icons">explore</i>
-             sidebar.imlucky
-        </a>
-    </li>
--->
-
-	
-    <!-- Archives  -->
-    <li class="dropdown">
-        <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
-            <i class="material-icons sidebar-material-icons">inbox</i>
-             归档
-            <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
-            <li>
-            <a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">1</span></a>
-        </ul>
-    </li>
-
-    <!-- Divider -->
-    <li class="divider"></li>
-
-
-    <!-- Pages  -->
-	
-		<li>
-			<a href="https://github.com/yewei02538" title="github">
-				github
-			</a>
-		</li>
-	
-		<li>
-			<a href="/about" title="关于我">
-				关于我
-			</a>
-		</li>
-	
-
-    <!-- Article Numebr  -->
-    <li>
-        <a href="/archives">
-             文章总数
-             <span class="sidebar-badge">12</span>
-        </a>
-    </li>
+    <entry>
+      <title><![CDATA[Android破解高德地图sdk使用map免key]]></title>
+      <url>http://weyye.me/detail/crack-amap/</url>
+      <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>开发项目中，经常会使用到地图，于是我会使用一些第三方的sdk，但是基本上所有的sdk使用时都需要申请key，填包名和sha1值，使(Ji)用(Qi)方(Fan)便(Suo)。作为一个android攻城狮，简直不能忍啊，于是乎看了下源码，决定破解一下，演示使用的是高德地图，至于百度，呵呵，下面看我慢慢道来</p>
+<h2 id="所需工具"><a href="#所需工具" class="headerlink" title="所需工具"></a>所需工具</h2><ul>
+<li>高德地图sdk最新版AMap_3DMap_V4.0.1_20160923.jar</li>
+<li>Android Studio</li>
+<li><a href="http://pan.baidu.com/s/1jIRnpGy" target="_blank" rel="external">jd-gui</a></li>
 </ul>
-
-		<!-- Sidebar Divider -->
-		<div class="sidebar-divider"></div>
-
-		<!-- Sidebar Footer -->
-		<!-- 
-I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
-If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
-It will not impact the appearance and can give developers a lot of support :)
-
-很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
-如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
-它不会影响美观并可以给开发者很大的支持。 :) 
--->
-
-<!-- Theme Material -->
-<a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
-	<div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
-		主题 - Material
-		<span class="sidebar-badge badge-circle">i</span>
-	</div>
-</a>
-
-<!-- Help & Support -->
-<!--
-<a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
-    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
-		sidebar.help
-		<span class="mdl-button__ripple-container">
-			<span class="mdl-ripple"></span>
-		</span>
-	</div>
-</a>
--->
-
-<!-- Feedback -->
-<!--
-<a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
-    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
-         sidebar.feedback
-                    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
-</a>
--->
-
-<!-- Abount Theme -->
-<!--
-<a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
-    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
-         sidebar.about_theme
-        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
-</a>-->
-
-	</div>
+<h2 id="分析代码"><a href="#分析代码" class="headerlink" title="分析代码"></a>分析代码</h2><p>在使用高德地图sdk的时候需要我们申请这个key，而这个key是需要我们提供包名和签名的sha1值生成的 因此 ，sdk在校验的时候肯定需要以下3个条件</p>
+<ul>
+<li>签名的sha1值</li>
+<li>包名</li>
+<li>申请成功的key</li>
+</ul>
+<a id="more"></a>
+<p><a href="appkeyhttp://lbs.amap.com/dev/" target="_blank" rel="external">戳我申请</a></p>
+<p>那么我们如果找到高德地图sdk的入口了，申请了一个key，可不可以写死在代码里面呢？这样就可以免去每次申请的烦恼，那么我们来尝试一下</p>
+<p>首先我们打开jd-gui,然后从把从官网下下来最新的jar包拖进去，来看下jar包的目录结构</p>
+<p><img src="/img/20160926145358.png" alt=""></p>
+<p>我去，这么多，而且都是混淆过的，难道你要我一个个的找吗？No！这个当然是有技巧的。首先我们来思考一下</p>
+<ul>
+<li><p>为什么我们需要申请到的key</p>
+</li>
+<li><p>申请key的时候，为什么还要输入包名和sha1值，我乱填不行吗</p>
+</li>
+</ul>
+<p>答案是 当然不行，当我们输入包名和sha1值提交的时候，其实在后台已经产生一条数据，标示着用这个sha1的签名生成出对应包名的app才可以使用。</p>
+<p>既然高德要获取包名，那么我们平时是怎么样获取app的包名的呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), <span class="number">64</span>);</div><div class="line">String packageName=packageInfo.packageName;</div></pre></td></tr></table></figure>
+<p>那么我们不妨搜索一下<code>packageName</code></p>
+<p>按下快捷键ctrl+shift+s,打开搜索界面搜索 <code>packageName</code></p>
+<p><img src="/img/20160926152501.png" alt=""></p>
+<p>这只隐藏深处的小精灵被我抓到了 ，哈哈</p>
+<p>ok，双击打开看下代码</p>
+<p><img src="/img/20160926152955.png" alt=""></p>
+<p>关键的地方我已经框出来了，其意思 先判断全局变量<code>e</code> 有没有值，有值直接返回，没有就获取自身app的签名的sha1和包名，然后用:去连接，最后<code>return e;</code> ，ok，找到这个全局变量我们把这个变量写死</p>
+<h2 id="修改代码"><a href="#修改代码" class="headerlink" title="修改代码"></a>修改代码</h2><p>使用 Android Studio 新建一个 Android Library 的 Module ，包名与  jar 包要修改的类包名相同,新建一个类，与要修改的类名相同</p>
+<p><img src="/img/20160926154945.png" alt=""></p>
+<p>复制我们jd-gui中找到的class的内容到我们新建的类中，同时将 SDK 的 jar 包作为这个 Module 的依赖包，保证这个 Module 可以正常编译</p>
+<p>我们修改变量e的值也就是 sha1:packageName，</p>
+<p>观察这个类发现全是静态方法，由此可判断是工具类，所以key应该也会在这里面获取，我在继续查看下代码</p>
+<p><img src="/img/20160926155811.png" alt=""></p>
+<p>这个就是获取我们在<code>AndroidManifest</code>填入的key，我们继续把这个变量写死，填入我们的key</p>
+<p>sha1有了，key有了，我们在来修改下包名，我们继续找</p>
+<p><img src="/img/20160926160211.png" alt=""></p>
+<p>我们继续修改b的值</p>
+<p><img src="/img/20160926160355.png" alt=""></p>
+<p>ok，大功告成。我们来打包成jar包，那么Android Studio 如何打包 jar 呢？</p>
+<p>我们在这个修改的用来修改的 Module 的 build.gradle 中添加以下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function">task <span class="title">makeJar</span><span class="params">(type: Copy)</span> </span>&#123;</div><div class="line"></div><div class="line">    delete <span class="string">'build/libs/lib.jar'</span></div><div class="line"></div><div class="line">    from(<span class="string">'build/intermediates/bundles/release/'</span>)</div><div class="line"></div><div class="line">    into(<span class="string">'build/libs/'</span>)</div><div class="line"></div><div class="line">    include(<span class="string">'classes.jar'</span>)</div><div class="line"></div><div class="line">    rename (<span class="string">'classes.jar'</span>, <span class="string">'lib.jar'</span>)</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">makeJar.dependsOn(build)</div></pre></td></tr></table></figure>
+<p>在工程目录下执行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">gradlew makeJar</div></pre></td></tr></table></figure>
+<p><img src="/img/20160926162721.png" alt=""></p>
+<p>即可得到 jar 文件</p>
+<p><img src="/img/20160926162806.png" alt=""></p>
+<p>用压缩软件打开<code>lib.jar</code>和<code>AMap_3DMap_V4.0.1_20160923</code></p>
+<p>找到<code>lib.jar</code>的<code>eu.class</code> 替换 到<code>AMap_3DMap_V4.0.1_20160923</code>里的<code>eu.class</code></p>
+<p><img src="/img/20160926163211.png" alt=""></p>
+<p>大功告成~</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>使用修改后的 SDK jar 包替换原来的 jar 包进行地图测试</p>
+<p>测试成功,包名和签名可以随意换咯，再也不用麻烦的每次申请 key 啦！</p>
+<p><img src="/img/20160926164713.png" alt=""></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p><a href="https://github.com/yewei02538/AmapDemo" target="_blank" rel="external">戳我传送GitHub</a></p>
+<blockquote>
+<p>demo中定位也是破解后免key，下一篇会讲解如何定位免key</p>
+</blockquote>
+]]></content>
+    </entry>
     
-    <!-- Sidebar Sponsor -->
+    <entry>
+      <title><![CDATA[修改hosts进入google世界]]></title>
+      <url>http://weyye.me/detail/my-google-search/</url>
+      <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>自从google退出中国市场后，很多人使用百度搜索，但是作为程序员的我们，应该去使用google搜索，因为很多资料是百度搜索不到的，而且没有广告，毕竟墙外的世界是非常精彩滴。</p>
+<h2 id="如何科学上网"><a href="#如何科学上网" class="headerlink" title="如何科学上网"></a>如何科学上网</h2><ul>
+<li>VPN： 这里不多做介绍</li>
+<li>google浏览器插件：之前可以，现在很多插件都没和谐了</li>
+<li>修改系统hosts： 这个是最简单粗暴的，而且速度又快，谁用谁知道</li>
+</ul>
+<h2 id="hosts下载地址"><a href="#hosts下载地址" class="headerlink" title="hosts下载地址"></a>hosts下载地址</h2><blockquote>
+<p>IP有一段的时效性，并不能保证能永久使用，我会持续更新最新的hosts的文件提供给大家</p>
+</blockquote>
+<p><a href="http://weyye.me/download/hosts.zip">下载地址</a></p>
+<a id="more"></a>
+<h2 id="修改系统hosts"><a href="#修改系统hosts" class="headerlink" title="修改系统hosts"></a>修改系统hosts</h2><p>1、找到hosts这个文件，在Windows 系统下是位于C盘/windows/system32/drivers/etc目录里。</p>
+<p><img src="/img/20160923165124.png" alt=""></p>
+<p>2、把下载下来的<code>hosts.zip</code>解压后得到hosts，然后直接覆盖就可以了</p>
+<h2 id="进入google世界"><a href="#进入google世界" class="headerlink" title="进入google世界"></a>进入google世界</h2><p>接下来，你就可以google搜索啦~</p>
+<p>输入 <a href="https://www.google.com/" target="_blank" rel="external">https://www.google.com/</a></p>
+<p><img src="/img/20160923165742.png" alt=""></p>
+<p>然后就成功看到熟悉的google啦</p>
+<p><img src="/img/20160923165725.png" alt=""></p>
+<blockquote>
+<p>如果还是不行的朋友，可以输入<a href="https://www.google.com/ncr" target="_blank" rel="external">https://www.google.com/ncr</a></p>
+</blockquote>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>作为了一名技术人，请大家一定要使用 Google ，虽然现在被墙，但是我坚信终有一天 Google 会回归，也许十年之后，也许五十年之后… </p>
+]]></content>
+    </entry>
     
-
-
-</aside>
-
-				
-				
-				
-					<!-- Footer Top Button -->
-					<div class="toTop-wrap">
-    <a href="#top" class="toTop">
-        <i class="material-icons footer_top-i">expand_less</i>
-    </a>
-</div>
-				
-				
-				<!--Footer-->
-<footer class="mdl-mini-footer" id="bottom">
-	
-	
-		<!-- Paradox Footer Left Section -->
-		<div class="mdl-mini-footer--left-section sns-list">
-    <!-- Twitter -->
+    <entry>
+      <title><![CDATA[Android通用的EmptyLayout-展示不用状态的界面]]></title>
+      <url>http://weyye.me/detail/empty-layout/</url>
+      <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在做项目的时候，经常会遇到列表数据为空的时候展示的空布局，如果你用的是<code>ListView</code> ,目测会经常使用<code>ListView</code>的一个方法<code>setEmptyView</code> ,如果你用的是<code>RecyclerView</code>,你也许会用自定义View来实现，但是，这些方法虽然使用起来简单，但是如果你提供一个复杂的布局，例如：</p>
+<blockquote>
+<p>在数据加载失败后，添加一个Button让用户可以选择重新加载数据。</p>
+</blockquote>
+<p>你肯定会说，findviewbyId找到这个button，给它设置点击事件，一个两个可以接受，但是，界面多了呢？ 那你说了那么多，有没有好的解决办法呢？ 当然有 而且是几行代码搞定的<br><a id="more"></a></p>
+<h2 id="自定义View"><a href="#自定义View" class="headerlink" title="自定义View"></a>自定义View</h2><p>接下来就是重头戏 开始编码了 ，首先我们需要继承<code>FrameLayout</code>来实现这样的布局</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmptyLayout</span> <span class="keyword">extends</span> <span class="title">FrameLayout</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EmptyLayout</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>(context, <span class="keyword">null</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EmptyLayout</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>(context, attrs, <span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EmptyLayout</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>为了灵活性，我自定义属性来添加所需要的布局，<code>values</code>下面新建<code>attrs.xml</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&lt;resources&gt;</div><div class="line">    &lt;declare-styleable name="EmptyLayout"&gt;</div><div class="line">        &lt;attr name="elEmptyLayout"  format="reference"/&gt;</div><div class="line">        &lt;attr name="elErrorLayout"  format="reference"/&gt;</div><div class="line">        &lt;attr name="elLoadingLayout"  format="reference"/&gt;</div><div class="line">    &lt;/declare-styleable&gt;</div><div class="line">&lt;/resources&gt;</div></pre></td></tr></table></figure>
+<p>然后我们以此找到这些布局，并且添加进去</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmptyLayout</span> <span class="keyword">extends</span> <span class="title">FrameLayout</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span>  Context mContext;</div><div class="line">    <span class="keyword">private</span> View mEmptyView;</div><div class="line">    <span class="keyword">private</span> View mBindView;</div><div class="line">    <span class="keyword">private</span> View mErrorView;</div><div class="line">    <span class="keyword">private</span> Button mBtnReset;</div><div class="line">    <span class="keyword">private</span> View mLoadingView;</div><div class="line">    <span class="keyword">private</span> View loadingView;</div><div class="line">    <span class="keyword">private</span> TextView mEmptyText;</div><div class="line">    <span class="keyword">private</span> TextView tvLoadingText;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EmptyLayout</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>(context, <span class="keyword">null</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EmptyLayout</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>(context, attrs, <span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EmptyLayout</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(context, attrs, defStyleAttr);</div><div class="line">        <span class="keyword">this</span>.mContext=context;</div><div class="line"></div><div class="line">        LayoutParams params = <span class="keyword">new</span> LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);</div><div class="line">        <span class="comment">//居中</span></div><div class="line">        params.gravity = Gravity.CENTER;</div><div class="line"></div><div class="line">        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.EmptyLayout, <span class="number">0</span>, <span class="number">0</span>);</div><div class="line">        <span class="comment">//数据为空时的布局</span></div><div class="line">        <span class="keyword">int</span> emptyLayout = ta.getResourceId(R.styleable.EmptyLayout_elEmptyLayout, R.layout.layout_empty);</div><div class="line">        mEmptyView = View.inflate(context, emptyLayout, <span class="keyword">null</span>);</div><div class="line">        mEmptyText =(TextView)mEmptyView.findViewById(R.id.tvEmptyText);</div><div class="line">        addView(mEmptyView,params);</div><div class="line"></div><div class="line">        <span class="comment">//加载中的布局</span></div><div class="line">        <span class="keyword">int</span> loadingLayout = ta.getResourceId(R.styleable.EmptyLayout_elLoadingLayout, R.layout.layout_loading);</div><div class="line">        mLoadingView = View.inflate(context, loadingLayout, <span class="keyword">null</span>);</div><div class="line">        tvLoadingText =(TextView)mLoadingView.findViewById(R.id.tvLoadingText);</div><div class="line">        addView(mLoadingView,params);</div><div class="line"></div><div class="line">        <span class="comment">//错误时的布局</span></div><div class="line">        <span class="keyword">int</span> errorLayout = ta.getResourceId(R.styleable.EmptyLayout_elErrorLayout, R.layout.layout_error);</div><div class="line">        mErrorView = View.inflate(context, errorLayout, <span class="keyword">null</span>);</div><div class="line">        mBtnReset =(Button)mErrorView.findViewById(R.id.btnReset);</div><div class="line">        addView(mErrorView, params);</div><div class="line"></div><div class="line">        <span class="comment">//全部隐藏</span></div><div class="line">        setGone();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	* 全部隐藏</div><div class="line">	*/</div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setGone</span><span class="params">()</span> </span>&#123;</div><div class="line">        mEmptyView.setVisibility(View.GONE);</div><div class="line">        mErrorView.setVisibility(View.GONE);</div><div class="line">        mLoadingView.setVisibility(View.GONE);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>简单说下几个变量的作用<br><code>mEmptyView</code> 表示数据为空的时候展示给用户<br><code>mEmptyText</code> 数据为空提示的文字<br><code>mErrorView</code> 加载错误展示给用户<br><code>mBtnReset</code> 加载错误重新加载的按钮<br><code>mLoadingView</code> 加载中展示给用户<br><code>tvLoadingText</code> 加载中提示的文字<br><code>mBindView</code> 我们要绑定的view</p>
+<p>至此还需要重写一个方法,</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canScrollVertically</span><span class="params">(<span class="keyword">int</span> direction)</span> </span>&#123;</div><div class="line">     <span class="keyword">return</span> mBindView.getVisibility()==VISIBLE?mBindView.canScrollVertically(direction):<span class="keyword">super</span>.canScrollVertically(direction);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>如果加载成功，过度滑动会调用<code>mBindView</code>的<code>canScrollVertically</code>,没有则调用父类的<code>canScrollVertically</code></p>
+<p>如果没有重写,添加SwipeRefreshLayout下拉刷新会报错，</p>
+<p>在此谢谢<a href="">丁大哥</a>提出来的bug</p>
+<p>好了，首先我们找到布局，然后添加进去，如果没有，添加默认的布局。至此，布局已经完成，那怎么控制呢？我们想要的是什么效果呢？</p>
+<blockquote>
+<p>在数据正在加载的时候调用loading方法，显示正在加载中的文本。<br>在数据加载成，隐藏该view。<br>在数据加载失败，显示加载失败的文本，并提供一个按钮去刷新数据。</p>
+</blockquote>
+<p>ok，我们按照这个条目一个个的来实现，首先是loading。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showLoading</span><span class="params">(String text)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (mBindView != <span class="keyword">null</span>) mBindView.setVisibility(View.GONE);</div><div class="line">    <span class="keyword">if</span> (!TextUtils.isEmpty(text)) tvLoadingText.setText(text);</div><div class="line">    setGone();</div><div class="line">    mLoadingView.setVisibility(View.VISIBLE);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showLoading</span><span class="params">()</span> </span>&#123;</div><div class="line">    showLoading(<span class="keyword">null</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>首先判断下我们要绑定view是不是为空，不为空则隐藏它，隐藏其他布局，然后展示loadingview</p>
+<p>那加载失败了呢？同样简单！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showError</span><span class="params">()</span> </span>&#123;</div><div class="line">       showError(<span class="keyword">null</span>);</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showError</span><span class="params">(String text)</span> </span>&#123;</div><div class="line">       <span class="keyword">if</span> (mBindView != <span class="keyword">null</span>) mBindView.setVisibility(View.GONE);</div><div class="line">       <span class="keyword">if</span> (!TextUtils.isEmpty(text)) mBtnReset.setText(text);</div><div class="line">       setGone();</div><div class="line">       mErrorView.setVisibility(View.VISIBLE);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>这个同上</p>
+<p>继续看看加载成功的方法，这个更简单啦。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showSuccess</span><span class="params">()</span> </span>&#123;</div><div class="line">       <span class="keyword">if</span> (mBindView != <span class="keyword">null</span>) mBindView.setVisibility(View.VISIBLE);</div><div class="line">       setGone();</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>至此，我们整个效果就完成了，在加载数据的时候调用<code>showLoading</code>方法来显示加载中的文本，加载失败后，调用<code>showError</code>来显示加载失败的文本和刷新的按钮，在加载成功后直接隐藏控件</p>
+<p>控件倒是完成了，我们还不知道mBindView怎么来的，其实也很简单。我们在代码中需要调用bindView(View view)方法来指定。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bindView</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">      mBindView = view;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>那么问题来了，我加载失败后，按钮的点击事件怎么做呢？有人会说用反射，这样既省了代码行数，看着又舒服，但是这样是有个问题存在的，大家都知道，一个项目的上线，都会进行混淆代码的，为了就是防止他人剽窃我们的劳动成果，可是混淆过后哪些class全部变成a，b，c ，这样如果用反射的话就会导致点击事件失效，因为找不到这个类，所以，我们还是老老实实的用onclick事件吧</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOnButtonClick</span><span class="params">(OnClickListener listener)</span> </span>&#123;</div><div class="line">       mBtnReset.setOnClickListener(listener);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>这样，一个简单的<code>EmptyLayout</code>就诞生了，接下来我们来看看怎么使用</p>
+<p>先看<code>xml</code>布局<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line">&lt;RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"</div><div class="line">    xmlns:tools="http://schemas.android.com/tools"</div><div class="line"></div><div class="line">    android:layout_width="match_parent"</div><div class="line">    android:layout_height="match_parent"</div><div class="line">    tools:context="me.weyye.emptylayout.MainActivity"&gt;</div><div class="line"></div><div class="line">    &lt;android.support.v4.widget.SwipeRefreshLayout</div><div class="line">        android:id="@+id/srl"</div><div class="line">        android:layout_width="match_parent"</div><div class="line">        android:layout_height="match_parent"&gt;</div><div class="line"></div><div class="line">        &lt;me.weyye.library.EmptyLayout xmlns:app="http://schemas.android.com/apk/res-auto"</div><div class="line">            android:id="@+id/emptyLayout"</div><div class="line">            android:layout_width="match_parent"</div><div class="line">            android:layout_height="match_parent"</div><div class="line">            app:elEmptyLayout="@layout/layout_empty"</div><div class="line">            app:elErrorLayout="@layout/layout_error"</div><div class="line">            app:elLoadingLayout="@layout/layout_loading"&gt;</div><div class="line"></div><div class="line">            &lt;android.support.v7.widget.RecyclerView</div><div class="line">                android:id="@+id/recyclerView"</div><div class="line">                android:layout_width="match_parent"</div><div class="line">                android:layout_height="match_parent"&gt;&lt;/android.support.v7.widget.RecyclerView&gt;</div><div class="line">        &lt;/me.weyye.library.EmptyLayout&gt;</div><div class="line">    &lt;/android.support.v4.widget.SwipeRefreshLayout&gt;</div><div class="line">&lt;/RelativeLayout&gt;</div></pre></td></tr></table></figure></p>
+<p>在看看Activity中怎么调用<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">Activity</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> EmptyLayout emptyLayout;</div><div class="line">    <span class="keyword">private</span> RecyclerView recyclerView;</div><div class="line">    <span class="keyword">private</span> List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">    <span class="keyword">private</span> MyAdapter adapter;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        initView();</div><div class="line">        loadData();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Handler mHandler = <span class="keyword">new</span> Handler();</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span> </span>&#123;</div><div class="line">        emptyLayout = (EmptyLayout) findViewById(R.id.emptyLayout);</div><div class="line">        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);</div><div class="line"> 	srl = (SwipeRefreshLayout) findViewById(R.id.srl);</div><div class="line">        recyclerView.setLayoutManager(<span class="keyword">new</span> LinearLayoutManager(<span class="keyword">this</span>, LinearLayoutManager.VERTICAL, <span class="keyword">false</span>));</div><div class="line">        recyclerView.setAdapter(adapter = <span class="keyword">new</span> MyAdapter(list));</div><div class="line">        <span class="comment">//绑定</span></div><div class="line">        emptyLayout.bindView(recyclerView);</div><div class="line">        emptyLayout.setOnButtonClick(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">		<span class="comment">//重新加载数据</span></div><div class="line">                loadData();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">	srl.setOnRefreshListener(<span class="keyword">new</span> SwipeRefreshLayout.OnRefreshListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRefresh</span><span class="params">()</span> </span>&#123;</div><div class="line">                srl.setRefreshing(<span class="keyword">false</span>);</div><div class="line">                loadData();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">loadData</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//模拟加载数据</span></div><div class="line">        emptyLayout.showLoading(<span class="string">"正在加载，请稍后"</span>);</div><div class="line">        mHandler.postDelayed(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="comment">//为了防止重复调用</span></div><div class="line">                mHandler.removeCallbacks(<span class="keyword">this</span>);</div><div class="line">                Random r = <span class="keyword">new</span> Random();</div><div class="line">                <span class="keyword">int</span> res = r.nextInt(<span class="number">10</span>);</div><div class="line"></div><div class="line">                <span class="keyword">if</span> (res % <span class="number">2</span> == <span class="number">0</span>) &#123;</div><div class="line">                    <span class="comment">// 失败</span></div><div class="line">                    emptyLayout.showError(<span class="string">"加载失败，点击重新加载"</span>); <span class="comment">// 显示失败</span></div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    <span class="comment">// 成功</span></div><div class="line">                    emptyLayout.showSuccess();</div><div class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">15</span>; i++) &#123;</div><div class="line">                        list.add(<span class="string">"测试"</span> + i);</div><div class="line">                    &#125;</div><div class="line">                    adapter.notifyDataSetChanged();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;, <span class="number">3000</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>首页我们找到控件，然后给<code>recyclerView</code>设置<code>adapter</code>，然后我们调用<code>emptyLayout.bindView(recyclerView);</code>来设置要绑定的<code>view</code>,当然这里是recyclerView,接下来，通过<code>emptyLayout.setOnButtonClick()</code>来设置重新加载的时候执行哪个方法，在<code>loadData()</code>中延迟3秒获取数据，数据成功失败都是随机的，当失败的时候会调用<code>emptyLayout.showError()</code>，成功就调用emptyLayout.showSuccess();就这么简单，来看看运行效果</p>
+<h2 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h2><p><img src="/img/device-2016-08-30-180056 00_00_00-00_00_10~1.gif" alt=""></p>
+<p>Github:<a href="https://github.com/yewei02538/EmptyLayout" target="_blank" rel="external">https://github.com/yewei02538/EmptyLayout</a></p>
+]]></content>
+    </entry>
     
+    <entry>
+      <title><![CDATA[调用System.gc没有立即执行的解决方法]]></title>
+      <url>http://weyye.me/detail/System-gc-not-called/</url>
+      <content type="html"><![CDATA[<h2 id="查看源码"><a href="#查看源码" class="headerlink" title="查看源码"></a>查看源码</h2><p>当我们调用System.gc()的时候，其实并不会马上进行垃圾回收，甚至不一定会执行垃圾回收，查看系统源码可以看到</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line">    * Indicates to the VM that it would be a good time to run the</div><div class="line">    * garbage collector. Note that this is a hint only. There is no guarantee</div><div class="line">    * that the garbage collector will actually be run.</div><div class="line">    */</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">gc</span><span class="params">()</span> </span>&#123;</div><div class="line">       <span class="keyword">boolean</span> shouldRunGC;</div><div class="line">       <span class="keyword">synchronized</span>(lock) &#123;</div><div class="line">           shouldRunGC = justRanFinalization;</div><div class="line">           <span class="keyword">if</span> (shouldRunGC) &#123;</div><div class="line">               justRanFinalization = <span class="keyword">false</span>;</div><div class="line">           &#125; <span class="keyword">else</span> &#123;</div><div class="line">               runGC = <span class="keyword">true</span>;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">if</span> (shouldRunGC) &#123;</div><div class="line">           Runtime.getRuntime().gc();</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>也就是<code>justRanFinalization=true</code>的时候才会执行<br><a id="more"></a></p>
+<p>查找发现当调用runFinalization()的时候<code>justRanFinalization</code>变为<code>true</code><br>下面是runFinalization()的源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line">* Provides a hint to the VM that it would be useful to attempt</div><div class="line">* to perform any outstanding object finalization.</div><div class="line">*/</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">runFinalization</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">boolean</span> shouldRunGC;</div><div class="line">        <span class="keyword">synchronized</span>(lock) &#123;</div><div class="line">            shouldRunGC = runGC;</div><div class="line">            runGC = <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (shouldRunGC) &#123;</div><div class="line">            Runtime.getRuntime().gc();</div><div class="line">        &#125;</div><div class="line">        Runtime.getRuntime().runFinalization();</div><div class="line">        <span class="keyword">synchronized</span>(lock) &#123;</div><div class="line">            justRanFinalization = <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其实当我们直接调用<code>System.gc()</code>只会把这次gc请求记录下来，等到<code>runFinalization=true</code>的时候才会先去执行GC，<code>runFinalization=true</code>之后会在允许一次system.gc()。之后在call System.gc()还会重复上面的行为。<br>所以System.gc()要跟System.runFinalization()一起搭配使用才好。<br>查看<code>ZygoteInit.java</code> 里面 gc()和runFinalizationSync()是配合使用的，这样才有效果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">gcAndFinalize</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">final</span> VMRuntime runtime = VMRuntime.getRuntime();</div><div class="line"></div><div class="line">    <span class="comment">/* runFinalizationSync() lets finalizers be called in Zygote,</span></div><div class="line">    * which doesn't have a HeapWorker thread.</div><div class="line">    */</div><div class="line">    System.gc();</div><div class="line">    runtime.runFinalizationSync();</div><div class="line">    System.gc();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>由此可见，当我们需要调用的<code>System.gc()</code>的时候 要这样才会执行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">System.gc();</div><div class="line">runtime.runFinalizationSync();</div><div class="line">System.gc();</div></pre></td></tr></table></figure>
+<p>不过个人建议不到万不得已不要调用,因为jvm有自己的gc策略，根本不需要我们来手动</p>
+]]></content>
+    </entry>
     
-
-    <!-- Facebook -->
-    
-    
-
-    <!-- Google + -->
-    
-    
-
-    <!-- Weibo -->
-    
-    
-
-    <!-- Instagram -->
-    
-    
-
-    <!-- Tumblr -->
-    
-    
-
-    <!-- Github -->
-    
-    <a href="https://github.com/yewei02538" target="view_window"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-github.png);">
-        <span class="visuallyhidden">Github</span>
-    </button></a>
-    
-
-    <!-- LinkedIn -->
-    
-    
-</div>
-
-
-		<!--Copyright-->
-		<div id="copyright">Copyright&nbsp;©&nbsp;<script type="text/javascript">var fd = new Date();document.write(fd.getFullYear());</script>&nbsp;Wey Ye的博客</div>
-
-		<!-- Paradox Footer Right Section -->
-
-		<!-- 
-		I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright.
-		It will not impact the appearance and can give developers a lot of support :)
-
-		很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
-		它不会影响美观并可以给开发者很大的支持。 :) 
-		-->
-
-		<div class="mdl-mini-footer--right-section">
-			<div>
-				<div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
-				<div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
-			</div>
-		</div>
-	
-    
-</footer>
-                
-				<!-- Import File -->
-<script src="/js/highlight.min.js"></script>
-<script src="/js/js.min.js"></script>
-<script src="/js/nprogress.js"></script>
-
-<script type="text/javascript">
-    NProgress.configure({
-        showSpinner: true
-    });
-    NProgress.start();
-    
-    $('#nprogress .bar').css({
-        'background': '#FF4081'
-    });
-    $('#nprogress .peg').css({
-        'box-shadow': '0 0 10px #FF4081, 0 0 15px #FF4081'
-    });
-    $('#nprogress .spinner-icon').css({
-        'border-top-color': '#FF4081',
-        'border-left-color': '#FF4081'
-    });
-    
-    setTimeout(function() {
-        NProgress.done();
-        $('.fade').removeClass('out');
-    }, 800);
-</script>
-
-
-
-
-
-
-
-
-    <!-- 多说公共 js 代码 start -->
-    <script type="text/javascript">
-    var duoshuoQuery = {short_name:"yipwey"};
-        (function() {
-            var ds = document.createElement('script');
-            ds.type = 'text/javascript';ds.async = true;
-            ds.src = 'https://static.duoshuo.com/embed.js';
-            ds.charset = 'UTF-8';
-            (document.getElementsByTagName('head')[0] 
-             || document.getElementsByTagName('body')[0]).appendChild(ds);
-        })();
-    </script>
-    <!-- 多说公共 js 代码 end -->
-
-
-
-
-<!-- Swiftye -->
-
-
-<!-- Local Search-->
-
-	<script>
-	var searchFunc = function(path, search_id, content_id) {
-    'use strict';
-    $.ajax({
-        url: path,
-        dataType: "xml",
-        success: function( xmlResponse ) {
-            // get the contents from search data
-            var datas = $( "entry", xmlResponse ).map(function() {
-                return {
-                    title: $( "title", this ).text(),
-                    content: $("content",this).text(),
-                    url: $( "url" , this).text()
-                };
-            }).get();
-            var $input = document.getElementById(search_id);
-            var $resultContent = document.getElementById(content_id);
-            $input.addEventListener('input', function(){
-                var str='<ul class=\"search-result-list\">';                
-                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-                $resultContent.innerHTML = "";
-                if (this.value.trim().length <= 0) {
-                    return;
-                }
-                // perform local searching
-                datas.forEach(function(data) {
-                    var isMatch = true;
-                    var content_index = [];
-                    var data_title = data.title.trim().toLowerCase();
-                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
-                    var data_url = data.url;
-                    var index_title = -1;
-                    var index_content = -1;
-                    var first_occur = -1;
-                    // only match artiles with not empty titles and contents
-                    if(data_title != '' && data_content != '') {
-                        keywords.forEach(function(keyword, i) {
-                            index_title = data_title.indexOf(keyword);
-                            index_content = data_content.indexOf(keyword);
-                            if( index_title < 0 && index_content < 0 ){
-                                isMatch = false;
-                            } else {
-                                if (index_content < 0) {
-                                    index_content = 0;
-                                }
-                                if (i == 0) {
-                                    first_occur = index_content;
-                                }
-                            }
-                        });
-                    }
-                    // show search results
-                    if (isMatch) {
-                        str += "<li><a href='"+ data_url +"' class='search-result-title' target='_blank'>"+ data_title;
-                        var content = data.content.trim().replace(/<[^>]+>/g,"");
-                        if (first_occur >= 0) {
-                            // cut out characters
-                            var start = first_occur - 6;
-                            var end = first_occur + 6;
-                            if(start < 0){
-                                start = 0;
-                            }
-                            if(start == 0){
-                                end = 10;
-                            }
-                            if(end > content.length){
-                                end = content.length;
-                            }
-                            var match_content = content.substr(start, end); 
-                            // highlight all keywords
-                            keywords.forEach(function(keyword){
-                                var regS = new RegExp(keyword, "gi");
-                                match_content = match_content.replace(regS, "<em class=\"search-keyword\">"+keyword+"</em>");
-                            })
-                            str += "<p class=\"search-result\">" + match_content +"...</p>" +"</a>";
-                        }
-                    }
-                })
-                $resultContent.innerHTML = str;
-            })
-        }
-    })
+    <entry>
+      <title><![CDATA[Dialog样式的Activity-可以在任何地方弹出的Dialog]]></title>
+      <url>http://weyye.me/detail/dialogactivity/</url>
+      <content type="html"><![CDATA[<p>最近项目用到一个需求，当收到透传消息后不管在哪个界面都要弹出一个dialog，当时觉得这还不简单嘛，new一个呀 ，于是我就在receiver里面new了一个</p>
+<p>然后就报了如下的错</p>
+<p><pre><br>android.view.WindowManager$BadTokenException: Unable to add window – token null is not for an application<br>android.view.ViewRootImpl.setView(ViewRootImpl.java:567)<br>                                                                    at android.view.WindowManagerGlobal.addView(WindowManagerGlobal.java:269)                                                                       at android.view.WindowManagerImpl.addView(WindowManagerImpl.java:69)                                                               at android.app.Dialog.show(Dialog.java:323)                                                                     at com.yipwey.dialogactivity.PushReceiver.onReceive(PushReceiver.java:16)<br>                                                                           at android.app.ActivityThread.handleReceiver(ActivityThread.java:2508)<br>                                                                           at android.app.ActivityThread.access$2000(ActivityThread.java:141)<br>                                                                           at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1323)<br></pre><br><a id="more"></a><br>下面是我写的测试代码</p>
+<pre><code>public class PushReceiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        Dialog dialog=new Dialog(context);
+        dialog.setTitle(&quot;Dialog&quot;);
+        dialog.show();
+    }
 }
-</script>
+</code></pre><p>在stackoverflow上找到了原因 <a href="http://stackoverflow.com/questions/19024940/android-error-unable-to-add-window-token-null-is-not-for-an-application" title="Unable to add window" target="_blank" rel="external">http://stackoverflow.com/questions/19024940/android-error-unable-to-add-window-token-null-is-not-for-an-application</a></p>
+<p>原因是因为传入的是Context，而需要的是Activity</p>
+<p>查询SDK帮助文档：</p>
+<p>Return the context of the single, global Application object of the current process. This generally should only be used if you need a Context whose lifecycle is separate from the current context, that is tied to the lifetime of the process rather than the current component.</p>
+<p>在回来发现我这里是Receiver啊，并不是Activity<br>于是乎就要换一种方法了，也就是Dialog风格的Activity</p>
+<p>这样既解决了这个问题，有可以再Activity里写控制的代码，下面我就抛砖引玉介绍一下吧</p>
+<p>首先，要写一个style 并且集成 <code>@android:style/Theme.Dialog</code>，</p>
+<pre><code>&lt;style name=&quot;CustomTheme_Dialog&quot; parent=&quot;@android:style/Theme.Dialog&quot;&gt;
+       &lt;item name=&quot;android:windowBackground&quot;&gt;@android:color/transparent&lt;/item&gt;
+       &lt;item name=&quot;android:windowFrame&quot;&gt;@null&lt;/item&gt;
+       &lt;item name=&quot;android:windowActionBar&quot;&gt;false&lt;/item&gt;
+       &lt;item name=&quot;android:windowNoTitle&quot;&gt;true&lt;/item&gt;
+       &lt;item name=&quot;android:windowIsFloating&quot;&gt;true&lt;/item&gt;
+       &lt;item name=&quot;android:windowIsTranslucent&quot;&gt;false&lt;/item&gt;
+       &lt;item name=&quot;android:backgroundDimEnabled&quot;&gt;true&lt;/item&gt;
+&lt;/style&gt;
+</code></pre><p>然后再你的Manifest中的Activity添加 <code>android:theme=&quot;@style/CustomTheme_Dialog&quot;</code></p>
+<p>这样你的Activity就是dialog风格的了</p>
+<pre><code>public class DialogActivity extends AppCompatActivity {
 
-	<script>
-        var inputArea = document.querySelector("#search");
-        var getSearchFile = function(){
-            var path = "search.xml";
-            searchFunc(path, 'search', 'local-search-result');
-        }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+}
+</code></pre><p>下面是我的布局，</p>
+<pre><code>&lt;RelativeLayout
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:paddingLeft=&quot;@dimen/activity_horizontal_margin&quot;
+    android:paddingRight=&quot;@dimen/activity_horizontal_margin&quot;
+    android:paddingTop=&quot;@dimen/activity_vertical_margin&quot;
+    android:paddingBottom=&quot;@dimen/activity_vertical_margin&quot;
+    tools:context=&quot;com.yipwey.dialogactivity.MainActivity&quot;&gt;
 
-        inputArea.onfocus = function(){ getSearchFile() }
-	</script>
+    &lt;Button
+        android:id=&quot;@+id/btn&quot;
+        android:text=&quot;Hello World!&quot;
+        android:layout_centerInParent=&quot;true&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot; /&gt;
+&lt;/RelativeLayout&gt;
+</code></pre><p>,然后我们运行一下</p>
+<p>然后你会发现又报错了</p>
+<pre><code>Caused by: java.lang.IllegalStateException: You need to use a Theme.AppCompat theme (or descendant) with this activity.
+                                                                               at android.support.v7.app.AppCompatDelegateImplV7.createSubDecor(AppCompatDelegateImplV7.java:343)
+                                                                               at android.support.v7.app.AppCompatDelegateImplV7.ensureSubDecor(AppCompatDelegateImplV7.java:312)
+                                                                               at android.support.v7.app.AppCompatDelegateImplV7.setContentView(AppCompatDelegateImplV7.java:277)
+                                                                               at android.support.v7.app.AppCompatActivity.setContentView(AppCompatActivity.java:140)
+                                                                               at com.yipwey.dialogactivity.MainActivity.onCreate(MainActivity.java:14)
+                                                                               at android.app.Activity.performCreate(Activity.java:5308)
+                                                                               at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1090)
+</code></pre><p><img src="/img/img_xk.jpg" alt=""></p>
+<p>原因是你继承了<code>AppCompatActivity</code>,改成<code>Activity</code>就可以了</p>
+<p>然后就成功了</p>
+<p><img src="/img/Screenshot_2016-08-12-17-25-15.jpeg" alt=""></p>
+<p>如果你想点击外部不消失的话 调用 <code>setFinishOnTouchOutside(false);</code>就可以了(注意：一定要在setContentView之前调用)</p>
+<p>demo下载地址：<a href="http://download.csdn.net/detail/yewei02538/9602028" target="_blank" rel="external">http://download.csdn.net/detail/yewei02538/9602028</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Android 使用PLDroidPlayer播放网络视频 根据视频角度自动旋转]]></title>
+      <url>http://weyye.me/detail/Android-PLDroidPlayer%E6%92%AD%E6%94%BE/</url>
+      <content type="html"><![CDATA[<p>最近因为项目需求 ，需要播放网络视频  ，于是乎 研究了一番 ，说说我遇到的那些坑    </p>
+<p>现在市面上有几个比较主流好用的第三方框架</p>
+<ul>
+<li>Vitamio （  体积比较大，有商业化风险 github:<a href="https://github.com/yixia/VitamioBundle/）" target="_blank" rel="external">https://github.com/yixia/VitamioBundle/）</a></li>
+<li>ijkplayer（B站下开源的框架 体积大 配置环境比较麻烦  github:<a href="https://github.com/Bilibili/ijkplayer" target="_blank" rel="external">https://github.com/Bilibili/ijkplayer</a> ）</li>
+<li>PLDroidPlayer（七牛根据ijkplayer二次开发的 定制简单 github:<a href="https://github.com/pili-engineering/PLDroidPlayer）" target="_blank" rel="external">https://github.com/pili-engineering/PLDroidPlayer）</a><a id="more"></a>
+当然还有很多别的视频播放框架 因为我只找到这几个= =！</li>
+</ul>
+<p>因为项目比较急，所以我用的比较简单的 PLDroidPlayer</p>
+<p> 首先把需要的jar包和jni文件拷到你的项目中<br>这个里面有很多控件，你们可以根据自己的需求来用指定的控件，我用的是PLVideoTextureView</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;com.pili.pldroid.player.widget.PLVideoTextureView</div><div class="line">        android:id=<span class="string">"@+id/video"</span></div><div class="line">        android:layout_width=<span class="string">"match_parent"</span></div><div class="line">        android:layout_height=<span class="string">"match_parent"</span></div><div class="line">        android:layout_centerInParent=<span class="string">"true"</span> /&gt;</div><div class="line"><span class="meta">... </span>prompt<span class="string">'''</span></div></pre></td></tr></table></figure>
+<p>然后findviewbyid找到它<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PLVideoTextureActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> MediaController mMediaController;</div><div class="line">    <span class="keyword">private</span> PLVideoTextureView mVideoView;</div><div class="line">    <span class="keyword">private</span> Toast mToast = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">private</span> String mVideoPath = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mRotation = <span class="number">0</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mDisplayAspectRatio = PLVideoTextureView.ASPECT_RATIO_FIT_PARENT; <span class="comment">//default</span></div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);</div><div class="line">        setContentView(R.layout.activity_pl_video_texture);</div><div class="line">        mVideoView = (PLVideoTextureView) findViewById(R.id.VideoView);</div><div class="line"></div><div class="line">        View loadingView = findViewById(R.id.LoadingView);</div><div class="line">        mVideoView.setBufferingIndicator(loadingView);</div><div class="line"></div><div class="line">        mVideoPath = getIntent().getStringExtra(<span class="string">"videoPath"</span>);</div><div class="line"></div><div class="line">        <span class="comment">// If you want to fix display orientation such as landscape, you can use the code show as follow</span></div><div class="line">        <span class="comment">//</span></div><div class="line">        <span class="comment">// if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) &#123;</span></div><div class="line">        <span class="comment">//     mVideoView.setPreviewOrientation(0);</span></div><div class="line">        <span class="comment">// &#125;</span></div><div class="line">        <span class="comment">// else if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) &#123;</span></div><div class="line">        <span class="comment">//     mVideoView.setPreviewOrientation(270);</span></div><div class="line">        <span class="comment">// &#125;</span></div><div class="line"></div><div class="line">        mVideoPath = getIntent().getStringExtra(<span class="string">"videoPath"</span>);</div><div class="line"></div><div class="line">        AVOptions options = <span class="keyword">new</span> AVOptions();</div><div class="line"></div><div class="line">        <span class="keyword">int</span> isLiveStreaming = getIntent().getIntExtra(<span class="string">"liveStreaming"</span>, <span class="number">1</span>);</div><div class="line">        <span class="comment">// the unit of timeout is ms</span></div><div class="line">        options.setInteger(AVOptions.KEY_PREPARE_TIMEOUT, <span class="number">10</span> * <span class="number">1000</span>);</div><div class="line">        options.setInteger(AVOptions.KEY_GET_AV_FRAME_TIMEOUT, <span class="number">10</span> * <span class="number">1000</span>);</div><div class="line">        <span class="comment">// Some optimization with buffering mechanism when be set to 1</span></div><div class="line">        options.setInteger(AVOptions.KEY_LIVE_STREAMING, isLiveStreaming);</div><div class="line">        <span class="keyword">if</span> (isLiveStreaming == <span class="number">1</span>) &#123;</div><div class="line">            options.setInteger(AVOptions.KEY_DELAY_OPTIMIZATION, <span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// 1 -&gt; hw codec enable, 0 -&gt; disable [recommended]</span></div><div class="line">        <span class="keyword">int</span> codec = getIntent().getIntExtra(<span class="string">"mediaCodec"</span>, <span class="number">0</span>);</div><div class="line">        options.setInteger(AVOptions.KEY_MEDIACODEC, codec);</div><div class="line"></div><div class="line">        <span class="comment">// whether start play automatically after prepared, default value is 1</span></div><div class="line">        options.setInteger(AVOptions.KEY_START_ON_PREPARED, <span class="number">0</span>);</div><div class="line"></div><div class="line">        mVideoView.setAVOptions(options);</div><div class="line"></div><div class="line">        <span class="comment">// You can mirror the display</span></div><div class="line">        <span class="comment">// mVideoView.setMirror(true);</span></div><div class="line"></div><div class="line">        <span class="comment">// You can also use a custom `MediaController` widget</span></div><div class="line">        mMediaController = <span class="keyword">new</span> MediaController(<span class="keyword">this</span>, <span class="keyword">false</span>, isLiveStreaming == <span class="number">1</span>);</div><div class="line">        mVideoView.setMediaController(mMediaController);</div><div class="line"></div><div class="line">        mVideoView.setOnInfoListener(mOnInfoListener);</div><div class="line"><span class="comment">//        mVideoView.setOnVideoSizeChangedListener(mOnVideoSizeChangedListener);</span></div><div class="line">        mVideoView.setOnBufferingUpdateListener(mOnBufferingUpdateListener);</div><div class="line">        mVideoView.setOnCompletionListener(mOnCompletionListener);</div><div class="line">        mVideoView.setOnSeekCompleteListener(mOnSeekCompleteListener);</div><div class="line">        mVideoView.setOnErrorListener(mOnErrorListener);</div><div class="line">        mVideoView.setVideoPath(mVideoPath);</div><div class="line">        mVideoView.setDisplayAspectRatio(PLVideoView.ASPECT_RATIO_PAVED_PARENT);</div><div class="line">        mVideoView.setOnPreparedListener(mOnPreparedListener);</div><div class="line">        mVideoView.setOnVideoSizeChangedListener(<span class="keyword">new</span> PLMediaPlayer.OnVideoSizeChangedListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onVideoSizeChanged</span><span class="params">(PLMediaPlayer plMediaPlayer, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</div><div class="line">                Logger.i(<span class="string">"width:"</span> + width + <span class="string">"---heightL:"</span> + height);</div><div class="line">                <span class="keyword">if</span> (width &gt; height) &#123;</div><div class="line">                    <span class="comment">//视频是横屏 旋转方向</span></div><div class="line">                   setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                </div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        mVideoView.setVideoPath(mVideoPath);</div><div class="line">        mVideoView.start();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onPause</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onPause();</div><div class="line">        mToast = <span class="keyword">null</span>;</div><div class="line">        mVideoView.pause();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onResume();</div><div class="line">        mVideoView.start();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onDestroy();</div><div class="line">        mVideoView.stopPlayback();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClickRotate</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">        mRotation = (mRotation + <span class="number">90</span>) % <span class="number">360</span>;</div><div class="line">        mVideoView.setDisplayOrientation(mRotation);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClickSwitchScreen</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">        mDisplayAspectRatio = (mDisplayAspectRatio + <span class="number">1</span>) % <span class="number">5</span>;</div><div class="line">        mVideoView.setDisplayAspectRatio(mDisplayAspectRatio);</div><div class="line">        <span class="keyword">switch</span> (mVideoView.getDisplayAspectRatio()) &#123;</div><div class="line">            <span class="keyword">case</span> PLVideoTextureView.ASPECT_RATIO_ORIGIN:</div><div class="line">                showToastTips(<span class="string">"Origin mode"</span>);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> PLVideoTextureView.ASPECT_RATIO_FIT_PARENT:</div><div class="line">                showToastTips(<span class="string">"Fit parent !"</span>);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> PLVideoTextureView.ASPECT_RATIO_PAVED_PARENT:</div><div class="line">                showToastTips(<span class="string">"Paved parent !"</span>);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> PLVideoTextureView.ASPECT_RATIO_16_9:</div><div class="line">                showToastTips(<span class="string">"16 : 9 !"</span>);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> PLVideoTextureView.ASPECT_RATIO_4_3:</div><div class="line">                showToastTips(<span class="string">"4 : 3 !"</span>);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> PLMediaPlayer.OnErrorListener mOnErrorListener = <span class="keyword">new</span> PLMediaPlayer.OnErrorListener() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onError</span><span class="params">(PLMediaPlayer mp, <span class="keyword">int</span> errorCode)</span> </span>&#123;</div><div class="line">            <span class="keyword">switch</span> (errorCode) &#123;</div><div class="line">                <span class="keyword">case</span> PLMediaPlayer.ERROR_CODE_INVALID_URI:</div><div class="line">                    showToastTips(<span class="string">"Invalid URL !"</span>);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> PLMediaPlayer.ERROR_CODE_404_NOT_FOUND:</div><div class="line">                    showToastTips(<span class="string">"404 resource not found !"</span>);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> PLMediaPlayer.ERROR_CODE_CONNECTION_REFUSED:</div><div class="line">                    showToastTips(<span class="string">"Connection refused !"</span>);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> PLMediaPlayer.ERROR_CODE_CONNECTION_TIMEOUT:</div><div class="line">                    showToastTips(<span class="string">"Connection timeout !"</span>);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> PLMediaPlayer.ERROR_CODE_EMPTY_PLAYLIST:</div><div class="line">                    showToastTips(<span class="string">"Empty playlist !"</span>);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> PLMediaPlayer.ERROR_CODE_STREAM_DISCONNECTED:</div><div class="line">                    showToastTips(<span class="string">"Stream disconnected !"</span>);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> PLMediaPlayer.ERROR_CODE_IO_ERROR:</div><div class="line">                    showToastTips(<span class="string">"Network IO Error !"</span>);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> PLMediaPlayer.ERROR_CODE_UNAUTHORIZED:</div><div class="line">                    showToastTips(<span class="string">"Unauthorized Error !"</span>);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> PLMediaPlayer.ERROR_CODE_PREPARE_TIMEOUT:</div><div class="line">                    showToastTips(<span class="string">"Prepare timeout !"</span>);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> PLMediaPlayer.ERROR_CODE_READ_FRAME_TIMEOUT:</div><div class="line">                    showToastTips(<span class="string">"Read frame timeout !"</span>);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> PLMediaPlayer.MEDIA_ERROR_UNKNOWN:</div><div class="line">                <span class="keyword">default</span>:</div><div class="line">                    showToastTips(<span class="string">"unknown error !"</span>);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="comment">// Todo pls handle the error status here, retry or call finish()</span></div><div class="line">            finish();</div><div class="line">            <span class="comment">// If you want to retry, do like this:</span></div><div class="line">            <span class="comment">// mVideoView.setVideoPath(mVideoPath);</span></div><div class="line">            <span class="comment">// mVideoView.start();</span></div><div class="line">            <span class="comment">// Return true means the error has been handled</span></div><div class="line">            <span class="comment">// If return false, then `onCompletion` will be called</span></div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">   </div><div class="line">     <span class="keyword">private</span> PLMediaPlayer.OnCompletionListener mOnCompletionListener = <span class="keyword">new</span> PLMediaPlayer.OnCompletionListener() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompletion</span><span class="params">(PLMediaPlayer plMediaPlayer)</span> </span>&#123;</div><div class="line"><span class="comment">//            finish();</span></div><div class="line">            showToast(<span class="string">"视频播放完成"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> PLMediaPlayer.OnBufferingUpdateListener mOnBufferingUpdateListener = <span class="keyword">new</span> PLMediaPlayer.OnBufferingUpdateListener() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onBufferingUpdate</span><span class="params">(PLMediaPlayer plMediaPlayer, <span class="keyword">int</span> precent)</span> </span>&#123;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> PLMediaPlayer.OnSeekCompleteListener mOnSeekCompleteListener = <span class="keyword">new</span> PLMediaPlayer.OnSeekCompleteListener() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSeekComplete</span><span class="params">(PLMediaPlayer plMediaPlayer)</span> </span>&#123;</div><div class="line">            Logger.d(<span class="string">"onSeekComplete !"</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> PLMediaPlayer.OnPreparedListener mOnPreparedListener = <span class="keyword">new</span> PLMediaPlayer.OnPreparedListener() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPrepared</span><span class="params">(PLMediaPlayer plMediaPlayer)</span> </span>&#123;</div><div class="line">            </div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    <span class="keyword">private</span> PLMediaPlayer.OnInfoListener mOnInfoListener = <span class="keyword">new</span> PLMediaPlayer.OnInfoListener() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onInfo</span><span class="params">(PLMediaPlayer plMediaPlayer, <span class="keyword">int</span> what, <span class="keyword">int</span> extra)</span> </span>&#123;</div><div class="line">            <span class="keyword">switch</span> (what) &#123;</div><div class="line">                <span class="keyword">case</span> PLMediaPlayer.MEDIA_INFO_BUFFERING_START:</div><div class="line">                    Logger.i(<span class="string">"正在缓冲----"</span>);</div><div class="line">                    <span class="comment">//开始缓存，暂停播放</span></div><div class="line">                    <span class="keyword">if</span> (isPlaying()) &#123;</div><div class="line"><span class="comment">//                        stopPlayer();</span></div><div class="line">                        <span class="keyword">if</span> (mVideoView != <span class="keyword">null</span>) &#123;</div><div class="line">                            mVideoView.pause();</div><div class="line">                        &#125;</div><div class="line">                        needResume = <span class="keyword">true</span>;</div><div class="line">                    &#125;</div><div class="line">                    rl_loading.setVisibility(View.VISIBLE);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> PLMediaPlayer.MEDIA_INFO_BUFFERING_END:</div><div class="line">                <span class="keyword">case</span> PLMediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START:</div><div class="line">                    Logger.i(<span class="string">"缓冲完成----"</span>);</div><div class="line">                    <span class="comment">//缓存完成，继续播放</span></div><div class="line">                    <span class="keyword">if</span> (needResume)</div><div class="line"><span class="comment">//                        startPlayer();</span></div><div class="line">                        <span class="keyword">if</span> (mVideoView != <span class="keyword">null</span>) &#123;</div><div class="line">                            mVideoView.start();</div><div class="line">                        &#125;</div><div class="line">                    rl_loading.setVisibility(View.GONE);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> PLMediaPlayer.MEDIA_INFO_BUFFERING_BYTES_UPDATE:</div><div class="line">                    <span class="comment">//显示 下载速度</span></div><div class="line">                    Logger.e(<span class="string">"download rate:"</span> + extra);</div><div class="line">                    <span class="comment">//mListener.onDownloadRateChanged(arg2);</span></div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">            Logger.i(<span class="string">"onInfo:"</span> + what + <span class="string">"___"</span> + extra);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这样就完成了普通视频的播放和旋转视频播放</p>
+<p>看似简单 其实隐藏着大问题 ，也就是我所说的大坑<br>现在我是这样判断角度的  当视频的宽度大于高度的 我就认为这是一个横屏的视频 ，也就是说假如这个视频是1330X720（我随便说的尺寸，只为举例）现在宽度大于高度了 那么这就是一个横屏的视频，但是我只要播放手机拍摄的视频就会发现视频被放大了 ，但是其实我录制视频的时候是竖着排的 ，可视播放的时候却给我横着过来了，然后我就去看这个手机拍摄视频的尺寸  现在一般录制视频最低都是1280X720  ，恰好符合我判断的逻辑 ，难道他真是横着的？  然后我就用系统自带的播放器打开 ，居然没有横过来 ，而是竖着播放的 ，可它是怎么知道这个方向呢？于是我在百度搜 ，确实可以获取到本地视频的角度，但是好像低版本好像不兼容，然后根据角度去判断 是否需要旋转，可是我这个是网络视频啊  ，网络视频怎么获取到视频角度啊 ？ 我第一反应是 上传视频的时候把宽高角度传到服务器 ，然后获取的时候根据这个角度旋转 ，但是别人播放网络视频的时候也没有传角度过去啊 - -  然后我就在github上面问那个作者  ，结果他说 </p>
+<p><strong>“onInfo: 10001, 90”, 收到这个消息后，使用 PLVideoTextureView 的 setDisplayOrientation 旋转显示的方向，后面会补充这个回调的接口和文档。</strong></p>
+<p>我晕  ，你这不说 谁知道啊 坑死啊 -  -<br>然后我就修改了下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">/**</span></div><div class="line">     * 视频的方向</div><div class="line">     */</div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> mVideoRotation;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> needResume;</div><div class="line">    <span class="keyword">private</span> PLMediaPlayer.OnInfoListener mOnInfoListener = <span class="keyword">new</span> PLMediaPlayer.OnInfoListener() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onInfo</span><span class="params">(PLMediaPlayer plMediaPlayer, <span class="keyword">int</span> what, <span class="keyword">int</span> extra)</span> </span>&#123;</div><div class="line">            <span class="keyword">switch</span> (what) &#123;</div><div class="line">                <span class="keyword">case</span> PLMediaPlayer.MEDIA_INFO_BUFFERING_START:</div><div class="line">                    Logger.i(<span class="string">"正在缓冲----"</span>);</div><div class="line">                    <span class="comment">//开始缓存，暂停播放</span></div><div class="line">                    <span class="keyword">if</span> (isPlaying()) &#123;</div><div class="line"><span class="comment">//                        stopPlayer();</span></div><div class="line">                        <span class="keyword">if</span> (mVideoView != <span class="keyword">null</span>) &#123;</div><div class="line">                            mVideoView.pause();</div><div class="line">                        &#125;</div><div class="line">                        needResume = <span class="keyword">true</span>;</div><div class="line">                    &#125;</div><div class="line">                    rl_loading.setVisibility(View.VISIBLE);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> PLMediaPlayer.MEDIA_INFO_BUFFERING_END:</div><div class="line">                <span class="keyword">case</span> PLMediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START:</div><div class="line">                    Logger.i(<span class="string">"缓冲完成----"</span>);</div><div class="line">                    <span class="comment">//缓存完成，继续播放</span></div><div class="line">                    <span class="keyword">if</span> (needResume)</div><div class="line"><span class="comment">//                        startPlayer();</span></div><div class="line">                        <span class="keyword">if</span> (mVideoView != <span class="keyword">null</span>) &#123;</div><div class="line">                            mVideoView.start();</div><div class="line">                        &#125;</div><div class="line">                    rl_loading.setVisibility(View.GONE);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> PLMediaPlayer.MEDIA_INFO_BUFFERING_BYTES_UPDATE:</div><div class="line">                    <span class="comment">//显示 下载速度</span></div><div class="line">                    Logger.e(<span class="string">"download rate:"</span> + extra);</div><div class="line">                    <span class="comment">//mListener.onDownloadRateChanged(arg2);</span></div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> <span class="number">10001</span>:</div><div class="line">                    <span class="comment">//保存视频角度</span></div><div class="line">                    mVideoRotation=extra;</div><div class="line">                    </div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">            Logger.i(<span class="string">"onInfo:"</span> + what + <span class="string">"___"</span> + extra);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div></pre></td></tr></table></figure>
+<p>然后在onVideoSizeChanged的回调里这样</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">mVideoView.setOnVideoSizeChangedListener(<span class="keyword">new</span> PLMediaPlayer.OnVideoSizeChangedListener() &#123;</div><div class="line">           <span class="meta">@Override</span></div><div class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onVideoSizeChanged</span><span class="params">(PLMediaPlayer plMediaPlayer, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</div><div class="line">               Logger.i(<span class="string">"width:"</span> + width + <span class="string">"---heightL:"</span> + height);</div><div class="line">               <span class="keyword">if</span> (width &gt; height&amp;&amp;mVideoRotation==<span class="number">0</span>) &#123;</div><div class="line">                   <span class="comment">//旋转方向</span></div><div class="line">                   setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);</div><div class="line">               &#125;</div><div class="line">			<span class="comment">//如果视频角度是90度</span></div><div class="line">               <span class="keyword">if</span>(mVideoRotation==<span class="number">90</span>)</div><div class="line">               &#123;</div><div class="line">                  <span class="comment">//旋转视频</span></div><div class="line">                   mVideoView.setDisplayOrientation(<span class="number">270</span>);</div><div class="line">               &#125;</div><div class="line">               </div><div class="line">           &#125;</div><div class="line">       &#125;);</div></pre></td></tr></table></figure>
+<p>这样 不管是什么视频  播放终于正常了  - -  </p>
+<p>转载请注明出处  <a href="http://blog.csdn.net/yewei02538/article/details/51882933" target="_blank" rel="external">http://blog.csdn.net/yewei02538/article/details/51882933</a></p>
+<p>Demo下载地址: <a href="http://download.csdn.net/detail/yewei02538/9602032" target="_blank" rel="external">http://download.csdn.net/detail/yewei02538/9602032</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[FragmentTransaction.commit onCreateView没有立即执行]]></title>
+      <url>http://weyye.me/detail/commit-onCreateView/</url>
+      <content type="html"><![CDATA[<p>在做项目中，遇到一个很奇怪的问题 ，当调用fragmentTransaction.commit的时候 fragment的生命周期并没有立即执行，下面是我的代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">manager = getSupportFragmentManager();</div><div class="line">FragmentTransaction ft = manager.beginTransaction();</div><div class="line">MainFragment fragment = <span class="keyword">new</span> MainFragment();</div><div class="line">ft.add(R.id.fl_content, fragment);</div><div class="line">ft.commit();</div><div class="line">fragment.setInfo();</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>看似正常的逻辑没有问题 ，可是却fragment里面却给我报了NullPointException ,看log显示 view是null，我就奇怪了，明明onCreateView里面不是findViewById找到了嘛 ，不会啊，无意中查看了fragmentTransaction.commit()的源码才知道<br>注释是这样写的</p>
+<pre><code>* Schedules a commit of this transaction.  The commit does
+* not happen immediately; it will be scheduled as work on the main thread
+* to be done the next time that thread is ready.
+</code></pre><p>大致的意思是说 调用commit后不会立即执行，会再下一次准备好的时候，运行在主线程里面。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>调用commit后执行<br>    manager.executePendingTransactions();<br>这样就会立即执行了</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[第三方sdk（我的是高德和个推） so库包冲突]]></title>
+      <url>http://weyye.me/detail/sdk-so/</url>
+      <content type="html"><![CDATA[<p>项目原本只加入高德sdk的时候，获取map，添加marker一切正常 ，可是只要我加入个推sdk后 编译运行 居然报高德地图的错 ，当时了就懵了- -<br>这个是错误日志<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">java.lang.UnsatisfiedLinkError: No implementation found <span class="keyword">for</span> <span class="keyword">long</span> com.autonavi.amap.mapcore.MapCore.nativeNewInstance(java.lang.String, java.lang.String) (tried Java_com_autonavi_amap_mapcore_MapCore_nativeNewInstance and Java_com_autonavi_amap_mapcore_MapCore_nativeNewInstance__Ljava_lang_String_2Ljava_lang_String_2)</div><div class="line">                                                      at com.autonavi.amap.mapcore.MapCore.nativeNewInstance(Native Method)</div><div class="line">                                                      at com.autonavi.amap.mapcore.MapCore.newMap(MapCore.java:<span class="number">83</span></div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>错误日志可以看出是so库没有找到的原因 ，这是我的lib目录</p>
+<p><img src="/img/1468653788.png" alt=""></p>
+<p>但是有的手机却没有问题<br>google一番后其实是因为没有找到手机对应的so库 （也就是armeabi-v7a）</p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><p>把armeabi里高德的so库直接拷入到armeabi-v7a文件夹下 然后删除mips和mips64就可以了<br><img src="/img/1468653948 .png" alt=""></p>
+<div class="tip"><br>    转载请注明出处<br></div>
 
-
-<!-- Window Load-->
-<script>
-    $(window).load(function() {
-        // Post_Toc parent position fixed
-        $(".post-toc-wrap").parent(".mdl-menu__container").css("position", "fixed");
-    });
-</script>
-
-<!-- MathJax Load-->
-
-            </main>
-        </div>
-		
-    </body>
-		
-	
-</html>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新]]></title>
+      <url>http://weyye.me/detail/adapter-notifyDataSetChanged/</url>
+      <content type="html"><![CDATA[<p>今天做项目遇到个比较头疼的问题，adapter.notifyDataSetChanged没有反应，要触摸屏幕才可以改变数据，上网查资料有人说是给list集合赋值的时候地址改变了（要用list.addAll()），可是我并没有改变地址 ，只是手动改了一个item的数据而已，后来发现只要延迟刷新就可以了<br><a id="more"></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">handler.postDelayed(<span class="keyword">new</span> Runnable() &#123;  </div><div class="line">            <span class="meta">@Override</span>  </div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;  </div><div class="line">                adapter.notifyDataSetChanged();  </div><div class="line">            &#125;  </div><div class="line">        &#125;, <span class="number">500</span>);</div></pre></td></tr></table></figure></p>
+<div class="tip"><br>    转载请注明出处<br></div>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Fragment里面用ViewPager嵌套2个Fragment，第二次切换变成空白的解决办法]]></title>
+      <url>http://weyye.me/detail/fragment-viewpager%E5%B5%8C%E5%A5%97/</url>
+      <content type="html"><![CDATA[<p>今天做项目遇到一个问题 ，</p>
+<p>主界面用5个fragment组成，其中一个fragment里面 用了个ViewPager ，然后再这个ViewPager里面又嵌套了2个Fragment，第一次加载没有  但是第二次加载的时候 ，就变成空白<br><a id="more"></a><br>在网上找了下解决的办法，参考资料 <a href="http://www.th7.cn/Program/Android/201406/218498.shtml" target="_blank" rel="external">http://www.th7.cn/Program/Android/201406/218498.shtml</a></p>
+<p>原因是因为：fragment里面又嵌套了fragment，所以在创建viewpager的适配器的时候传参为getChildFragmentManager()而不是getFragmentManager()，因为如果传参为getFragmentManager()则表示将父Fragment的FragmentManager传给了子Fragment，所以无法显示数据，</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><pre><code>FragmentPagerAdapter adapter= new FragmentPagerAdapter(getChildFragmentManager())
+</code></pre><p>传入 <strong>getChildFragmentManager()</strong>就可以了</p>
+]]></content>
+    </entry>
+    
+  
+  
+</search>
