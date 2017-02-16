@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <!-- Title -->
+    
+    <title>
+        Android仿今日头条的开源项目 | Wey Ye的博客
+    </title>
+    
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/favicon.ico">
+    <link rel="icon" sizes="192x192" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+    
+    <!-- Meta & INfo -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="Wey Ye">
+    <meta name="description" content="null">
+    <meta name="keywords" content="android,个人技术博客,移动开发,google">
+    
+    <!--iOS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+    
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Wey Ye的博客">
+    
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://weyye.me">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Android仿今日头条的开源项目 | Wey Ye的博客">
+    <meta property="og:description" content="null">
+    
+     <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+        
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+    
+    <!-- Import CSS -->
+    <link rel="stylesheet" href="/css/material.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+    <!-- Config CSS -->
+
+
+<!-- Other Styles -->
+<style>
+	body, html{
+		font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+	}
+	
+    a{
+        color: #00838F
+    }
+    
+    .mdl-card__media,
+    #search-label,
+    #search-form-label:after,
+    #scheme-Paradox .hot_tags-count,
+    #scheme-Paradox .sidebar_archives-count,
+    #scheme-Paradox .sidebar-colored .sidebar-header,
+    #scheme-Paradox .sidebar-colored .sidebar-badge{
+        background-color: #0097A7 !important
+    }
+    
+	/* Sidebar User Drop Down Menu Text Color */
+	#scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+    #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus{
+        color: #0097A7 !important
+    }
+    
+    #post_entry-right-info,
+    .sidebar-colored .sidebar-nav li:hover > a,
+    .sidebar-colored .sidebar-nav li:hover > a i,
+    .sidebar-colored .sidebar-nav li > a:hover,
+    .sidebar-colored .sidebar-nav li > a:hover i,
+    .sidebar-colored .sidebar-nav li > a:focus i,
+    .sidebar-colored .sidebar-nav > .open > a,
+    .sidebar-colored .sidebar-nav > .open > a:hover,
+    .sidebar-colored .sidebar-nav > .open > a:focus,
+    #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a{
+        color: #0097A7 !important
+    }
+    
+    .toTop{
+        background: #757575 !important
+    }
+		
+	.material-layout .material-post>.material-nav,
+	.material-layout .material-index>.material-nav,
+	.material-nav a{
+		color: #757575;
+	}
+		
+	#scheme-Paradox .MD-burger-layer {
+		background-color: #757575;
+	}
+
+	#scheme-Paradox #post-toc-trigger-btn{
+		color: #757575;
+	}
+	
+	.post-toc a:hover{
+		color: #00838F;
+		text-decoration: underline;
+	}
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+        body{
+            background-color: #F5F5F5
+        }
+		
+		/* blog_info bottom background */
+        #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+            background-color: #fff;
+        }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+        .fade {
+            transition: all 800ms linear;
+            -webkit-transform: translate3d(0,0,0);
+            -moz-transform: translate3d(0,0,0);
+            -ms-transform: translate3d(0,0,0);
+            -o-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
+            opacity: 1;
+        }
+
+        .fade.out{
+            opacity: 0;
+        }
+    </style>
+
+	<script src="/js/jquery.min.js"></script>
+	
+	<link rel="stylesheet" href="/css/highlight/solarized-white.css">
+	
+	<!-- UC Browser Compatible-->
+	<script>
+		var agent = navigator.userAgent.toLowerCase();
+		if(agent.indexOf('ucbrowser')>0) {
+			document.write('<link rel="stylesheet" href="/css/uc.css">');
+		   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+		}
+	</script>
+    
+    <!-- Custom Head -->
+    
+        
+			<!-- baidu_analytics -->
+			<script> var _hmt = _hmt || []; (function() { var hm = document.createElement('script'); hm.src = 'https://hm.baidu.com/hm.js?b7e5f6ac58c952eaf3e7b49fb65496f8'; var s = document.getElementsByTagName('script')[0];  s.parentNode.insertBefore(hm, s); })(); </script>
+        
+    
+</head>
+	
+	
+
+    <body id="scheme-Paradox">
+
+		
+        <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+				
+			
+			
+            <!-- Main Container -->
+            <main class="material-layout__content" id="main">
+				
+                <!-- Top Anchor -->
+                <div id="top"></div>
+				
+				
+                <!-- Hamburger Button -->
+                <button class="MD-burger-icon sidebar-toggle">
+                    <span class="MD-burger-layer"></span>
+                </button>
+				
+				
+                <!-- Post TOC -->
+
+    
+	<!-- Back Button -->
+<!--
+	<div class="material-back" id="backhome-div" tabindex="0">
+		<a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="#" onclick="window.history.back();return false;" target="_self" role="button" data-upgraded=",MaterialButton,MaterialRipple">
+			<i class="material-icons" role="presentation">arrow_back</i>
+			<span class="mdl-button__ripple-container">
+				<span class="mdl-ripple"></span>
+			</span>
+		</a>
+	</div>			
+-->
+	<!-- Left aligned menu below button -->
+	<button id="post-toc-trigger-btn"
+			class="mdl-button mdl-js-button mdl-button--icon">
+	  <i class="material-icons">format_list_numbered</i>
+	</button>
+
+	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+		for="post-toc-trigger-btn">
+			
+			<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#起因"><span class="post-toc-number">1.</span> <span class="post-toc-text">起因</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#源码链接"><span class="post-toc-number">2.</span> <span class="post-toc-text">源码链接</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#无图言屌"><span class="post-toc-number">3.</span> <span class="post-toc-text">无图言屌</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#第三方库"><span class="post-toc-number">4.</span> <span class="post-toc-text">第三方库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#技术要点"><span class="post-toc-number">5.</span> <span class="post-toc-text">技术要点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#问题1"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">问题1</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#思路1"><span class="post-toc-number">5.1.1.</span> <span class="post-toc-text">思路1</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#思路2"><span class="post-toc-number">5.1.2.</span> <span class="post-toc-text">思路2</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#问题2"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">问题2</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#未完待续…"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">未完待续…</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#TODO"><span class="post-toc-number">6.</span> <span class="post-toc-text">TODO</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">7.</span> <span class="post-toc-text">参考</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#声明"><span class="post-toc-number">8.</span> <span class="post-toc-text">声明</span></a></li></ol>
+		
+<!--			<li class="mdl-menu__item">Some Action</li>-->
+	</ul>
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+		
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+	<!-- Paradox Post Header -->
+	
+		
+			<!-- Random Thumbnail -->
+			<div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+				<script>
+    
+    var randomNum;
+    randomNum = Math.floor(Math.random() * 5 + 1);
+    
+    $(".post_thumbnail-random").css('background-image', 'url(' + '/img/random/' + randomNum + '.png' + ')');
+    
+</script>
+
+		
+	
+        <p class="article-headline-p">
+            Android仿今日头条的开源项目
+        </p>
+    </div>
+
+	
+
+				
+				
+					<!-- Paradox Post Info -->
+					<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+    
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.jpg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Wey Ye</strong>
+        <span>2月 05, 2017</span>
+    </div>
+    
+    <div class="section-spacer"></div>
+	
+    <!-- Favorite -->
+<!--
+    <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+        <i class="material-icons" role="presentation">favorite</i>
+        <span class="visuallyhidden">favorites</span>
+    </button>
+-->
+
+    <!-- Qrcode -->
+    
+
+
+    <!-- Tags (bookmark) -->
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        
+    </ul>
+    
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+
+    
+
+    
+
+    <!-- Share Twitter -->
+    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Android仿今日头条的开源项目&url=http://weyye.me//detail/my-project-today-news/index.html&via=Wey Ye" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Twitter
+        </li>
+    </a>
+
+    <!-- Share Google+ -->
+    <a class="post_share-link" href="https://plus.google.com/share?url=http://weyye.me//detail/my-project-today-news/index.html" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Google+
+        </li>
+    </a>
+
+    <!-- Share Weibo -->
+    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Android仿今日头条的开源项目&url=http://weyye.me//detail/my-project-today-news/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <li class="mdl-menu__item">
+            分享到微博
+        </li>
+    </a>
+
+    <!-- Share LinkedIn -->
+    <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://weyye.me//detail/my-project-today-news/index.html&title=Android仿今日头条的开源项目" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 LinkedIn
+        </li>
+    </a>
+
+    <!-- Share QQ -->
+    <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Wey Ye的博客&title=Android仿今日头条的开源项目&summary=null&pics=http://weyye.me/favicon.ico&url=http://weyye.me/detail/my-project-today-news/index.html" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 QQ
+        </li>
+    </a>
+
+    <!-- Share Telegram -->
+    <a class="post_share-link" href="https://telegram.me/share/url?url=http://weyye.me/detail/my-project-today-news/index.html&text=Android仿今日头条的开源项目" target="_blank">
+        <li class="mdl-menu__item">
+            分享到 Telegram
+        </li>
+    </a>
+</ul>
+
+</div>
+				
+
+                <!-- Post Content -->
+                <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+	
+		<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>看到众多大神纷纷有了自己的开源项目，于是自己琢磨着也想做一个开源项目来学习下，因为每次无聊必刷的app就是今日头条，评论简直比内容都精彩，所以我打算仿今日头条来练练手，期间也曾放弃过，也遇到很多坑，拿出来跟大家分享一下，喜欢的记得给个Star，当作是给我的鼓励和动力吧。</p>
+<h2 id="源码链接"><a href="#源码链接" class="headerlink" title="源码链接"></a>源码链接</h2><p><a href="https://github.com/yewei02538/TodayNews" target="_blank" rel="external">https://github.com/yewei02538/TodayNews</a></p>
+<h2 id="无图言屌"><a href="#无图言屌" class="headerlink" title="无图言屌"></a>无图言屌</h2><p><img src="/img/todaynews01.png" alt=""></p>
+<p><img src="/img/todaynews02.png" alt=""></p>
+<p><img src="/img/todaynews03.png" alt=""></p>
+<p><img src="/img/todaynews04.png" alt=""></p>
+<p><img src="/img/todaynews05.png" alt=""></p>
+<p><img src="/img/todaynews06.png" alt=""></p>
+<p><img src="/img/todaynews07.png" alt=""></p>
+<p><img src="/img/todaynews08.jpg" alt=""></p>
+<h2 id="第三方库"><a href="#第三方库" class="headerlink" title="第三方库"></a>第三方库</h2><ul>
+<li><a href="https://github.com/CymChad/BaseRecyclerViewAdapterHelper" target="_blank" rel="external">BaseRecyclerViewAdapterHelper</a></li>
+<li><a href="https://github.com/nostra13/Android-Universal-Image-Loader" target="_blank" rel="external">ImageLoader</a></li>
+<li><a href="https://github.com/square/retrofit" target="_blank" rel="external">Retrofit</a></li>
+<li><a href="https://github.com/ReactiveX/RxJava" target="_blank" rel="external">RxJava</a></li>
+<li><a href="https://github.com/JakeWharton/butterknife" target="_blank" rel="external">ButterKnife</a></li>
+<li><a href="https://github.com/dersoncheng/MultipleTheme" target="_blank" rel="external">MultipleTheme</a></li>
+<li><a href="https://github.com/hongyangAndroid/ColorTrackView" target="_blank" rel="external">ColorTrackView</a></li>
+<li><a href="https://github.com/google/gson" target="_blank" rel="external">Gson</a></li>
+<li><a href="https://github.com/lipangit/JieCaoVideoPlayer" target="_blank" rel="external">JieCaoVideoPlayer</a></li>
+</ul>
+<h2 id="技术要点"><a href="#技术要点" class="headerlink" title="技术要点"></a>技术要点</h2><ul>
+<li>主要是一些第三方库的使用</li>
+<li>首页顶部导航使用的<a href="https://github.com/hongyangAndroid" target="_blank" rel="external">hongyang</a>大神的<a href="https://github.com/hongyangAndroid/ColorTrackView" target="_blank" rel="external">ColorTrackView</a>然后做了一下封装来实现滑动渐变效果</li>
+<li>多种Item布局展示-&gt;<a href="https://github.com/CymChad/BaseRecyclerViewAdapterHelper" target="_blank" rel="external">BaseRecyclerViewAdapterHelper</a></li>
+<li>日夜间模式切换-&gt;<a href="https://github.com/dersoncheng/MultipleTheme" target="_blank" rel="external">MultipleTheme</a></li>
+<li>个人中心 自定义ScrollView实现下拉图片放大</li>
+<li>新闻详情我采用的是RecyclerView添加头的方式添加WebView（当然是Adapter里面添加）,加载页面成功之后获取评论信息，点击评论图标滑动至评论第一条，这里我是调用<code>recyclerView.smoothScrollToPosition(1);</code></li>
+<li>视频播放我使用的是<a href="https://github.com/lipangit/JieCaoVideoPlayer" target="_blank" rel="external">JieCaoVideoPlayer</a>,一群大牛封装的代码，底层实际使用<a href="https://github.com/Bilibili/ijkplayer" target="_blank" rel="external">ijkplayer</a>,视频源均使用非正常手段获取，视频源地址分析请看我的另一篇博客<a href="http://www.weyye.me/detail/today-news-video/" target="_blank" rel="external">手撸一个今日头条视频下载器</a></li>
+</ul>
+<h3 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h3><p>在使用<a href="https://github.com/dersoncheng/MultipleTheme" target="_blank" rel="external">MultipleTheme</a>的时候唯一的缺陷就是需要在布局里面大量使用到自定义控件，这对于我们的项目而言，布局看着很冗余，也有点恶心。。我有时候就在想，那我可不可以写原生控件，然后在特定的时机来个偷梁换柱换成我们的自定义控件呢？(比如我们布局写RelativeLayout—转换成MyRelativeLayout),似乎好像是可以的。</p>
+<h4 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h4><p>当时想到一个最简单最快实现的方法，也就是替换，我在布局里面写原生控件，然后在用工具全局替换成我们的自定义控件，但是假如我们换了包名，那就需要重新替换，这无疑是不易扩展的，所以这个方法放弃掉</p>
+<h4 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h4><p>不知道大家有木有发现就是，我们在布局里面写上<code>Button</code>、<code>ImageView</code>、<code>TextView</code>等这些控件的时候，在5.0以上运行的时候实际变成了<code>AppCompatButton</code>、<code>AppCompatImageView</code>、<code>AppCompatTextView</code>(debug或者打印对象就可以看到实际的类型),在当我们运行的时候就这样悄无声息的给替换了，那系统又是怎么做到的？那只要找到它的实现方法，我们的问题不就迎刃而解了吗？</p>
+<p><img src="/img/emoticon_chai_laugh.jpg" alt=""></p>
+<p>于是我找到系统替换的代码（以下代码全部基于Api23）</p>
+<p><strong>AppCompatViewInflater.java</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> View <span class="title">createView</span><span class="params">(View parent, <span class="keyword">final</span> String name, @NonNull Context context,</span></span></div><div class="line">        @NonNull AttributeSet attrs, <span class="keyword">boolean</span> inheritContext,</div><div class="line">        <span class="keyword">boolean</span> readAndroidTheme, <span class="keyword">boolean</span> readAppTheme, <span class="keyword">boolean</span> wrapContext) &#123;</div><div class="line">    <span class="keyword">final</span> Context originalContext = context;</div><div class="line"></div><div class="line">    <span class="comment">// We can emulate Lollipop's android:theme attribute propagating down the view hierarchy</span></div><div class="line">    <span class="comment">// by using the parent's context</span></div><div class="line">    <span class="keyword">if</span> (inheritContext &amp;&amp; parent != <span class="keyword">null</span>) &#123;</div><div class="line">        context = parent.getContext();</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (readAndroidTheme || readAppTheme) &#123;</div><div class="line">        <span class="comment">// We then apply the theme on the context, if specified</span></div><div class="line">        context = themifyContext(context, attrs, readAndroidTheme, readAppTheme);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (wrapContext) &#123;</div><div class="line">        context = TintContextWrapper.wrap(context);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    View view = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">    <span class="comment">// We need to 'inject' our tint aware Views in place of the standard framework versions</span></div><div class="line">    <span class="keyword">switch</span> (name) &#123;</div><div class="line">        <span class="keyword">case</span> <span class="string">"TextView"</span>:</div><div class="line">            view = <span class="keyword">new</span> AppCompatTextView(context, attrs);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="string">"ImageView"</span>:</div><div class="line">            view = <span class="keyword">new</span> AppCompatImageView(context, attrs);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="string">"Button"</span>:</div><div class="line">            view = <span class="keyword">new</span> AppCompatButton(context, attrs);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="string">"EditText"</span>:</div><div class="line">            view = <span class="keyword">new</span> AppCompatEditText(context, attrs);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="string">"Spinner"</span>:</div><div class="line">            view = <span class="keyword">new</span> AppCompatSpinner(context, attrs);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="string">"ImageButton"</span>:</div><div class="line">            view = <span class="keyword">new</span> AppCompatImageButton(context, attrs);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="string">"CheckBox"</span>:</div><div class="line">            view = <span class="keyword">new</span> AppCompatCheckBox(context, attrs);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="string">"RadioButton"</span>:</div><div class="line">            view = <span class="keyword">new</span> AppCompatRadioButton(context, attrs);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="string">"CheckedTextView"</span>:</div><div class="line">            view = <span class="keyword">new</span> AppCompatCheckedTextView(context, attrs);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="string">"AutoCompleteTextView"</span>:</div><div class="line">            view = <span class="keyword">new</span> AppCompatAutoCompleteTextView(context, attrs);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="string">"MultiAutoCompleteTextView"</span>:</div><div class="line">            view = <span class="keyword">new</span> AppCompatMultiAutoCompleteTextView(context, attrs);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="string">"RatingBar"</span>:</div><div class="line">            view = <span class="keyword">new</span> AppCompatRatingBar(context, attrs);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> <span class="string">"SeekBar"</span>:</div><div class="line">            view = <span class="keyword">new</span> AppCompatSeekBar(context, attrs);</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (view == <span class="keyword">null</span> &amp;&amp; originalContext != context) &#123;</div><div class="line">        <span class="comment">// If the original context does not equal our themed context, then we need to manually</span></div><div class="line">        <span class="comment">// inflate it using the name so that android:theme takes effect.</span></div><div class="line">        view = createViewFromTag(context, name, attrs);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (view != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="comment">// If we have created a view, check it's android:onClick</span></div><div class="line">        checkOnClickListener(view, attrs);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> view;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当我们在xml写的那些布局映射成对象的时候，都会调用到这里来转换成对应的AppCompat。</p>
+<p>偷梁换柱的关键点我们找到了，那如何找到这个入口呢？</p>
+<p>其实当我们加载布局的时候最终都会用<code>LayoutInflater</code>来加载，所以我打算从这里入手，看源码我发现有一个接口可以利用-&gt;<code>Factory</code>,这个接口有一个方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Factory</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Hook you can supply that is called when inflating from a LayoutInflater.</div><div class="line">     * You can use this to customize the tag names available in your XML</div><div class="line">     * layout files.</div><div class="line">     * </div><div class="line">     * &lt;p&gt;</div><div class="line">     * Note that it is good practice to prefix these custom names with your</div><div class="line">     * package (i.e., com.coolcompany.apps) to avoid conflicts with system</div><div class="line">     * names.</div><div class="line">     * </div><div class="line">     * <span class="doctag">@param</span> name Tag name to be inflated.</div><div class="line">     * <span class="doctag">@param</span> context The context the view is being created in.</div><div class="line">     * <span class="doctag">@param</span> attrs Inflation attributes as specified in XML file.</div><div class="line">     * </div><div class="line">     * <span class="doctag">@return</span> View Newly created view. Return null for the default</div><div class="line">     *         behavior.</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> View <span class="title">onCreateView</span><span class="params">(String name, Context context, AttributeSet attrs)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>果然功夫不负有心人，如果我们实现了这个接口，最终加载布局的时候那么就会调用<code>onCreateView</code>在这里面来实现偷梁换柱替换成我们的自定义控件</p>
+<p>ok，入口和关键代码都找到了，剩下的就是撸代码了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SkinFactory</span> <span class="keyword">implements</span> <span class="title">LayoutInflaterFactory</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> AppCompatActivity mActivity;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SkinFactory</span><span class="params">(AppCompatActivity activity)</span> </span>&#123;</div><div class="line">        mActivity = activity;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> View <span class="title">onCreateView</span><span class="params">(View parent, String name, Context context, AttributeSet attrs)</span> </span>&#123;</div><div class="line"></div><div class="line">        View view = <span class="keyword">null</span>;</div><div class="line">		<span class="comment">//是否需要替换成自定义View</span></div><div class="line">        <span class="keyword">boolean</span> isColorUi = attrs.getAttributeBooleanValue(<span class="string">"http://schemas.android.com/apk/res-auto"</span>, <span class="string">"isColorUi"</span>, <span class="keyword">false</span>);</div><div class="line">        <span class="keyword">if</span> (!isColorUi) <span class="keyword">return</span> delegateCreateView(parent, name, context, attrs);</div><div class="line"></div><div class="line">        <span class="keyword">switch</span> (name) &#123;</div><div class="line">            <span class="keyword">case</span> <span class="string">"TextView"</span>:</div><div class="line">                view = <span class="keyword">new</span> ColorTextView(context, attrs);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="string">"ImageView"</span>:</div><div class="line">                view = <span class="keyword">new</span> ColorImageView(context, attrs);</div><div class="line">                Logger.i(<span class="string">"ImageView 转换成"</span>+view.getClass().getSimpleName());</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="string">"RelativeLayout"</span>:</div><div class="line">                view = <span class="keyword">new</span> ColorRelativeLayout(context, attrs);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="string">"LinearLayout"</span>:</div><div class="line">                view = <span class="keyword">new</span> ColorLinearLayout(context, attrs);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="string">"View"</span>:</div><div class="line">                view = <span class="keyword">new</span> ColorView(context, attrs);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (view == <span class="keyword">null</span>) &#123;</div><div class="line">            view = delegateCreateView(parent, name, context, attrs);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> view;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> View <span class="title">delegateCreateView</span><span class="params">(View parent, String name, Context context, AttributeSet attrs)</span> </span>&#123;</div><div class="line">        AppCompatDelegate delegate = mActivity.getDelegate();</div><div class="line">        <span class="keyword">return</span> delegate.createView(parent, name, context, attrs);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里<code>isColorUi</code>做了一个标示，因为有的是不需要转换的，如果不转换，直接走系统的创建View流程</p>
+<p>关键代码写好了，下面是入口</p>
+<p><strong>BaseActivity.java</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line"><span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">LayoutInflaterCompat.setFactory(layoutInflater, <span class="keyword">new</span> SkinFactory(<span class="keyword">this</span>));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>原本以为这样就完美的解决了，没想到又引出了下一个问题</p>
+<p><img src="/img/emoticon_wtf.jpg" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">Caused by: java.lang.IllegalStateException: A factory has already been set on <span class="keyword">this</span> LayoutInflater</div><div class="line">        at android.view.LayoutInflater.setFactory2(LayoutInflater.java:<span class="number">317</span>)</div><div class="line">        at android.support.v4.view.LayoutInflaterCompatLollipop.setFactory(LayoutInflaterCompatLollipop.java:<span class="number">28</span>)</div><div class="line">        at android.support.v4.view.LayoutInflaterCompat$LayoutInflaterCompatImplV21.setFactory(LayoutInflaterCompat.java:<span class="number">55</span>)</div><div class="line">        at android.support.v4.view.LayoutInflaterCompat.setFactory(LayoutInflaterCompat.java:<span class="number">85</span>)</div><div class="line">        at me.weyye.todaynews.base.BaseActivity.setLayoutInflaterFactory(BaseActivity.java:<span class="number">70</span>)</div><div class="line">        at me.weyye.todaynews.base.BaseActivity.onCreate(BaseActivity.java:<span class="number">60</span>)</div><div class="line">        at android.app.Activity.performCreate(Activity.java:<span class="number">6910</span>)</div><div class="line">        at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:<span class="number">1123</span>)</div><div class="line">        at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:<span class="number">2746</span>)</div><div class="line">        at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:<span class="number">2864</span>) </div><div class="line">        at android.app.ActivityThread.-wrap12(ActivityThread.java) </div><div class="line">        at android.app.ActivityThread$H.handleMessage(ActivityThread.java:<span class="number">1567</span>)</div></pre></td></tr></table></figure>
+<p>于是找到这个方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFactory</span><span class="params">(Factory factory)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (mFactorySet) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"A factory has already been set on this LayoutInflater"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (factory == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException(<span class="string">"Given factory can not be null"</span>);</div><div class="line">        &#125;</div><div class="line">        mFactorySet = <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">if</span> (mFactory == <span class="keyword">null</span>) &#123;</div><div class="line">            mFactory = factory;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            mFactory = <span class="keyword">new</span> FactoryMerger(factory, <span class="keyword">null</span>, mFactory, mFactory2);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>当<code>mFactorySet=true</code>的时候就会抛出这个错误，可是我并没有去set，那么可能是系统set了，对，没错，不然它怎么转换成AppCompat呢。</p>
+<p>那么我只需要用反射把mFactorySet改成false就可以了</p>
+<p>于是乎我修改了下原来的代码</p>
+<p><strong>BaseActivity.java</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">	<span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">	setLayoutInflaterFactory();</div><div class="line">&#125;</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLayoutInflaterFactory</span><span class="params">()</span> </span>&#123;</div><div class="line">       LayoutInflater layoutInflater = getLayoutInflater();</div><div class="line">       <span class="keyword">try</span> &#123;</div><div class="line">           Field mFactorySet = LayoutInflater.class.getDeclaredField(<span class="string">"mFactorySet"</span>);</div><div class="line">           mFactorySet.setAccessible(<span class="keyword">true</span>);</div><div class="line">           mFactorySet.set(layoutInflater, <span class="keyword">false</span>);</div><div class="line">           LayoutInflaterCompat.setFactory(layoutInflater, <span class="keyword">new</span> SkinFactory(<span class="keyword">this</span>));</div><div class="line">       &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">           e.printStackTrace();</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>先利用反射改成false然后在设置上去，这样就不会报错了</p>
+<h3 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h3><p>好吧，几经周折终于完成了日夜间切换，但是当我滑动新闻列表的时候，又一个问题出来了…</p>
+<p><img src="/img/17_2_7_16_49_36.gif" alt=""></p>
+<p>当点击切换成夜间主题后，列表滑动后有的还是白天的主题，这很明显是<code>RecyclerView</code>复用的问题，我的思路是当点击切换主题后清除掉复用的View,这样就不会出现这种问题。怎么清除呢？好像RecyclerView没有直接给我们方法，所以我得去源码好好看看，发现RecyclerView里面有个内部类<code>Recycler</code>用来管理复用和回收的类，而且有<code>clear</code>方法，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Recycler</span> </span>&#123;</div><div class="line">	...</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">    * Clear scrap views out of this recycler. Detached views contained within a</div><div class="line">    * recycled view pool will remain.</div><div class="line">    */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123;</div><div class="line">        mAttachedScrap.clear();</div><div class="line">        recycleAndClearCachedViews();</div><div class="line">    &#125;</div><div class="line">	...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>看代码好像是我所需要的，于是找到这个类对应的变量<code>mRecycler</code>,可惜的是private并且没有get方法，那就只好反射咯~</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">RecyclerView recyclerView = (RecyclerView) rootView;</div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">    Field mRecyclerField = RecyclerView.class.getDeclaredField(<span class="string">"mRecycler"</span>);</div><div class="line">    mRecyclerField.setAccessible(<span class="keyword">true</span>);</div><div class="line">    Method clearMethod = RecyclerView.Recycler.class.getDeclaredMethod(<span class="string">"clear"</span>);</div><div class="line">    clearMethod.setAccessible(<span class="keyword">true</span>);</div><div class="line">    clearMethod.invoke(mRecyclerField.get(recyclerView));</div><div class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">    e.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>ok,成功解决!</p>
+<h3 id="未完待续…"><a href="#未完待续…" class="headerlink" title="未完待续…"></a>未完待续…</h3><h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><ul>
+<li>加入未写界面以及功能</li>
+<li>逻辑代码的整理</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/llew2011/article/details/51252401" target="_blank" rel="external">Android 源码系列之&lt;四&gt;从源码的角度深入理解LayoutInflater.Factory之主题切换(上)</a></p>
+<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>这个属于个人开发作品，仅做学习交流使用，如用到实际项目还需多考虑其他因素如并发等，请多多斟酌。<strong>诸位勿传播于非技术人员，拒绝用于商业用途，数据均属于非正常渠道获取，原作公司拥有所有权利。</strong></p>
+
+	
+	
+	
+	
+</div>
+				
+				
+
+                <!-- Post Comments -->
+                
+                    
+    <!-- 使用多说评论 -->
+    <link rel="stylesheet" href="/css/duoshuo.min.css">
+<style>
+    #ds-thread #ds-reset .ds-post-button{
+        background-color: #0097A7 !important;
+    }
+    #ds-wrapper #ds-reset .ds-icons-32{
+        background-color: #0097A7 !important;
+    }
+    #ds-reset .ds-highlight {
+        color: #0097A7 !important;
+    }
+</style>
+<div id="comments">
+    <!-- 多说评论框 start -->
+        <div class="ds-thread" 
+            data-thread-key="detail/my-project-today-news/" 
+            data-url="http://weyye.me/detail/my-project-today-news/"
+            data-title="Android仿今日头条的开源项目"></div>
+    <!-- 多说评论框 end -->
+</div>
+
+
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    
+    <!-- Prev Nav -->
+    
+        <a href="/detail/today-news-video/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/detail/android-source-activity-oncreate/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+        </div>
+    </div>
+
+				
+				
+					<!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay "></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored  sidebar-fixed-left" role="navigation">
+	<div id="sidebar-main">
+	    <!-- Sidebar Header -->
+		<div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+    <i class="material-icons">clear_all</i>
+    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.jpg" alt="Wey Ye's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        yewei02538@163.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+		<!-- Sidebar Navigation  -->
+		<ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+			
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+						<i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    <li id="sidebar-first-li">
+        <a href="/" target="_self">
+            <i class="material-icons sidebar-material-icons">home</i>
+             主页
+        </a>
+    </li>
+
+    <!-- I'm Feeling Lucky -->
+<!--
+    <li class="dropdown">
+        <a href="" target="_self">
+            <i class="material-icons sidebar-material-icons">explore</i>
+             sidebar.imlucky
+        </a>
+    </li>
+-->
+
+	
+    <!-- Archives  -->
+    <li class="dropdown">
+        <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+            <i class="material-icons sidebar-material-icons">inbox</i>
+             归档
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+            <a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">1</span></a>
+        </ul>
+    </li>
+
+    <!-- Divider -->
+    <li class="divider"></li>
+
+
+    <!-- Pages  -->
+	
+		<li>
+			<a href="https://github.com/yewei02538" title="github">
+				github
+			</a>
+		</li>
+	
+		<li>
+			<a href="/about" title="关于我">
+				关于我
+			</a>
+		</li>
+	
+
+    <!-- Article Numebr  -->
+    <li>
+        <a href="/archives">
+             文章总数
+             <span class="sidebar-badge">14</span>
+        </a>
+    </li>
+</ul>
+
+		<!-- Sidebar Divider -->
+		<div class="sidebar-divider"></div>
+
+		<!-- Sidebar Footer -->
+		<!-- 
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持。 :) 
+-->
+
+<!-- Theme Material -->
+<a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+	<div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+		主题 - Material
+		<span class="sidebar-badge badge-circle">i</span>
+	</div>
+</a>
+
+<!-- Help & Support -->
+<!--
+<a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+		sidebar.help
+		<span class="mdl-button__ripple-container">
+			<span class="mdl-ripple"></span>
+		</span>
+	</div>
+</a>
+-->
+
+<!-- Feedback -->
+<!--
+<a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.feedback
+                    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>
+-->
+
+<!-- Abount Theme -->
+<!--
+<a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.about_theme
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>-->
+
+	</div>
+    
+    <!-- Sidebar Sponsor -->
+    
+
+
+</aside>
+
+				
+				
+				
+					<!-- Footer Top Button -->
+					<div class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+				
+				
+				<!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+	
+	
+		<!-- Paradox Footer Left Section -->
+		<div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+    
+
+    <!-- Facebook -->
+    
+    
+
+    <!-- Google + -->
+    
+    
+
+    <!-- Weibo -->
+    
+    
+
+    <!-- Instagram -->
+    
+    
+
+    <!-- Tumblr -->
+    
+    
+
+    <!-- Github -->
+    
+    <a href="https://github.com/yewei02538" target="view_window"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-github.png);">
+        <span class="visuallyhidden">Github</span>
+    </button></a>
+    
+
+    <!-- LinkedIn -->
+    
+    
+</div>
+
+
+		<!--Copyright-->
+		<div id="copyright">Copyright&nbsp;©&nbsp;<script type="text/javascript">var fd = new Date();document.write(fd.getFullYear());</script>&nbsp;Wey Ye的博客</div>
+
+		<!-- Paradox Footer Right Section -->
+
+		<!-- 
+		I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+		It will not impact the appearance and can give developers a lot of support :)
+
+		很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+		它不会影响美观并可以给开发者很大的支持。 :) 
+		-->
+
+		<div class="mdl-mini-footer--right-section">
+			<div>
+				<div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+				<div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+			</div>
+		</div>
+	
+    
+</footer>
+                
+				<!-- Import File -->
+<script src="/js/highlight.min.js"></script>
+<script src="/js/js.min.js"></script>
+<script src="/js/nprogress.js"></script>
+
+<script type="text/javascript">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    
+    $('#nprogress .bar').css({
+        'background': '#FF4081'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FF4081, 0 0 15px #FF4081'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FF4081',
+        'border-left-color': '#FF4081'
+    });
+    
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+    <!-- 多说公共 js 代码 start -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yipwey"};
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = 'https://static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+    <!-- 多说公共 js 代码 end -->
+
+
+
+
+<!-- Swiftye -->
+
+
+<!-- Local Search-->
+
+	<script>
+	var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += "<li><a href='"+ data_url +"' class='search-result-title' target='_blank'>"+ data_title;
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out characters
+                            var start = first_occur - 6;
+                            var end = first_occur + 6;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 10;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substr(start, end); 
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<em class=\"search-keyword\">"+keyword+"</em>");
+                            })
+                            str += "<p class=\"search-result\">" + match_content +"...</p>" +"</a>";
+                        }
+                    }
+                })
+                $resultContent.innerHTML = str;
+            })
+        }
+    })
+}
+</script>
+
+	<script>
+        var inputArea = document.querySelector("#search");
+        var getSearchFile = function(){
+            var path = "search.xml";
+            searchFunc(path, 'search', 'local-search-result');
+        }
+
+        inputArea.onfocus = function(){ getSearchFile() }
+	</script>
+
+
+<!-- Window Load-->
+<script>
+    $(window).load(function() {
+        // Post_Toc parent position fixed
+        $(".post-toc-wrap").parent(".mdl-menu__container").css("position", "fixed");
+    });
+</script>
+
+<!-- MathJax Load-->
+
+            </main>
+        </div>
+		
+    </body>
+		
+	
+</html>
