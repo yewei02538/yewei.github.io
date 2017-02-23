@@ -66,9 +66,9 @@
     <link href="http://weyye.me/detail/my-project-today-news/"/>
     <id>http://weyye.me/detail/my-project-today-news/</id>
     <published>2017-02-05T08:46:54.000Z</published>
-    <updated>2017-02-16T06:20:38.427Z</updated>
+    <updated>2017-02-23T01:20:48.141Z</updated>
     
-    <content type="html">&lt;h2 id=&quot;起因&quot;&gt;&lt;a href=&quot;#起因&quot; class=&quot;headerlink&quot; title=&quot;起因&quot;&gt;&lt;/a&gt;起因&lt;/h2&gt;&lt;p&gt;看到众多大神纷纷有了自己的开源项目，于是自己琢磨着也想做一个开源项目来学习下，因为每次无聊必刷的app就是今日头条，评论简直比内容都精彩，所以我打算仿今日头条来练练手，期间也曾放弃过，也遇到很多坑，拿出来跟大家分享一下，喜欢的记得给个Star，当作是给我的鼓励和动力吧。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+    <content type="html">&lt;h2 id=&quot;起因&quot;&gt;&lt;a href=&quot;#起因&quot; class=&quot;headerlink&quot; title=&quot;起因&quot;&gt;&lt;/a&gt;起因&lt;/h2&gt;&lt;p&gt;看到众多大神纷纷有了自己的开源项目，于是自己琢磨着也想做一个开源项目来学习下，因为每次无聊必刷的app就是今日头条，评论简直比内容都精彩，所以我打算仿今日头条来练练手，期间也曾放弃过，也遇到很多坑，拿出来跟大家分享一下。该项目使用的是MVP+&lt;a href=&quot;https://github.com/ReactiveX/RxJava&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;RxJava&lt;/a&gt;+&lt;a href=&quot;https://github.com/square/retrofit&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Retrofit&lt;/a&gt;。喜欢的记得给个Star，当作是给我的鼓励和动力吧。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;源码链接&quot;&gt;&lt;a href=&quot;#源码链接&quot; class=&quot;headerlink&quot; title=&quot;源码链接&quot;&gt;&lt;/a&gt;源码链接&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/yewei02538/TodayNews&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/yewei02538/TodayNews&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;无图言屌&quot;&gt;&lt;a href=&quot;#无图言屌&quot; class=&quot;headerlink&quot; title=&quot;无图言屌&quot;&gt;&lt;/a&gt;无图言屌&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/img/todaynews01.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/img/todaynews02.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
@@ -142,7 +142,7 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;起因&quot;&gt;&lt;a href=&quot;#起因&quot; class=&quot;headerlink&quot; title=&quot;起因&quot;&gt;&lt;/a&gt;起因&lt;/h2&gt;&lt;p&gt;看到众多大神纷纷有了自己的开源项目，于是自己琢磨着也想做一个开源项目来学习下，因为每次无聊必刷的app就是今日头条，评论简直比内容都精彩，所以我打算仿今日头条来练练手，期间也曾放弃过，也遇到很多坑，拿出来跟大家分享一下，喜欢的记得给个Star，当作是给我的鼓励和动力吧。&lt;br&gt;
+      &lt;h2 id=&quot;起因&quot;&gt;&lt;a href=&quot;#起因&quot; class=&quot;headerlink&quot; title=&quot;起因&quot;&gt;&lt;/a&gt;起因&lt;/h2&gt;&lt;p&gt;看到众多大神纷纷有了自己的开源项目，于是自己琢磨着也想做一个开源项目来学习下，因为每次无聊必刷的app就是今日头条，评论简直比内容都精彩，所以我打算仿今日头条来练练手，期间也曾放弃过，也遇到很多坑，拿出来跟大家分享一下。该项目使用的是MVP+&lt;a href=&quot;https://github.com/ReactiveX/RxJava&quot;&gt;RxJava&lt;/a&gt;+&lt;a href=&quot;https://github.com/square/retrofit&quot;&gt;Retrofit&lt;/a&gt;。喜欢的记得给个Star，当作是给我的鼓励和动力吧。&lt;br&gt;
     
     </summary>
     
