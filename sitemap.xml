@@ -2,6 +2,20 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <sitemap>
+    <loc>http://weyye.me/detail/android-source-activity-oncreate/</loc>
+    
+    <lastmod>2017-03-15T03:20:05.244Z</lastmod>
+    
+  </sitemap>
+  
+  <sitemap>
+    <loc>http://weyye.me/detail/framework-appcompatactivity-setcontentview/</loc>
+    
+    <lastmod>2017-03-15T03:17:09.003Z</lastmod>
+    
+  </sitemap>
+  
+  <sitemap>
     <loc>http://weyye.me/about/index.html</loc>
     
     <lastmod>2017-03-03T05:38:06.500Z</lastmod>
@@ -19,13 +33,6 @@
     <loc>http://weyye.me/detail/today-news-video/</loc>
     
     <lastmod>2017-02-16T06:20:42.315Z</lastmod>
-    
-  </sitemap>
-  
-  <sitemap>
-    <loc>http://weyye.me/detail/android-source-activity-oncreate/</loc>
-    
-    <lastmod>2016-12-28T05:49:00.952Z</lastmod>
     
   </sitemap>
   

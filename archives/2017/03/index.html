@@ -4,7 +4,7 @@
     <!-- Title -->
     
     <title>
-        Dialog样式的Activity-可以在任何地方弹出的Dialog | Wey Ye的博客
+        archive_a: 2017/3 | Wey Ye的博客
     </title>
     
     <!-- Favicons -->
@@ -40,7 +40,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://weyye.me">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Dialog样式的Activity-可以在任何地方弹出的Dialog | Wey Ye的博客">
+    <meta property="og:title" content="archive_a: 2017/3 | Wey Ye的博客">
     <meta property="og:description" content="null">
     
      <!--[if lte IE 9]>
@@ -199,318 +199,101 @@
                 </button>
 				
 				
-                <!-- Post TOC -->
-
+                <!-- Index Module -->
+<div class="material-index mdl-grid">
+	
+    <div class="locate-thumbnail-symbol"></div>
     
-	<!-- Back Button -->
-<!--
-	<div class="material-back" id="backhome-div" tabindex="0">
-		<a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="#" onclick="window.history.back();return false;" target="_self" role="button" data-upgraded=",MaterialButton,MaterialRipple">
-			<i class="material-icons" role="presentation">arrow_back</i>
-			<span class="mdl-button__ripple-container">
-				<span class="mdl-ripple"></span>
-			</span>
-		</a>
-	</div>			
--->
-	<!-- Left aligned menu below button -->
-	<button id="post-toc-trigger-btn"
-			class="mdl-button mdl-js-button mdl-button--icon">
-	  <i class="material-icons">format_list_numbered</i>
-	</button>
-
-	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
-		for="post-toc-trigger-btn">
-			
-			
+    
 		
-<!--			<li class="mdl-menu__item">Some Action</li>-->
-	</ul>
-
-
-
-<!-- Layouts -->
-
-    <!-- Post Module -->
-    <div class="material-post_container">
-		
-        <div class="material-post mdl-grid">
-            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
-
-                <!-- Post Header(Thumbnail & Title) -->
-                
-	<!-- Paradox Post Header -->
+			<!-- Paradox Thumbnail -->
+        	<div class="post_entry-module mdl-card mdl-cell mdl-cell--12-col fade out">
+    
+    <!-- Post Thumbnail -->
 	
 		
 			<!-- Random Thumbnail -->
 			<div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-				<script>
+		
+	
+				
+		<!-- Post Title -->
+		<p class="article-headline-p"><a href="/detail/framework-appcompatactivity-setcontentview/">Android走进Framework之AppCompatActivity.setContentView</a></p>
+	</div>
+
+    <!-- Post Excerpt -->
+    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
+        
+            
+转载请标明出处： http://weyye.me/detail/framework-appcompatactivity-setcontentview/本文出自:【Wey Ye的博客】
+
+前言在上一篇Android走进Framework之app是如何被启动的中讲到了从我们点击app一直到调用Activity.onCreate()的整个流程,今天来研究下我们最熟悉的一行代码setContentView()。网上也有很多关于setContentView的源码解析，但是都是基于Activity源码，而我们现在都是继承的AppCompatActivity,看源码发现改动还不少，所以我打算来研究下AppCompatActivity里是如何把我们的布局添加进去的。你是否也曾有过同样的疑惑，为什么创建Activity就要在onCreate()里面调用setContentView()?那就让我们来RTFSC (Read the fucking source code )。
+        
+        &nbsp;&nbsp;&nbsp;
+        <span>
+            <a href="/detail/framework-appcompatactivity-setcontentview/" target="_self">继续阅读</a>
+        </span>
+    </div>
+    <!-- Post_entry Info-->
+    <div id="post_entry-info">
+        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
+            <!-- Author Avatar -->
+            <div id="author-avatar">
+                <img src="/img/avatar.jpg" width="44px" height="44px" alt="Wey Ye's avatar">
+            </div>
+            <div>
+                <strong>Wey Ye</strong>
+                <span>3月 15, 2017</span>
+            </div>
+        </div>
+        <div id="post_entry-right-info">
+            <!-- Category -->
+            <span class="post_entry-category">
+                
+            </span>
+            
+            
+                <!-- Comment Number -->
+                &nbsp;|&nbsp;
+                <span class="post_entry-comment" >
+                        <span class="ds-thread-count" data-thread-key="detail/framework-appcompatactivity-setcontentview/" data-count-type="comments"></span>
+                </span>
+            
+            
+            <!-- Post Views -->
+            <span class="post_entry-views">
+                
+            </span>
+        </div>
+    </div>
+            
+</div>
+
+		
+		
+    
+    
+	
+		<script>
     
     var randomNum;
-    randomNum = Math.floor(Math.random() * 5 + 1);
     
-    $(".post_thumbnail-random").css('background-image', 'url(' + '/img/random/' + randomNum + '.png' + ')');
+    var locatePost = $(".locate-thumbnail-symbol").next();
+    for(var i=0; i < 10; i++){
+        
+        randomNum = Math.floor(Math.random() * 5 + 1);
+        
+        locatePost.children(".post_thumbnail-random").attr('id', 'random_thumbnail-'+randomNum);
+        locatePost.children(".post_thumbnail-random").css('background-image', 'url(' + '/img/random/' + randomNum + '.png' + ')')
+        
+        locatePost = locatePost.next();
+    }
     
 </script>
 
-		
 	
-        <p class="article-headline-p">
-            Dialog样式的Activity-可以在任何地方弹出的Dialog
-        </p>
-    </div>
-
-	
-
-				
-				
-					<!-- Paradox Post Info -->
-					<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-    
-    <!-- Author Avatar -->
-    <div id="author-avatar">
-        <img src="/img/avatar.jpg" width="44px" height="44px" alt="Author Avatar"/>
-    </div>
-    <!-- Author Name & Date -->
-    <div>
-        <strong>Wey Ye</strong>
-        <span>8月 12, 2016</span>
-    </div>
-    
-    <div class="section-spacer"></div>
-	
-    <!-- Favorite -->
-<!--
-    <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
-        <i class="material-icons" role="presentation">favorite</i>
-        <span class="visuallyhidden">favorites</span>
-    </button>
--->
-
-    <!-- Qrcode -->
-    
-
-
-    <!-- Tags (bookmark) -->
-    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-        <i class="material-icons" role="presentation">bookmark</i>
-        <span class="visuallyhidden">bookmark</span>
-    </button>
-    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
-        <li class="mdl-menu__item">
-        
-    </ul>
-    
-    <!-- Share -->
-    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-    <i class="material-icons" role="presentation">share</i>
-    <span class="visuallyhidden">share</span>
-</button>
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
-
-    
-    <!-- Leancloud Views -->
-    <a class="post_share-link" href="#">
-        <li class="mdl-menu__item">
-            <span id="/detail/dialogactivity/" class="leancloud-views_num" data-flag-title="Dialog样式的Activity-可以在任何地方弹出的Dialog">
-     &nbsp;浏览量
-</span>
-        </li>
-    </a>
-    
-
-    
-
-    <!-- Share Twitter -->
-    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Dialog样式的Activity-可以在任何地方弹出的Dialog&url=http://weyye.me//detail/dialogactivity/index.html&via=Wey Ye" target="_blank">
-        <li class="mdl-menu__item">
-            分享到 Twitter
-        </li>
-    </a>
-
-    <!-- Share Google+ -->
-    <a class="post_share-link" href="https://plus.google.com/share?url=http://weyye.me//detail/dialogactivity/index.html" target="_blank">
-        <li class="mdl-menu__item">
-            分享到 Google+
-        </li>
-    </a>
-
-    <!-- Share Weibo -->
-    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Dialog样式的Activity-可以在任何地方弹出的Dialog&url=http://weyye.me//detail/dialogactivity/index.html&pic=&searchPic=false&style=simple" target="_blank">
-        <li class="mdl-menu__item">
-            分享到微博
-        </li>
-    </a>
-
-    <!-- Share LinkedIn -->
-    <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://weyye.me//detail/dialogactivity/index.html&title=Dialog样式的Activity-可以在任何地方弹出的Dialog" target="_blank">
-        <li class="mdl-menu__item">
-            分享到 LinkedIn
-        </li>
-    </a>
-
-    <!-- Share QQ -->
-    <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Wey Ye的博客&title=Dialog样式的Activity-可以在任何地方弹出的Dialog&summary=null&pics=http://weyye.me/favicon.ico&url=http://weyye.me/detail/dialogactivity/index.html" target="_blank">
-        <li class="mdl-menu__item">
-            分享到 QQ
-        </li>
-    </a>
-
-    <!-- Share Telegram -->
-    <a class="post_share-link" href="https://telegram.me/share/url?url=http://weyye.me/detail/dialogactivity/index.html&text=Dialog样式的Activity-可以在任何地方弹出的Dialog" target="_blank">
-        <li class="mdl-menu__item">
-            分享到 Telegram
-        </li>
-    </a>
-</ul>
 
 </div>
-				
-
-                <!-- Post Content -->
-                <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
-	
-		<p>最近项目用到一个需求，当收到透传消息后不管在哪个界面都要弹出一个dialog，当时觉得这还不简单嘛，new一个呀 ，于是我就在receiver里面new了一个</p>
-<p>然后就报了如下的错</p>
-<p><pre><br>android.view.WindowManager$BadTokenException: Unable to add window – token null is not for an application<br>android.view.ViewRootImpl.setView(ViewRootImpl.java:567)<br>                                                                    at android.view.WindowManagerGlobal.addView(WindowManagerGlobal.java:269)                                                                       at android.view.WindowManagerImpl.addView(WindowManagerImpl.java:69)                                                               at android.app.Dialog.show(Dialog.java:323)                                                                     at com.yipwey.dialogactivity.PushReceiver.onReceive(PushReceiver.java:16)<br>                                                                           at android.app.ActivityThread.handleReceiver(ActivityThread.java:2508)<br>                                                                           at android.app.ActivityThread.access$2000(ActivityThread.java:141)<br>                                                                           at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1323)<br></pre><br><a id="more"></a><br>下面是我写的测试代码</p>
-<pre><code>public class PushReceiver extends BroadcastReceiver {
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        Dialog dialog=new Dialog(context);
-        dialog.setTitle(&quot;Dialog&quot;);
-        dialog.show();
-    }
-}
-</code></pre><p>在stackoverflow上找到了原因 <a href="http://stackoverflow.com/questions/19024940/android-error-unable-to-add-window-token-null-is-not-for-an-application" title="Unable to add window" target="_blank" rel="external">http://stackoverflow.com/questions/19024940/android-error-unable-to-add-window-token-null-is-not-for-an-application</a></p>
-<p>原因是因为传入的是Context，而需要的是Activity</p>
-<p>查询SDK帮助文档：</p>
-<p>Return the context of the single, global Application object of the current process. This generally should only be used if you need a Context whose lifecycle is separate from the current context, that is tied to the lifetime of the process rather than the current component.</p>
-<p>在回来发现我这里是Receiver啊，并不是Activity<br>于是乎就要换一种方法了，也就是Dialog风格的Activity</p>
-<p>这样既解决了这个问题，有可以再Activity里写控制的代码，下面我就抛砖引玉介绍一下吧</p>
-<p>首先，要写一个style 并且集成 <code>@android:style/Theme.Dialog</code>，</p>
-<pre><code> &lt;style name=&quot;CustomTheme_Dialog&quot; parent=&quot;@android:style/Theme.Dialog&quot;&gt;
-        &lt;item name=&quot;android:windowBackground&quot;&gt;@android:color/transparent&lt;/item&gt;
-        &lt;item name=&quot;android:windowFrame&quot;&gt;@null&lt;/item&gt;
-        &lt;item name=&quot;android:windowActionBar&quot;&gt;false&lt;/item&gt;
-        &lt;item name=&quot;android:windowNoTitle&quot;&gt;true&lt;/item&gt;
-        &lt;item name=&quot;android:windowIsFloating&quot;&gt;true&lt;/item&gt;
-        &lt;item name=&quot;android:windowIsTranslucent&quot;&gt;false&lt;/item&gt;
-        &lt;item name=&quot;android:backgroundDimEnabled&quot;&gt;true&lt;/item&gt;
- &lt;/style&gt;
-</code></pre><p>然后再你的Manifest中的Activity添加 <code>android:theme=&quot;@style/CustomTheme_Dialog&quot;</code></p>
-<p>这样你的Activity就是dialog风格的了</p>
-<pre><code>public class DialogActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
-}
-</code></pre><p>下面是我的布局，</p>
-<pre><code>&lt;RelativeLayout
-    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;match_parent&quot;
-    android:paddingLeft=&quot;@dimen/activity_horizontal_margin&quot;
-    android:paddingRight=&quot;@dimen/activity_horizontal_margin&quot;
-    android:paddingTop=&quot;@dimen/activity_vertical_margin&quot;
-    android:paddingBottom=&quot;@dimen/activity_vertical_margin&quot;
-    tools:context=&quot;com.yipwey.dialogactivity.MainActivity&quot;&gt;
-
-    &lt;Button
-        android:id=&quot;@+id/btn&quot;
-        android:text=&quot;Hello World!&quot;
-        android:layout_centerInParent=&quot;true&quot;
-        android:layout_width=&quot;wrap_content&quot;
-        android:layout_height=&quot;wrap_content&quot; /&gt;
-&lt;/RelativeLayout&gt;
-</code></pre><p>,然后我们运行一下</p>
-<p>然后你会发现又报错了</p>
-<pre><code>Caused by: java.lang.IllegalStateException: You need to use a Theme.AppCompat theme (or descendant) with this activity.
-                                                                               at android.support.v7.app.AppCompatDelegateImplV7.createSubDecor(AppCompatDelegateImplV7.java:343)
-                                                                               at android.support.v7.app.AppCompatDelegateImplV7.ensureSubDecor(AppCompatDelegateImplV7.java:312)
-                                                                               at android.support.v7.app.AppCompatDelegateImplV7.setContentView(AppCompatDelegateImplV7.java:277)
-                                                                               at android.support.v7.app.AppCompatActivity.setContentView(AppCompatActivity.java:140)
-                                                                               at com.yipwey.dialogactivity.MainActivity.onCreate(MainActivity.java:14)
-                                                                               at android.app.Activity.performCreate(Activity.java:5308)
-                                                                               at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1090)
-</code></pre><p><img src="/img/img_xk.jpg" alt=""></p>
-<p>原因是你继承了<code>AppCompatActivity</code>,改成<code>Activity</code>就可以了</p>
-<p>然后就成功了</p>
-<p><img src="/img/Screenshot_2016-08-12-17-25-15.jpeg" alt=""></p>
-<p>如果你想点击外部不消失的话 调用 <code>setFinishOnTouchOutside(false);</code>就可以了(注意：一定要在setContentView之前调用)</p>
-<p>demo下载地址：<a href="http://download.csdn.net/detail/yewei02538/9602028" target="_blank" rel="external">http://download.csdn.net/detail/yewei02538/9602028</a></p>
-
-	
-	
-	
-	
-</div>
-				
-				
-
-                <!-- Post Comments -->
-                
-                    
-    <!-- 使用多说评论 -->
-    <link rel="stylesheet" href="/css/duoshuo.min.css">
-<style>
-    #ds-thread #ds-reset .ds-post-button{
-        background-color: #0097A7 !important;
-    }
-    #ds-wrapper #ds-reset .ds-icons-32{
-        background-color: #0097A7 !important;
-    }
-    #ds-reset .ds-highlight {
-        color: #0097A7 !important;
-    }
-</style>
-<div id="comments">
-    <!-- 多说评论框 start -->
-        <div class="ds-thread" 
-            data-thread-key="detail/dialogactivity/" 
-            data-url="http://weyye.me/detail/dialogactivity/"
-            data-title="Dialog样式的Activity-可以在任何地方弹出的Dialog" data-author-key="1"></div>
-    <!-- 多说评论框 end -->
-</div>
-
-
-
-                
-            </div>
-
-            <!-- Post Prev & Next Nav -->
-            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
-    
-    <!-- Prev Nav -->
-    
-        <a href="/detail/System-gc-not-called/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
-
-    <!-- Section Spacer -->
-    <div class="section-spacer"></div>
-
-    <!-- Next Nav -->
-    
-        <a href="/detail/Android-PLDroidPlayer播放/" id="post_nav-older" class="next-content">
-            旧篇
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
-    
-</nav>
-        </div>
-    </div>
 
 				
 				

@@ -175,7 +175,7 @@
 			<script> var _hmt = _hmt || []; (function() { var hm = document.createElement('script'); hm.src = 'https://hm.baidu.com/hm.js?b7e5f6ac58c952eaf3e7b49fb65496f8'; var s = document.getElementsByTagName('script')[0];  s.parentNode.insertBefore(hm, s); })(); </script>
         
     
-</head>
+<link rel="stylesheet" href="/css/prism-okaidia.css" type="text/css"></head>
 	
 	
 
@@ -371,14 +371,66 @@
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
 		<h2 id="查看源码"><a href="#查看源码" class="headerlink" title="查看源码"></a>查看源码</h2><p>当我们调用System.gc()的时候，其实并不会马上进行垃圾回收，甚至不一定会执行垃圾回收，查看系统源码可以看到</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line">    * Indicates to the VM that it would be a good time to run the</div><div class="line">    * garbage collector. Note that this is a hint only. There is no guarantee</div><div class="line">    * that the garbage collector will actually be run.</div><div class="line">    */</div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">gc</span><span class="params">()</span> </span>&#123;</div><div class="line">       <span class="keyword">boolean</span> shouldRunGC;</div><div class="line">       <span class="keyword">synchronized</span>(lock) &#123;</div><div class="line">           shouldRunGC = justRanFinalization;</div><div class="line">           <span class="keyword">if</span> (shouldRunGC) &#123;</div><div class="line">               justRanFinalization = <span class="keyword">false</span>;</div><div class="line">           &#125; <span class="keyword">else</span> &#123;</div><div class="line">               runGC = <span class="keyword">true</span>;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">if</span> (shouldRunGC) &#123;</div><div class="line">           Runtime.getRuntime().gc();</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<pre class=" language-java"><code class="language-java">
+    <span class="token comment" spellcheck="true">/**
+     * Indicates to the VM that it would be a good time to run the
+     * garbage collector. Note that this is a hint only. There is no guarantee
+     * that the garbage collector will actually be run.
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">gc</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">boolean</span> shouldRunGC<span class="token punctuation">;</span>
+        <span class="token keyword">synchronized</span><span class="token punctuation">(</span>lock<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            shouldRunGC <span class="token operator">=</span> justRanFinalization<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>shouldRunGC<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                justRanFinalization <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                runGC <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>shouldRunGC<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Runtime<span class="token punctuation">.</span><span class="token function">getRuntime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">gc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+</code></pre>
 <p>也就是<code>justRanFinalization=true</code>的时候才会执行<br><a id="more"></a></p>
 <p>查找发现当调用runFinalization()的时候<code>justRanFinalization</code>变为<code>true</code><br>下面是runFinalization()的源码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line">* Provides a hint to the VM that it would be useful to attempt</div><div class="line">* to perform any outstanding object finalization.</div><div class="line">*/</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">runFinalization</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">boolean</span> shouldRunGC;</div><div class="line">        <span class="keyword">synchronized</span>(lock) &#123;</div><div class="line">            shouldRunGC = runGC;</div><div class="line">            runGC = <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (shouldRunGC) &#123;</div><div class="line">            Runtime.getRuntime().gc();</div><div class="line">        &#125;</div><div class="line">        Runtime.getRuntime().runFinalization();</div><div class="line">        <span class="keyword">synchronized</span>(lock) &#123;</div><div class="line">            justRanFinalization = <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre class=" language-java"><code class="language-java">
+<span class="token comment" spellcheck="true">/**
+* Provides a hint to the VM that it would be useful to attempt
+* to perform any outstanding object finalization.
+*/</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">runFinalization</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">boolean</span> shouldRunGC<span class="token punctuation">;</span>
+        <span class="token keyword">synchronized</span><span class="token punctuation">(</span>lock<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            shouldRunGC <span class="token operator">=</span> runGC<span class="token punctuation">;</span>
+            runGC <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>shouldRunGC<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Runtime<span class="token punctuation">.</span><span class="token function">getRuntime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">gc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        Runtime<span class="token punctuation">.</span><span class="token function">getRuntime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">runFinalization</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">synchronized</span><span class="token punctuation">(</span>lock<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            justRanFinalization <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <p>其实当我们直接调用<code>System.gc()</code>只会把这次gc请求记录下来，等到<code>runFinalization=true</code>的时候才会先去执行GC，<code>runFinalization=true</code>之后会在允许一次system.gc()。之后在call System.gc()还会重复上面的行为。<br>所以System.gc()要跟System.runFinalization()一起搭配使用才好。<br>查看<code>ZygoteInit.java</code> 里面 gc()和runFinalizationSync()是配合使用的，这样才有效果</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">gcAndFinalize</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">final</span> VMRuntime runtime = VMRuntime.getRuntime();</div><div class="line"></div><div class="line">    <span class="comment">/* runFinalizationSync() lets finalizers be called in Zygote,</span></div><div class="line">    * which doesn't have a HeapWorker thread.</div><div class="line">    */</div><div class="line">    System.gc();</div><div class="line">    runtime.runFinalizationSync();</div><div class="line">    System.gc();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">gcAndFinalize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">final</span> VMRuntime runtime <span class="token operator">=</span> VMRuntime<span class="token punctuation">.</span><span class="token function">getRuntime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/* runFinalizationSync() lets finalizers be called in Zygote,
+    * which doesn't have a HeapWorker thread.
+    */</span>
+    System<span class="token punctuation">.</span><span class="token function">gc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    runtime<span class="token punctuation">.</span><span class="token function">runFinalizationSync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span><span class="token function">gc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>由此可见，当我们需要调用的<code>System.gc()</code>的时候 要这样才会执行</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">System.gc();</div><div class="line">runtime.runFinalizationSync();</div><div class="line">System.gc();</div></pre></td></tr></table></figure>
+<pre class=" language-java"><code class="language-java">System<span class="token punctuation">.</span><span class="token function">gc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+runtime<span class="token punctuation">.</span><span class="token function">runFinalizationSync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span><span class="token function">gc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 <p>不过个人建议不到万不得已不要调用,因为jvm有自己的gc策略，根本不需要我们来手动</p>
 
 	
@@ -524,7 +576,7 @@
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">1</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">1</span></a>
         </ul>
     </li>
 
@@ -551,7 +603,7 @@
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">14</span>
+             <span class="sidebar-badge">15</span>
         </a>
     </li>
 </ul>

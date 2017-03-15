@@ -175,7 +175,7 @@
 			<script> var _hmt = _hmt || []; (function() { var hm = document.createElement('script'); hm.src = 'https://hm.baidu.com/hm.js?b7e5f6ac58c952eaf3e7b49fb65496f8'; var s = document.getElementsByTagName('script')[0];  s.parentNode.insertBefore(hm, s); })(); </script>
         
     
-</head>
+<link rel="stylesheet" href="/css/prism-okaidia.css" type="text/css"></head>
 	
 	
 
@@ -293,7 +293,27 @@
     <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
         
             查看源码当我们调用System.gc()的时候，其实并不会马上进行垃圾回收，甚至不一定会执行垃圾回收，查看系统源码可以看到
-1234567891011121314151617181920/**    * Indicates to the VM that it would be a good time to run the    * garbage collector. Note that this is a hint only. There is no guarantee    * that the garbage collector will actually be run.    */   public static void gc() &#123;       boolean shouldRunGC;       synchronized(lock) &#123;           shouldRunGC = justRanFinalization;           if (shouldRunGC) &#123;               justRanFinalization = false;           &#125; else &#123;               runGC = true;           &#125;       &#125;       if (shouldRunGC) &#123;           Runtime.getRuntime().gc();       &#125;   &#125;
+
+    /**
+     * Indicates to the VM that it would be a good time to run the
+     * garbage collector. Note that this is a hint only. There is no guarantee
+     * that the garbage collector will actually be run.
+     */
+    public static void gc() {
+        boolean shouldRunGC;
+        synchronized(lock) {
+            shouldRunGC = justRanFinalization;
+            if (shouldRunGC) {
+                justRanFinalization = false;
+            } else {
+                runGC = true;
+            }
+        }
+        if (shouldRunGC) {
+            Runtime.getRuntime().gc();
+        }
+    }
+
 也就是justRanFinalization=true的时候才会执行
         
         &nbsp;&nbsp;&nbsp;
@@ -502,7 +522,7 @@ android.view.WindowManager$BadTokenException: Unable to add window – token nul
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">1</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">1</span></a>
         </ul>
     </li>
 
@@ -529,7 +549,7 @@ android.view.WindowManager$BadTokenException: Unable to add window – token nul
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">14</span>
+             <span class="sidebar-badge">15</span>
         </a>
     </li>
 </ul>

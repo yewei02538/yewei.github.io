@@ -175,7 +175,7 @@
 			<script> var _hmt = _hmt || []; (function() { var hm = document.createElement('script'); hm.src = 'https://hm.baidu.com/hm.js?b7e5f6ac58c952eaf3e7b49fb65496f8'; var s = document.getElementsByTagName('script')[0];  s.parentNode.insertBefore(hm, s); })(); </script>
         
     
-</head>
+<link rel="stylesheet" href="/css/prism-okaidia.css" type="text/css"></head>
 	
 	
 
@@ -370,7 +370,14 @@
                 <!-- Post Content -->
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
-		<p>在做项目中，遇到一个很奇怪的问题 ，当调用fragmentTransaction.commit的时候 fragment的生命周期并没有立即执行，下面是我的代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">manager = getSupportFragmentManager();</div><div class="line">FragmentTransaction ft = manager.beginTransaction();</div><div class="line">MainFragment fragment = <span class="keyword">new</span> MainFragment();</div><div class="line">ft.add(R.id.fl_content, fragment);</div><div class="line">ft.commit();</div><div class="line">fragment.setInfo();</div></pre></td></tr></table></figure></p>
+		<p>在做项目中，遇到一个很奇怪的问题 ，当调用fragmentTransaction.commit的时候 fragment的生命周期并没有立即执行，下面是我的代码</p>
+<pre class=" language-java"><code class="language-java">manager <span class="token operator">=</span> <span class="token function">getSupportFragmentManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+FragmentTransaction ft <span class="token operator">=</span> manager<span class="token punctuation">.</span><span class="token function">beginTransaction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+MainFragment fragment <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MainFragment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ft<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>fl_content<span class="token punctuation">,</span> fragment<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ft<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+fragment<span class="token punctuation">.</span><span class="token function">setInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 <a id="more"></a>
 <p>看似正常的逻辑没有问题 ，可是却fragment里面却给我报了NullPointException ,看log显示 view是null，我就奇怪了，明明onCreateView里面不是findViewById找到了嘛 ，不会啊，无意中查看了fragmentTransaction.commit()的源码才知道<br>注释是这样写的</p>
 <pre><code>* Schedules a commit of this transaction.  The commit does
@@ -522,7 +529,7 @@
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">1</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">1</span></a>
         </ul>
     </li>
 
@@ -549,7 +556,7 @@
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">14</span>
+             <span class="sidebar-badge">15</span>
         </a>
     </li>
 </ul>

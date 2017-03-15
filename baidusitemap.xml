@@ -3,6 +3,36 @@
 
 
     
+  <url>
+    <loc>http://weyye.me/detail/android-source-activity-oncreate/</loc>
+    <lastmod>2017-03-15T03:20:05.244Z</lastmod>
+    <data>
+        <display>
+        <title>Android走进Framework之app是如何被启动的</title>
+        <pubTime>2016-12-26T08:25:22.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://weyye.me/detail/framework-appcompatactivity-setcontentview/</loc>
+    <lastmod>2017-03-15T03:17:09.003Z</lastmod>
+    <data>
+        <display>
+        <title>Android走进Framework之AppCompatActivity.setContentView</title>
+        <pubTime>2017-03-15T03:02:51.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
     
   <url>
     <loc>http://weyye.me/detail/my-project-today-news/</loc>
@@ -26,21 +56,6 @@
         <display>
         <title>手撸一个今日头条视频下载器</title>
         <pubTime>2017-02-15T06:56:41.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://weyye.me/detail/android-source-activity-oncreate/</loc>
-    <lastmod>2016-12-28T05:49:00.952Z</lastmod>
-    <data>
-        <display>
-        <title>Android走进源码告诉你app是如何被启动的</title>
-        <pubTime>2016-12-26T08:25:22.000Z</pubTime>
         
          
            

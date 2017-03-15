@@ -175,7 +175,7 @@
 			<script> var _hmt = _hmt || []; (function() { var hm = document.createElement('script'); hm.src = 'https://hm.baidu.com/hm.js?b7e5f6ac58c952eaf3e7b49fb65496f8'; var s = document.getElementsByTagName('script')[0];  s.parentNode.insertBefore(hm, s); })(); </script>
         
     
-</head>
+<link rel="stylesheet" href="/css/prism-okaidia.css" type="text/css"></head>
 	
 	
 
@@ -396,7 +396,10 @@
 </ul>
 <p>答案是 当然不行，当我们输入包名和sha1值提交的时候，其实在后台已经产生一条数据，标示着用这个sha1的签名生成出对应包名的app才可以使用。</p>
 <p>既然高德要获取包名，那么我们平时是怎么样获取app的包名的呢？</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), <span class="number">64</span>);</div><div class="line">String packageName=packageInfo.packageName;</div></pre></td></tr></table></figure>
+<pre class=" language-java"><code class="language-java">
+PackageInfo packageInfo <span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token function">getPackageManager</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getPackageInfo</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">getPackageName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">64</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+String packageName<span class="token operator">=</span>packageInfo<span class="token punctuation">.</span>packageName<span class="token punctuation">;</span>
+</code></pre>
 <p>那么我们不妨搜索一下<code>packageName</code></p>
 <p>按下快捷键ctrl+shift+s,打开搜索界面搜索 <code>packageName</code></p>
 <p><img src="/img/20160926152501.png" alt=""></p>
@@ -417,9 +420,27 @@
 <p><img src="/img/20160926160355.png" alt=""></p>
 <p>ok，大功告成。我们来打包成jar包，那么Android Studio 如何打包 jar 呢？</p>
 <p>我们在这个修改的用来修改的 Module 的 build.gradle 中添加以下代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function">task <span class="title">makeJar</span><span class="params">(type: Copy)</span> </span>&#123;</div><div class="line"></div><div class="line">    delete <span class="string">'build/libs/lib.jar'</span></div><div class="line"></div><div class="line">    from(<span class="string">'build/intermediates/bundles/release/'</span>)</div><div class="line"></div><div class="line">    into(<span class="string">'build/libs/'</span>)</div><div class="line"></div><div class="line">    include(<span class="string">'classes.jar'</span>)</div><div class="line"></div><div class="line">    rename (<span class="string">'classes.jar'</span>, <span class="string">'lib.jar'</span>)</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">makeJar.dependsOn(build)</div></pre></td></tr></table></figure>
+<pre class=" language-java"><code class="language-java">
+task <span class="token function">makeJar</span><span class="token punctuation">(</span>type<span class="token operator">:</span> Copy<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    delete <span class="token string">'build/libs/lib.jar'</span>
+
+    <span class="token function">from</span><span class="token punctuation">(</span><span class="token string">'build/intermediates/bundles/release/'</span><span class="token punctuation">)</span>
+
+    <span class="token function">into</span><span class="token punctuation">(</span><span class="token string">'build/libs/'</span><span class="token punctuation">)</span>
+
+    <span class="token function">include</span><span class="token punctuation">(</span><span class="token string">'classes.jar'</span><span class="token punctuation">)</span>
+
+    <span class="token function">rename</span> <span class="token punctuation">(</span><span class="token string">'classes.jar'</span><span class="token punctuation">,</span> <span class="token string">'lib.jar'</span><span class="token punctuation">)</span>
+
+<span class="token punctuation">}</span>
+
+makeJar<span class="token punctuation">.</span><span class="token function">dependsOn</span><span class="token punctuation">(</span>build<span class="token punctuation">)</span>
+</code></pre>
 <p>在工程目录下执行</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">gradlew makeJar</div></pre></td></tr></table></figure>
+<pre class=" language-java"><code class="language-java">
+gradlew makeJar
+</code></pre>
 <p><img src="/img/20160926162721.png" alt=""></p>
 <p>即可得到 jar 文件</p>
 <p><img src="/img/20160926162806.png" alt=""></p>
@@ -578,7 +599,7 @@
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">1</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">1</span></a>
         </ul>
     </li>
 
@@ -605,7 +626,7 @@
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">14</span>
+             <span class="sidebar-badge">15</span>
         </a>
     </li>
 </ul>

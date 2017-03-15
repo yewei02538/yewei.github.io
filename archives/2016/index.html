@@ -175,7 +175,7 @@
 			<script> var _hmt = _hmt || []; (function() { var hm = document.createElement('script'); hm.src = 'https://hm.baidu.com/hm.js?b7e5f6ac58c952eaf3e7b49fb65496f8'; var s = document.getElementsByTagName('script')[0];  s.parentNode.insertBefore(hm, s); })(); </script>
         
     
-</head>
+<link rel="stylesheet" href="/css/prism-okaidia.css" type="text/css"></head>
 	
 	
 
@@ -218,7 +218,7 @@
 	
 				
 		<!-- Post Title -->
-		<p class="article-headline-p"><a href="/detail/android-source-activity-oncreate/">Android走进源码告诉你app是如何被启动的</a></p>
+		<p class="article-headline-p"><a href="/detail/android-source-activity-oncreate/">Android走进Framework之app是如何被启动的</a></p>
 	</div>
 
     <!-- Post Excerpt -->
@@ -301,7 +301,11 @@ Application又是在哪里初始化的？onCreate又是如何被调用的？
         
             前言之前做项目一直使用的高德地图，这次做的项目客户必须使用腾讯地图，然后又去折腾了下腾讯地图，说说我遇到的哪些bug
 Bug1:使用RxJava集成sdk报错由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几个项目都用的是Rxjava，但是当我导入腾讯地图sdk后，却报了这个错
-1234Error:Execution failed for task ':app:transformResourcesWithMergeJavaResForDebug'.&gt; com.android.build.api.transform.TransformException: com.android.builder.packaging.DuplicateFileException: Duplicate files copied in APK META-INF/rxjava.properties	File1: E:\Android Project\YiBangKe\app\libs\TencentMapSDK_Vector_v3.0.4.jar	File2: C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\io.reactivex\rxjava\1.1.1\b494968f6050d494de55dc3ce005e59c7eb40012\rxjava-1.1.1.jar
+Error:Execution failed for task &#39;:app:transformResourcesWithMergeJavaResForDebug&#39;.
+&gt; com.android.build.api.transform.TransformException: com.android.builder.packaging.DuplicateFileException: Duplicate files copied in APK META-INF/rxjava.properties
+    File1: E:\Android Project\YiBangKe\app\libs\TencentMapSDK_Vector_v3.0.4.jar
+    File2: C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\io.reactivex\rxjava\1.1.1\b494968f6050d494de55dc3ce005e59c7eb40012\rxjava-1.1.1.jar
+
         
         &nbsp;&nbsp;&nbsp;
         <span>
@@ -582,7 +586,27 @@ IP有一段的时效性，并不能保证能永久使用，我会持续更新最
     <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
         
             查看源码当我们调用System.gc()的时候，其实并不会马上进行垃圾回收，甚至不一定会执行垃圾回收，查看系统源码可以看到
-1234567891011121314151617181920/**    * Indicates to the VM that it would be a good time to run the    * garbage collector. Note that this is a hint only. There is no guarantee    * that the garbage collector will actually be run.    */   public static void gc() &#123;       boolean shouldRunGC;       synchronized(lock) &#123;           shouldRunGC = justRanFinalization;           if (shouldRunGC) &#123;               justRanFinalization = false;           &#125; else &#123;               runGC = true;           &#125;       &#125;       if (shouldRunGC) &#123;           Runtime.getRuntime().gc();       &#125;   &#125;
+
+    /**
+     * Indicates to the VM that it would be a good time to run the
+     * garbage collector. Note that this is a hint only. There is no guarantee
+     * that the garbage collector will actually be run.
+     */
+    public static void gc() {
+        boolean shouldRunGC;
+        synchronized(lock) {
+            shouldRunGC = justRanFinalization;
+            if (shouldRunGC) {
+                justRanFinalization = false;
+            } else {
+                runGC = true;
+            }
+        }
+        if (shouldRunGC) {
+            Runtime.getRuntime().gc();
+        }
+    }
+
 也就是justRanFinalization=true的时候才会执行
         
         &nbsp;&nbsp;&nbsp;
@@ -782,7 +806,14 @@ PLDroidPlayer（七牛根据ijkplayer二次开发的 定制简单 github:https:/
     <!-- Post Excerpt -->
     <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
         
-            在做项目中，遇到一个很奇怪的问题 ，当调用fragmentTransaction.commit的时候 fragment的生命周期并没有立即执行，下面是我的代码123456manager = getSupportFragmentManager();FragmentTransaction ft = manager.beginTransaction();MainFragment fragment = new MainFragment();ft.add(R.id.fl_content, fragment);ft.commit();fragment.setInfo();
+            在做项目中，遇到一个很奇怪的问题 ，当调用fragmentTransaction.commit的时候 fragment的生命周期并没有立即执行，下面是我的代码
+manager = getSupportFragmentManager();
+FragmentTransaction ft = manager.beginTransaction();
+MainFragment fragment = new MainFragment();
+ft.add(R.id.fl_content, fragment);
+ft.commit();
+fragment.setInfo();
+
         
         &nbsp;&nbsp;&nbsp;
         <span>
@@ -846,7 +877,11 @@ PLDroidPlayer（七牛根据ijkplayer二次开发的 定制简单 github:https:/
     <!-- Post Excerpt -->
     <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
         
-            项目原本只加入高德sdk的时候，获取map，添加marker一切正常 ，可是只要我加入个推sdk后 编译运行 居然报高德地图的错 ，当时了就懵了- -这个是错误日志123java.lang.UnsatisfiedLinkError: No implementation found for long com.autonavi.amap.mapcore.MapCore.nativeNewInstance(java.lang.String, java.lang.String) (tried Java_com_autonavi_amap_mapcore_MapCore_nativeNewInstance and Java_com_autonavi_amap_mapcore_MapCore_nativeNewInstance__Ljava_lang_String_2Ljava_lang_String_2)                                                      at com.autonavi.amap.mapcore.MapCore.nativeNewInstance(Native Method)                                                      at com.autonavi.amap.mapcore.MapCore.newMap(MapCore.java:83
+            项目原本只加入高德sdk的时候，获取map，添加marker一切正常 ，可是只要我加入个推sdk后 编译运行 居然报高德地图的错 ，当时了就懵了- -这个是错误日志
+ java.lang.UnsatisfiedLinkError: No implementation found for long com.autonavi.amap.mapcore.MapCore.nativeNewInstance(java.lang.String, java.lang.String) (tried Java_com_autonavi_amap_mapcore_MapCore_nativeNewInstance and Java_com_autonavi_amap_mapcore_MapCore_nativeNewInstance__Ljava_lang_String_2Ljava_lang_String_2)
+                                                       at com.autonavi.amap.mapcore.MapCore.nativeNewInstance(Native Method)
+                                                       at com.autonavi.amap.mapcore.MapCore.newMap(MapCore.java:83
+
         
         &nbsp;&nbsp;&nbsp;
         <span>
@@ -993,7 +1028,7 @@ PLDroidPlayer（七牛根据ijkplayer二次开发的 定制简单 github:https:/
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">1</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">1</span></a>
         </ul>
     </li>
 
@@ -1020,7 +1055,7 @@ PLDroidPlayer（七牛根据ijkplayer二次开发的 定制简单 github:https:/
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">14</span>
+             <span class="sidebar-badge">15</span>
         </a>
     </li>
 </ul>

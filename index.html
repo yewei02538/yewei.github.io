@@ -175,7 +175,7 @@
 			<script> var _hmt = _hmt || []; (function() { var hm = document.createElement('script'); hm.src = 'https://hm.baidu.com/hm.js?b7e5f6ac58c952eaf3e7b49fb65496f8'; var s = document.getElementsByTagName('script')[0];  s.parentNode.insertBefore(hm, s); })(); </script>
         
     
-</head>
+<link rel="stylesheet" href="/css/prism-okaidia.css" type="text/css"></head>
 	
 	
 
@@ -344,6 +344,73 @@
 	
 				
 		<!-- Post Title -->
+		<p class="article-headline-p"><a href="/detail/framework-appcompatactivity-setcontentview/">Android走进Framework之AppCompatActivity.setContentView</a></p>
+	</div>
+
+    <!-- Post Excerpt -->
+    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
+        
+            
+转载请标明出处： http://weyye.me/detail/framework-appcompatactivity-setcontentview/本文出自:【Wey Ye的博客】
+
+前言在上一篇Android走进Framework之app是如何被启动的中讲到了从我们点击app一直到调用Activity.onCreate()的整个流程,今天来研究下我们最熟悉的一行代码setContentView()。网上也有很多关于setContentView的源码解析，但是都是基于Activity源码，而我们现在都是继承的AppCompatActivity,看源码发现改动还不少，所以我打算来研究下AppCompatActivity里是如何把我们的布局添加进去的。你是否也曾有过同样的疑惑，为什么创建Activity就要在onCreate()里面调用setContentView()?那就让我们来RTFSC (Read the fucking source code )。
+        
+        &nbsp;&nbsp;&nbsp;
+        <span>
+            <a href="/detail/framework-appcompatactivity-setcontentview/" target="_self">继续阅读</a>
+        </span>
+    </div>
+    <!-- Post_entry Info-->
+    <div id="post_entry-info">
+        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
+            <!-- Author Avatar -->
+            <div id="author-avatar">
+                <img src="/img/avatar.jpg" width="44px" height="44px" alt="Wey Ye's avatar">
+            </div>
+            <div>
+                <strong>Wey Ye</strong>
+                <span>3月 15, 2017</span>
+            </div>
+        </div>
+        <div id="post_entry-right-info">
+            <!-- Category -->
+            <span class="post_entry-category">
+                
+            </span>
+            
+            
+                <!-- Comment Number -->
+                &nbsp;|&nbsp;
+                <span class="post_entry-comment" >
+                        <span class="ds-thread-count" data-thread-key="detail/framework-appcompatactivity-setcontentview/" data-count-type="comments"></span>
+                </span>
+            
+            
+            <!-- Post Views -->
+            <span class="post_entry-views">
+                
+            </span>
+        </div>
+    </div>
+            
+</div>
+
+		
+		
+    
+		
+			<!-- Paradox Thumbnail -->
+        	<div class="post_entry-module mdl-card mdl-cell mdl-cell--12-col fade out">
+    
+    <!-- Post Thumbnail -->
+	
+		
+			<!-- Random Thumbnail -->
+			<div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+		
+	
+				
+		<!-- Post Title -->
 		<p class="article-headline-p"><a href="/detail/today-news-video/">手撸一个今日头条视频下载器</a></p>
 	</div>
 
@@ -472,7 +539,7 @@
 	
 				
 		<!-- Post Title -->
-		<p class="article-headline-p"><a href="/detail/android-source-activity-oncreate/">Android走进源码告诉你app是如何被启动的</a></p>
+		<p class="article-headline-p"><a href="/detail/android-source-activity-oncreate/">Android走进Framework之app是如何被启动的</a></p>
 	</div>
 
     <!-- Post Excerpt -->
@@ -555,7 +622,11 @@ Application又是在哪里初始化的？onCreate又是如何被调用的？
         
             前言之前做项目一直使用的高德地图，这次做的项目客户必须使用腾讯地图，然后又去折腾了下腾讯地图，说说我遇到的哪些bug
 Bug1:使用RxJava集成sdk报错由于先Rxjava比较火，为了赶上时代的脚步，现在做的这几个项目都用的是Rxjava，但是当我导入腾讯地图sdk后，却报了这个错
-1234Error:Execution failed for task ':app:transformResourcesWithMergeJavaResForDebug'.&gt; com.android.build.api.transform.TransformException: com.android.builder.packaging.DuplicateFileException: Duplicate files copied in APK META-INF/rxjava.properties	File1: E:\Android Project\YiBangKe\app\libs\TencentMapSDK_Vector_v3.0.4.jar	File2: C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\io.reactivex\rxjava\1.1.1\b494968f6050d494de55dc3ce005e59c7eb40012\rxjava-1.1.1.jar
+Error:Execution failed for task &#39;:app:transformResourcesWithMergeJavaResForDebug&#39;.
+&gt; com.android.build.api.transform.TransformException: com.android.builder.packaging.DuplicateFileException: Duplicate files copied in APK META-INF/rxjava.properties
+    File1: E:\Android Project\YiBangKe\app\libs\TencentMapSDK_Vector_v3.0.4.jar
+    File2: C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\io.reactivex\rxjava\1.1.1\b494968f6050d494de55dc3ce005e59c7eb40012\rxjava-1.1.1.jar
+
         
         &nbsp;&nbsp;&nbsp;
         <span>
@@ -836,7 +907,27 @@ IP有一段的时效性，并不能保证能永久使用，我会持续更新最
     <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
         
             查看源码当我们调用System.gc()的时候，其实并不会马上进行垃圾回收，甚至不一定会执行垃圾回收，查看系统源码可以看到
-1234567891011121314151617181920/**    * Indicates to the VM that it would be a good time to run the    * garbage collector. Note that this is a hint only. There is no guarantee    * that the garbage collector will actually be run.    */   public static void gc() &#123;       boolean shouldRunGC;       synchronized(lock) &#123;           shouldRunGC = justRanFinalization;           if (shouldRunGC) &#123;               justRanFinalization = false;           &#125; else &#123;               runGC = true;           &#125;       &#125;       if (shouldRunGC) &#123;           Runtime.getRuntime().gc();       &#125;   &#125;
+
+    /**
+     * Indicates to the VM that it would be a good time to run the
+     * garbage collector. Note that this is a hint only. There is no guarantee
+     * that the garbage collector will actually be run.
+     */
+    public static void gc() {
+        boolean shouldRunGC;
+        synchronized(lock) {
+            shouldRunGC = justRanFinalization;
+            if (shouldRunGC) {
+                justRanFinalization = false;
+            } else {
+                runGC = true;
+            }
+        }
+        if (shouldRunGC) {
+            Runtime.getRuntime().gc();
+        }
+    }
+
 也就是justRanFinalization=true的时候才会执行
         
         &nbsp;&nbsp;&nbsp;
@@ -933,75 +1024,6 @@ android.view.WindowManager$BadTokenException: Unable to add window – token nul
                 &nbsp;|&nbsp;
                 <span class="post_entry-comment" >
                         <span class="ds-thread-count" data-thread-key="detail/dialogactivity/" data-count-type="comments"></span>
-                </span>
-            
-            
-            <!-- Post Views -->
-            <span class="post_entry-views">
-                
-            </span>
-        </div>
-    </div>
-            
-</div>
-
-		
-		
-    
-		
-			<!-- Paradox Thumbnail -->
-        	<div class="post_entry-module mdl-card mdl-cell mdl-cell--12-col fade out">
-    
-    <!-- Post Thumbnail -->
-	
-		
-			<!-- Random Thumbnail -->
-			<div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-		
-	
-				
-		<!-- Post Title -->
-		<p class="article-headline-p"><a href="/detail/Android-PLDroidPlayer播放/">Android 使用PLDroidPlayer播放网络视频 根据视频角度自动旋转</a></p>
-	</div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            最近因为项目需求 ，需要播放网络视频  ，于是乎 研究了一番 ，说说我遇到的那些坑    
-现在市面上有几个比较主流好用的第三方框架
-
-Vitamio （  体积比较大，有商业化风险 github:https://github.com/yixia/VitamioBundle/）
-ijkplayer（B站下开源的框架 体积大 配置环境比较麻烦  github:https://github.com/Bilibili/ijkplayer ）
-PLDroidPlayer（七牛根据ijkplayer二次开发的 定制简单 github:https://github.com/pili-engineering/PLDroidPlayer）
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/detail/Android-PLDroidPlayer播放/" target="_self">继续阅读</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.jpg" width="44px" height="44px" alt="Wey Ye's avatar">
-            </div>
-            <div>
-                <strong>Wey Ye</strong>
-                <span>7月 20, 2016</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-            <!-- Category -->
-            <span class="post_entry-category">
-                
-            </span>
-            
-            
-                <!-- Comment Number -->
-                &nbsp;|&nbsp;
-                <span class="post_entry-comment" >
-                        <span class="ds-thread-count" data-thread-key="detail/Android-PLDroidPlayer播放/" data-count-type="comments"></span>
                 </span>
             
             
@@ -1119,7 +1141,7 @@ PLDroidPlayer（七牛根据ijkplayer二次开发的 定制简单 github:https:/
         </a>
         <ul class="dropdown-menu">
             <li>
-            <a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">1</span></a>
+            <a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/02/">二月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/08/">八月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">七月 2016<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">二月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">十一月 2015<span class="sidebar_archives-count">1</span></a>
         </ul>
     </li>
 
@@ -1146,7 +1168,7 @@ PLDroidPlayer（七牛根据ijkplayer二次开发的 定制简单 github:https:/
     <li>
         <a href="/archives">
              文章总数
-             <span class="sidebar-badge">14</span>
+             <span class="sidebar-badge">15</span>
         </a>
     </li>
 </ul>
