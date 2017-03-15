@@ -915,7 +915,9 @@
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setContentView</span><span class="token punctuation">(</span>View v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//此时DecorView和subDecor都创建好了</span>
         <span class="token function">ensureSubDecor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//还记得调用createSubDecor的时候把原本是R.id.content的windowContentView设置成了NO_ID,并且将contentView也就是ContentFrameLayout设置成了R.id.content吗？也就是说此时的contentParent就是ContentFrameLayout</span>
+        <span class="token comment" spellcheck="true">//还记得调用createSubDecor的时候把原本是R.id.content的windowContentView设置成了NO_ID</span>
+        <span class="token comment" spellcheck="true">//并且将contentView也就是ContentFrameLayout设置成了R.id.content吗？</span>
+        <span class="token comment" spellcheck="true">//也就是说此时的contentParent就是ContentFrameLayout</span>
         ViewGroup contentParent <span class="token operator">=</span> <span class="token punctuation">(</span>ViewGroup<span class="token punctuation">)</span> mSubDecor<span class="token punctuation">.</span><span class="token function">findViewById</span><span class="token punctuation">(</span>android<span class="token punctuation">.</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>content<span class="token punctuation">)</span><span class="token punctuation">;</span>
         contentParent<span class="token punctuation">.</span><span class="token function">removeAllViews</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">//将我的布局放到contentParent里面</span>

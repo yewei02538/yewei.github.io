@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://weyye.me/"/>
-  <updated>2017-03-15T03:43:40.715Z</updated>
+  <updated>2017-03-15T03:49:04.147Z</updated>
   <id>http://weyye.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://weyye.me/detail/framework-appcompatactivity-setcontentview/"/>
     <id>http://weyye.me/detail/framework-appcompatactivity-setcontentview/</id>
     <published>2017-03-15T03:02:51.000Z</published>
-    <updated>2017-03-15T03:43:40.715Z</updated>
+    <updated>2017-03-15T03:49:04.147Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;转载请标明出处： &lt;a href=&quot;http://weyye.me/detail/framework-appcompatactivity-setcontentview/&quot;&gt;http://weyye.me/detail/framework-appcompatactivity-setcontentview/&lt;/a&gt;&lt;br&gt;本文出自:&lt;a href=&quot;http://weyye.me&quot;&gt;【Wey Ye的博客】&lt;/a&gt;&lt;/p&gt;
@@ -567,7 +567,9 @@
     &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;setContentView&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;View v&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;token comment&quot; spellcheck=&quot;true&quot;&gt;//此时DecorView和subDecor都创建好了&lt;/span&gt;
         &lt;span class=&quot;token function&quot;&gt;ensureSubDecor&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;token comment&quot; spellcheck=&quot;true&quot;&gt;//还记得调用createSubDecor的时候把原本是R.id.content的windowContentView设置成了NO_ID,并且将contentView也就是ContentFrameLayout设置成了R.id.content吗？也就是说此时的contentParent就是ContentFrameLayout&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot; spellcheck=&quot;true&quot;&gt;//还记得调用createSubDecor的时候把原本是R.id.content的windowContentView设置成了NO_ID&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot; spellcheck=&quot;true&quot;&gt;//并且将contentView也就是ContentFrameLayout设置成了R.id.content吗？&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot; spellcheck=&quot;true&quot;&gt;//也就是说此时的contentParent就是ContentFrameLayout&lt;/span&gt;
         ViewGroup contentParent &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;ViewGroup&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; mSubDecor&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;findViewById&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;android&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;R&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;id&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;content&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
         contentParent&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;removeAllViews&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
         &lt;span class=&quot;token comment&quot; spellcheck=&quot;true&quot;&gt;//将我的布局放到contentParent里面&lt;/span&gt;
