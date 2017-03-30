@@ -4,7 +4,7 @@
     <!-- Title -->
     
     <title>
-        android-memory-leak-explaination | Wey Ye的博客
+        Android内存泄漏(一)-常见内存泄漏以及解决 | Wey Ye的博客
     </title>
     
     <!-- Favicons -->
@@ -40,7 +40,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://weyye.me">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="android-memory-leak-explaination | Wey Ye的博客">
+    <meta property="og:title" content="Android内存泄漏(一)-常见内存泄漏以及解决 | Wey Ye的博客">
     <meta property="og:description" content="null">
     
      <!--[if lte IE 9]>
@@ -256,7 +256,7 @@
 		
 	
         <p class="article-headline-p">
-            android-memory-leak-explaination
+            Android内存泄漏(一)-常见内存泄漏以及解决
         </p>
     </div>
 
@@ -312,7 +312,7 @@
     <!-- Leancloud Views -->
     <a class="post_share-link" href="#">
         <li class="mdl-menu__item">
-            <span id="/detail/android-memory-leak-explaination/" class="leancloud-views_num" data-flag-title="android-memory-leak-explaination">
+            <span id="/detail/android-memory-leak-explaination/" class="leancloud-views_num" data-flag-title="Android内存泄漏(一)-常见内存泄漏以及解决">
      &nbsp;浏览量
 </span>
         </li>
@@ -322,7 +322,7 @@
     
 
     <!-- Share Twitter -->
-    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=android-memory-leak-explaination&url=http://weyye.me//detail/android-memory-leak-explaination/index.html&via=Wey Ye" target="_blank">
+    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Android内存泄漏(一)-常见内存泄漏以及解决&url=http://weyye.me//detail/android-memory-leak-explaination/index.html&via=Wey Ye" target="_blank">
         <li class="mdl-menu__item">
             分享到 Twitter
         </li>
@@ -336,28 +336,28 @@
     </a>
 
     <!-- Share Weibo -->
-    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=android-memory-leak-explaination&url=http://weyye.me//detail/android-memory-leak-explaination/index.html&pic=&searchPic=false&style=simple" target="_blank">
+    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Android内存泄漏(一)-常见内存泄漏以及解决&url=http://weyye.me//detail/android-memory-leak-explaination/index.html&pic=&searchPic=false&style=simple" target="_blank">
         <li class="mdl-menu__item">
             分享到微博
         </li>
     </a>
 
     <!-- Share LinkedIn -->
-    <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://weyye.me//detail/android-memory-leak-explaination/index.html&title=android-memory-leak-explaination" target="_blank">
+    <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://weyye.me//detail/android-memory-leak-explaination/index.html&title=Android内存泄漏(一)-常见内存泄漏以及解决" target="_blank">
         <li class="mdl-menu__item">
             分享到 LinkedIn
         </li>
     </a>
 
     <!-- Share QQ -->
-    <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Wey Ye的博客&title=android-memory-leak-explaination&summary=null&pics=http://weyye.me/favicon.ico&url=http://weyye.me/detail/android-memory-leak-explaination/index.html" target="_blank">
+    <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Wey Ye的博客&title=Android内存泄漏(一)-常见内存泄漏以及解决&summary=null&pics=http://weyye.me/favicon.ico&url=http://weyye.me/detail/android-memory-leak-explaination/index.html" target="_blank">
         <li class="mdl-menu__item">
             分享到 QQ
         </li>
     </a>
 
     <!-- Share Telegram -->
-    <a class="post_share-link" href="https://telegram.me/share/url?url=http://weyye.me/detail/android-memory-leak-explaination/index.html&text=android-memory-leak-explaination" target="_blank">
+    <a class="post_share-link" href="https://telegram.me/share/url?url=http://weyye.me/detail/android-memory-leak-explaination/index.html&text=Android内存泄漏(一)-常见内存泄漏以及解决" target="_blank">
         <li class="mdl-menu__item">
             分享到 Telegram
         </li>
@@ -370,7 +370,10 @@
                 <!-- Post Content -->
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
-		<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>内存泄漏也算是一个老生常谈的一个话题，在面试的时候也会经常被问到。这几天正在研究性能优化，所以我打算先从内存泄漏开始讲起<br><a id="more"></a></p>
+		<blockquote>
+<p>转载请标明出处： <a href="http://www.weyye.me/detail/android-memory-leak-explaination/" target="_blank" rel="external">http://www.weyye.me/detail/android-memory-leak-explaination/</a><br>本文出自:<a href="http://weyye.me">【Wey Ye的博客】</a></p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>内存泄漏也算是一个老生常谈的一个话题，在面试的时候也会经常被问到。这几天正在研究性能优化，所以我打算先从内存泄漏开始讲起<br><a id="more"></a></p>
 <h2 id="什么是内存泄漏"><a href="#什么是内存泄漏" class="headerlink" title="什么是内存泄漏"></a>什么是内存泄漏</h2><p>引用一句网上用烂的一句话，也是面试装逼必备~</p>
 <blockquote>
 <p>当一个对象已经不需要再使用了，本该被回收时，而有另外一个正在使用的对象持有它的引用从而就导致对象不能被回收。这种导致了本该被回收的对象不能被回收而停留在堆内存中，就产生了内存泄漏</p>
@@ -385,9 +388,7 @@
 <p>当某对象不再有任何的引用的时候才会进行回收。</p>
 </blockquote>
 <h2 id="内存分配策略"><a href="#内存分配策略" class="headerlink" title="内存分配策略"></a>内存分配策略</h2><p>要想搞清楚为什么会内存泄漏，我们首先要了解内存是如何进行分配的</p>
-<h3 id="静态存储区"><a href="#静态存储区" class="headerlink" title="静态存储区"></a>静态存储区</h3><blockquote>
-<p>内存在程序编译的时候就已经分配好，这块的内存在程序整个运行期间都一直存在。<strong>它主要存放静态数据、全局的static数据和一些常量。</strong></p>
-</blockquote>
+<h3 id="静态存储区"><a href="#静态存储区" class="headerlink" title="静态存储区"></a>静态存储区</h3><p>内存在程序编译的时候就已经分配好，这块的内存在程序整个运行期间都一直存在。<strong>它主要存放静态数据、全局的static数据和一些常量。</strong></p>
 <h3 id="栈区"><a href="#栈区" class="headerlink" title="栈区"></a>栈区</h3><p>当执行方法里面的代码时，方法里面的<strong>局部变量</strong>都是创建在栈上面的，<br>比如说基础数据类型<code>int i=5</code>,此时就会在栈上开辟一块区域名字是i，它的值就是5，当创建对象时候的<code>Person p=new Person()</code>，此时就会在堆中创建一个<strong>Person的实例</strong>,而在栈中就会开辟一块区域p，而值就是在堆中实例对应的引用地址（指针）。当函数执行结束后这些存储单元就会自动被释放掉栈内存包括分配的运算速度很快，因为内置在处理器的里面的。当然容量有限。</p>
 <h3 id="堆区"><a href="#堆区" class="headerlink" title="堆区"></a>堆区</h3><p>堆内存用来存放由new创建的对象和数组。 如<code>new Person()</code>。在堆中创建一个数组或者对象后，还会在栈中定义一个特殊的变量，该变量存储着这个数组或对象的内存地址（指针），也就成了数组或对象的引用变量。在堆中申请的内存全部有gc管理</p>
 <h3 id="堆和栈的区别"><a href="#堆和栈的区别" class="headerlink" title="堆和栈的区别"></a>堆和栈的区别</h3><ul>
@@ -649,7 +650,7 @@
 <p>这样做就可以了。但是为什么要使用<code>WeakReference</code>呢?</p>
 <p>来一段4大引用的解释</p>
 <p><strong>StrongReference 强引用</strong>：</p>
-<p>回收时机：从不回收<br>使用：对象的一般保存<br>生命周期：JVM停止的时候才会终止（new出来的对应都是强引用）</p>
+<p>回收时机：从不回收<br>使用：对象的一般保存<br>生命周期：JVM停止的时候才会终止<br>（new出来的对应都是强引用）</p>
 <p><strong>SoftReference 软引用</strong><br>回收时机：当内存不足的时候<br>使用：SoftReference<string>结合ReferenceQueue构造有效期短<br>生命周期：内存不足时终止</string></p>
 <p><strong>WeakReference 弱引用</strong><br>回收时机：在垃圾回收的时候<br>使用：同软引用<br>生命周期：GC后终止</p>
 <p><strong>PhatomReference 虚引用</strong><br>回收时机：在垃圾回收的时候<br>使用：合ReferenceQueue来跟踪对象呗垃圾回收期回收的活动<br>生命周期:GC后终止</p>
@@ -697,15 +698,20 @@
 <p>完美！</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>看到上面几个内存泄漏的例子,在我们日常编码中也要好好注意了，例如：</p>
 <ul>
-<li>写单例的时候需要传Context要传入AppcationContext。</li>
-<li>不要尽量避免使用静态变量</li>
+<li>当Application的Context能搞定的情况下，并且生命周期长的对象，优先使用Application的Context</li>
+<li>不要生命周期长的对象引用Activity</li>
+<li>尽量避免使用静态变量</li>
 <li>内部类是持有外部类的的引用的，而静态内部类不持有</li>
+<li>如果使用静态内部类，一定要将外部实例对象作为弱引用持有</li>
 <li>Handler正确使用</li>
 <li>4大引用的解释</li>
 </ul>
-<p>当然，这些例子都是比较常见的内存泄漏的地方，还有不常见的泄漏，这个时候就需要我们借助工具来查看逐一排除解决。</p>
+<p>当然，这些例子都是比较常见的内存泄漏的地方，还有不常见的泄漏，这个时候就需要我们借助工具来查看逐一排除解决。在下一篇我会讲解如何去去使用工具来查看内存泄漏</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://zhuanlan.zhihu.com/p/23102625" target="_blank" rel="external">Java垃圾回收机制(GC)详解</a></p>
 <p><a href="http://www.cnblogs.com/whgw/archive/2011/09/29/2194997.html" target="_blank" rel="external">Java中堆内存和栈内存详解</a></p>
+<blockquote>
+<p>博主整理不易，转载请注明出处:<br><a href="http://www.weyye.me/detail/android-memory-leak-explaination/" target="_blank" rel="external">http://www.weyye.me/detail/android-memory-leak-explaination/</a></p>
+</blockquote>
 
 	
 	
@@ -736,7 +742,7 @@
         <div class="ds-thread" 
             data-thread-key="detail/android-memory-leak-explaination/" 
             data-url="http://weyye.me/detail/android-memory-leak-explaination/"
-            data-title="android-memory-leak-explaination" data-author-key="1"></div>
+            data-title="Android内存泄漏(一)-常见内存泄漏以及解决" data-author-key="1"></div>
     <!-- 多说评论框 end -->
 </div>
 

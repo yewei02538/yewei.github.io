@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://weyye.me/"/>
-  <updated>2017-03-29T09:39:10.834Z</updated>
+  <updated>2017-03-30T03:11:36.234Z</updated>
   <id>http://weyye.me/</id>
   
   <author>
@@ -16,13 +16,16 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>android-memory-leak-explaination</title>
+    <title>Android内存泄漏(一)-常见内存泄漏以及解决</title>
     <link href="http://weyye.me/detail/android-memory-leak-explaination/"/>
     <id>http://weyye.me/detail/android-memory-leak-explaination/</id>
     <published>2017-03-29T09:38:27.000Z</published>
-    <updated>2017-03-29T09:39:10.834Z</updated>
+    <updated>2017-03-30T03:11:36.234Z</updated>
     
-    <content type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;内存泄漏也算是一个老生常谈的一个话题，在面试的时候也会经常被问到。这几天正在研究性能优化，所以我打算先从内存泄漏开始讲起&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+    <content type="html">&lt;blockquote&gt;
+&lt;p&gt;转载请标明出处： &lt;a href=&quot;http://www.weyye.me/detail/android-memory-leak-explaination/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.weyye.me/detail/android-memory-leak-explaination/&lt;/a&gt;&lt;br&gt;本文出自:&lt;a href=&quot;http://weyye.me&quot;&gt;【Wey Ye的博客】&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;内存泄漏也算是一个老生常谈的一个话题，在面试的时候也会经常被问到。这几天正在研究性能优化，所以我打算先从内存泄漏开始讲起&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;什么是内存泄漏&quot;&gt;&lt;a href=&quot;#什么是内存泄漏&quot; class=&quot;headerlink&quot; title=&quot;什么是内存泄漏&quot;&gt;&lt;/a&gt;什么是内存泄漏&lt;/h2&gt;&lt;p&gt;引用一句网上用烂的一句话，也是面试装逼必备~&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;当一个对象已经不需要再使用了，本该被回收时，而有另外一个正在使用的对象持有它的引用从而就导致对象不能被回收。这种导致了本该被回收的对象不能被回收而停留在堆内存中，就产生了内存泄漏&lt;/p&gt;
@@ -37,9 +40,7 @@
 &lt;p&gt;当某对象不再有任何的引用的时候才会进行回收。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&quot;内存分配策略&quot;&gt;&lt;a href=&quot;#内存分配策略&quot; class=&quot;headerlink&quot; title=&quot;内存分配策略&quot;&gt;&lt;/a&gt;内存分配策略&lt;/h2&gt;&lt;p&gt;要想搞清楚为什么会内存泄漏，我们首先要了解内存是如何进行分配的&lt;/p&gt;
-&lt;h3 id=&quot;静态存储区&quot;&gt;&lt;a href=&quot;#静态存储区&quot; class=&quot;headerlink&quot; title=&quot;静态存储区&quot;&gt;&lt;/a&gt;静态存储区&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;内存在程序编译的时候就已经分配好，这块的内存在程序整个运行期间都一直存在。&lt;strong&gt;它主要存放静态数据、全局的static数据和一些常量。&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;h3 id=&quot;静态存储区&quot;&gt;&lt;a href=&quot;#静态存储区&quot; class=&quot;headerlink&quot; title=&quot;静态存储区&quot;&gt;&lt;/a&gt;静态存储区&lt;/h3&gt;&lt;p&gt;内存在程序编译的时候就已经分配好，这块的内存在程序整个运行期间都一直存在。&lt;strong&gt;它主要存放静态数据、全局的static数据和一些常量。&lt;/strong&gt;&lt;/p&gt;
 &lt;h3 id=&quot;栈区&quot;&gt;&lt;a href=&quot;#栈区&quot; class=&quot;headerlink&quot; title=&quot;栈区&quot;&gt;&lt;/a&gt;栈区&lt;/h3&gt;&lt;p&gt;当执行方法里面的代码时，方法里面的&lt;strong&gt;局部变量&lt;/strong&gt;都是创建在栈上面的，&lt;br&gt;比如说基础数据类型&lt;code&gt;int i=5&lt;/code&gt;,此时就会在栈上开辟一块区域名字是i，它的值就是5，当创建对象时候的&lt;code&gt;Person p=new Person()&lt;/code&gt;，此时就会在堆中创建一个&lt;strong&gt;Person的实例&lt;/strong&gt;,而在栈中就会开辟一块区域p，而值就是在堆中实例对应的引用地址（指针）。当函数执行结束后这些存储单元就会自动被释放掉栈内存包括分配的运算速度很快，因为内置在处理器的里面的。当然容量有限。&lt;/p&gt;
 &lt;h3 id=&quot;堆区&quot;&gt;&lt;a href=&quot;#堆区&quot; class=&quot;headerlink&quot; title=&quot;堆区&quot;&gt;&lt;/a&gt;堆区&lt;/h3&gt;&lt;p&gt;堆内存用来存放由new创建的对象和数组。 如&lt;code&gt;new Person()&lt;/code&gt;。在堆中创建一个数组或者对象后，还会在栈中定义一个特殊的变量，该变量存储着这个数组或对象的内存地址（指针），也就成了数组或对象的引用变量。在堆中申请的内存全部有gc管理&lt;/p&gt;
 &lt;h3 id=&quot;堆和栈的区别&quot;&gt;&lt;a href=&quot;#堆和栈的区别&quot; class=&quot;headerlink&quot; title=&quot;堆和栈的区别&quot;&gt;&lt;/a&gt;堆和栈的区别&lt;/h3&gt;&lt;ul&gt;
@@ -301,7 +302,7 @@
 &lt;p&gt;这样做就可以了。但是为什么要使用&lt;code&gt;WeakReference&lt;/code&gt;呢?&lt;/p&gt;
 &lt;p&gt;来一段4大引用的解释&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;StrongReference 强引用&lt;/strong&gt;：&lt;/p&gt;
-&lt;p&gt;回收时机：从不回收&lt;br&gt;使用：对象的一般保存&lt;br&gt;生命周期：JVM停止的时候才会终止（new出来的对应都是强引用）&lt;/p&gt;
+&lt;p&gt;回收时机：从不回收&lt;br&gt;使用：对象的一般保存&lt;br&gt;生命周期：JVM停止的时候才会终止&lt;br&gt;（new出来的对应都是强引用）&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;SoftReference 软引用&lt;/strong&gt;&lt;br&gt;回收时机：当内存不足的时候&lt;br&gt;使用：SoftReference&lt;string&gt;结合ReferenceQueue构造有效期短&lt;br&gt;生命周期：内存不足时终止&lt;/string&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;WeakReference 弱引用&lt;/strong&gt;&lt;br&gt;回收时机：在垃圾回收的时候&lt;br&gt;使用：同软引用&lt;br&gt;生命周期：GC后终止&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;PhatomReference 虚引用&lt;/strong&gt;&lt;br&gt;回收时机：在垃圾回收的时候&lt;br&gt;使用：合ReferenceQueue来跟踪对象呗垃圾回收期回收的活动&lt;br&gt;生命周期:GC后终止&lt;/p&gt;
@@ -349,20 +350,28 @@
 &lt;p&gt;完美！&lt;/p&gt;
 &lt;h2 id=&quot;总结&quot;&gt;&lt;a href=&quot;#总结&quot; class=&quot;headerlink&quot; title=&quot;总结&quot;&gt;&lt;/a&gt;总结&lt;/h2&gt;&lt;p&gt;看到上面几个内存泄漏的例子,在我们日常编码中也要好好注意了，例如：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;写单例的时候需要传Context要传入AppcationContext。&lt;/li&gt;
-&lt;li&gt;不要尽量避免使用静态变量&lt;/li&gt;
+&lt;li&gt;当Application的Context能搞定的情况下，并且生命周期长的对象，优先使用Application的Context&lt;/li&gt;
+&lt;li&gt;不要生命周期长的对象引用Activity&lt;/li&gt;
+&lt;li&gt;尽量避免使用静态变量&lt;/li&gt;
 &lt;li&gt;内部类是持有外部类的的引用的，而静态内部类不持有&lt;/li&gt;
+&lt;li&gt;如果使用静态内部类，一定要将外部实例对象作为弱引用持有&lt;/li&gt;
 &lt;li&gt;Handler正确使用&lt;/li&gt;
 &lt;li&gt;4大引用的解释&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;当然，这些例子都是比较常见的内存泄漏的地方，还有不常见的泄漏，这个时候就需要我们借助工具来查看逐一排除解决。&lt;/p&gt;
+&lt;p&gt;当然，这些例子都是比较常见的内存泄漏的地方，还有不常见的泄漏，这个时候就需要我们借助工具来查看逐一排除解决。在下一篇我会讲解如何去去使用工具来查看内存泄漏&lt;/p&gt;
 &lt;h2 id=&quot;参考&quot;&gt;&lt;a href=&quot;#参考&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/23102625&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Java垃圾回收机制(GC)详解&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/whgw/archive/2011/09/29/2194997.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Java中堆内存和栈内存详解&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;博主整理不易，转载请注明出处:&lt;br&gt;&lt;a href=&quot;http://www.weyye.me/detail/android-memory-leak-explaination/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.weyye.me/detail/android-memory-leak-explaination/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 </content>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;内存泄漏也算是一个老生常谈的一个话题，在面试的时候也会经常被问到。这几天正在研究性能优化，所以我打算先从内存泄漏开始讲起&lt;br&gt;
+      &lt;blockquote&gt;
+&lt;p&gt;转载请标明出处： &lt;a href=&quot;http://www.weyye.me/detail/android-memory-leak-explaination/&quot;&gt;http://www.weyye.me/detail/android-memory-leak-explaination/&lt;/a&gt;&lt;br&gt;本文出自:&lt;a href=&quot;http://weyye.me&quot;&gt;【Wey Ye的博客】&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;内存泄漏也算是一个老生常谈的一个话题，在面试的时候也会经常被问到。这几天正在研究性能优化，所以我打算先从内存泄漏开始讲起&lt;br&gt;
     
     </summary>
     
