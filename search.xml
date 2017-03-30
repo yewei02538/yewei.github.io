@@ -4,6 +4,348 @@
   
     
     <entry>
+      <title><![CDATA[android-memory-leak-explaination]]></title>
+      <url>http://weyye.me/detail/android-memory-leak-explaination/</url>
+      <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>内存泄漏也算是一个老生常谈的一个话题，在面试的时候也会经常被问到。这几天正在研究性能优化，所以我打算先从内存泄漏开始讲起<br><a id="more"></a></p>
+<h2 id="什么是内存泄漏"><a href="#什么是内存泄漏" class="headerlink" title="什么是内存泄漏"></a>什么是内存泄漏</h2><p>引用一句网上用烂的一句话，也是面试装逼必备~</p>
+<blockquote>
+<p>当一个对象已经不需要再使用了，本该被回收时，而有另外一个正在使用的对象持有它的引用从而就导致对象不能被回收。这种导致了本该被回收的对象不能被回收而停留在堆内存中，就产生了内存泄漏</p>
+</blockquote>
+<h2 id="谁管理着我们的内存？又是什么时候回收的？"><a href="#谁管理着我们的内存？又是什么时候回收的？" class="headerlink" title="谁管理着我们的内存？又是什么时候回收的？"></a>谁管理着我们的内存？又是什么时候回收的？</h2><p>做过C/C++同学都知道，都是自己去分配内存和释放内存，一切都是我们手动管理。而java则是自动管理的内存-即有自己的一套垃圾回收机制(Garbage Collection),简称gc.</p>
+<p>Java语言规范没有明确地说明JVM使用哪种垃圾回收算法，但是任何一种垃圾回收算法一般要做2件基本的事情：</p>
+<ul>
+<li>发现无用信息对象</li>
+<li>回收被无用对象占用的内存空间，使该空间可被程序再次使用</li>
+</ul>
+<h2 id="GC内存回收时机"><a href="#GC内存回收时机" class="headerlink" title="GC内存回收时机"></a>GC内存回收时机</h2><blockquote>
+<p>当某对象不再有任何的引用的时候才会进行回收。</p>
+</blockquote>
+<h2 id="内存分配策略"><a href="#内存分配策略" class="headerlink" title="内存分配策略"></a>内存分配策略</h2><p>要想搞清楚为什么会内存泄漏，我们首先要了解内存是如何进行分配的</p>
+<h3 id="静态存储区"><a href="#静态存储区" class="headerlink" title="静态存储区"></a>静态存储区</h3><blockquote>
+<p>内存在程序编译的时候就已经分配好，这块的内存在程序整个运行期间都一直存在。<strong>它主要存放静态数据、全局的static数据和一些常量。</strong></p>
+</blockquote>
+<h3 id="栈区"><a href="#栈区" class="headerlink" title="栈区"></a>栈区</h3><p>当执行方法里面的代码时，方法里面的<strong>局部变量</strong>都是创建在栈上面的，<br>比如说基础数据类型<code>int i=5</code>,此时就会在栈上开辟一块区域名字是i，它的值就是5，当创建对象时候的<code>Person p=new Person()</code>，此时就会在堆中创建一个<strong>Person的实例</strong>,而在栈中就会开辟一块区域p，而值就是在堆中实例对应的引用地址（指针）。当函数执行结束后这些存储单元就会自动被释放掉栈内存包括分配的运算速度很快，因为内置在处理器的里面的。当然容量有限。</p>
+<h3 id="堆区"><a href="#堆区" class="headerlink" title="堆区"></a>堆区</h3><p>堆内存用来存放由new创建的对象和数组。 如<code>new Person()</code>。在堆中创建一个数组或者对象后，还会在栈中定义一个特殊的变量，该变量存储着这个数组或对象的内存地址（指针），也就成了数组或对象的引用变量。在堆中申请的内存全部有gc管理</p>
+<h3 id="堆和栈的区别"><a href="#堆和栈的区别" class="headerlink" title="堆和栈的区别"></a>堆和栈的区别</h3><ul>
+<li>堆是不连续的内存区域，堆空间比较灵活也特别大。</li>
+<li>栈式一块连续的内存区域，大小是有操作系统觉决定的。</li>
+</ul>
+<blockquote>
+<p>堆管理很麻烦，频繁地new/remove会造成大量的内存碎片，这样就会慢慢导致效率低下。对于栈的话，他先进后出，进出完全不会产生碎片，运行效率高且稳定。</p>
+</blockquote>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Main</span><span class="token punctuation">{</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//注意：此成员变量在堆区</span>
+    Person s <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">XXX</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">int</span> b <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//栈区</span>
+        Student s2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Student</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+<ul>
+<li>成员变量全部存储在堆中(包括基本数据类型，引用及引用的对象实体)—因为他们属于类，类对象最终还是要被new出来的。</li>
+<li>局部变量的基本数据类型和引用存储于栈当中，引用的对象实体存储在堆中。—–因为他们属于方法当中的变量，生命周期会随着方法一起结束。</li>
+</ul>
+<p>其实说了这么多就像说明一个问题</p>
+<blockquote>
+<p>其实堆区它存放的就是栈中内存地址(指针)所指向的对象实例。</p>
+</blockquote>
+<h2 id="内存抖动"><a href="#内存抖动" class="headerlink" title="内存抖动"></a>内存抖动</h2><p>其实内存抖动就是在短时间内创建了大量的对象或者被回收的对象，gc为了内存合理使用就会进行频繁回收内存，这样就造成了内存抖动。其实gc内存回收机制也是一段代码的执行，它也会消耗cpu和内存。所以呢我们要避免内存抖动，你想它要在短短的时间内进行高工作的回收工作，这样就阻碍的性能，也是app卡顿的主要原因之一。</p>
+<h2 id="内存泄漏的好处-or-坏处？"><a href="#内存泄漏的好处-or-坏处？" class="headerlink" title="内存泄漏的好处 or 坏处？"></a>内存泄漏的好处 or 坏处？</h2><h3 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h3><p>很遗憾的说没有好处！如果硬要说有，那就是我们不用逐一排查引起内存泄漏的原因啦~</p>
+<h3 id="坏处"><a href="#坏处" class="headerlink" title="坏处"></a>坏处</h3><p>Android系统在我们运行app的时候其实就已经规定我们使用的内存大小，如果我们的内存泄漏了，内存无法进行回收，那么大量无用内存就会一直停留在里面。运行时间一长，就会超过给我们限制的内存大小最终出现内存溢出直接Crash</p>
+<h2 id="内存泄露的栗子"><a href="#内存泄露的栗子" class="headerlink" title="内存泄露的栗子"></a>内存泄露的栗子</h2><h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><p>在我们时候单例模式的时候有时候需要传入一个Context,比如这样：</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CommonManager</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> CommonManager instance<span class="token punctuation">;</span>
+    <span class="token keyword">private</span>  Context mContext<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">CommonManager</span><span class="token punctuation">(</span>Context context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        mContext<span class="token operator">=</span>context<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> CommonManager <span class="token function">getInstance</span><span class="token punctuation">(</span>Context context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>instance <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            instance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CommonManager</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> instance<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>然而在Activity调用的时候我们习惯这样</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span>
+ <span class="token keyword">class</span> <span class="token class-name">MainActivity</span> <span class="token keyword">extends</span> <span class="token class-name">AppCompatActivity</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onCreate</span><span class="token punctuation">(</span>Bundle savedInstanceState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onCreate</span><span class="token punctuation">(</span>savedInstanceState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setContentView</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>layout<span class="token punctuation">.</span>activity_main<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        CommonManager manager <span class="token operator">=</span> CommonManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        manager<span class="token punctuation">.</span><span class="token function">xxx</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>如上，如果你也传入了this，那么恭喜你。。内存泄漏了！</p>
+<p><code>First blood!</code>(这是一个有声音的文字)</p>
+<p>为什么捏？？</p>
+<p>因为现在<code>CommonManager</code>持有了Activity的引入，如果现在Activity的整个生命周期执行完了（调用onDestroy()后），这个Activity本该被gc回收了，可是却被<code>CommonManager</code>持有了，然后这个<code>Activity</code>就会一直存在内存中，就像路边的垃圾的一样无人问津。。。</p>
+<p>如何解决这个内存泄漏呢？</p>
+<p>我们之所以要用单例，很大部分原因是因为我们在整个app的运行中，能够轻松的取到里面的值或者调用极其非静态的方法。由于我们的静态类的生命周期和整个app的生命周期一样长，而<code>Application</code>类正好也是，而<code>Application</code>也继承<code>Context</code>，所以我们可以改用<code>Application</code></p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MainActivity</span> <span class="token keyword">extends</span> <span class="token class-name">AppCompatActivity</span><span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onCreate</span><span class="token punctuation">(</span>Bundle savedInstanceState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onCreate</span><span class="token punctuation">(</span>savedInstanceState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setContentView</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>layout<span class="token punctuation">.</span>activity_main<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        CommonManager manager <span class="token operator">=</span> CommonManager<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token function">getApplicationContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>因为Application跟静态的生命周期一样长，所以就不会产生内存泄漏啦！</p>
+<h3 id="静态变量"><a href="#静态变量" class="headerlink" title="静态变量"></a>静态变量</h3><blockquote>
+<p>慎用静态变量</p>
+</blockquote>
+<p>为什么说慎用呢？因为静态变量的生命周期在于从赋值开始一直到置空（null）或者app<strong>进程结束</strong>。也就是说你app所有的界面关闭了其实静态变量中的值还是存在的</p>
+<p>那么如何进程会结束呢？</p>
+<ul>
+<li>如果运行内存足够，Android不会杀掉任何进程。在内存不足的时候就会杀掉或者重启进程</li>
+<li>用户手机手动清理内存</li>
+</ul>
+<h4 id="静态变量使用错误之四大组件"><a href="#静态变量使用错误之四大组件" class="headerlink" title="静态变量使用错误之四大组件"></a>静态变量使用错误之四大组件</h4><p>有时候我们会有这样的需求比如：<code>MainActivity</code>跳转到<code>DetailActivity</code>,此时我需要在<code>DetailActivity</code>调用<code>MainActivity</code>里面的方法来刷新ui。这个时候你也许会这样做：</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MainActivity</span> <span class="token keyword">extends</span> <span class="token class-name">AppCompatActivity</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> MainActivity mIntance<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onCreate</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> Bundle savedInstanceState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onCreate</span><span class="token punctuation">(</span>savedInstanceState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setContentView</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>layout<span class="token punctuation">.</span>activity_main<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        mIntance <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//...</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DetailActivity</span> <span class="token keyword">extends</span> <span class="token class-name">AppCompatActivity</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onCreate</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> Bundle savedInstanceState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onCreate</span><span class="token punctuation">(</span>savedInstanceState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setContentView</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>layout<span class="token punctuation">.</span>activity_detail<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">findViewById</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>btnCommit<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setOnClickListener</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">View<span class="token punctuation">.</span>OnClickListener</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onClick</span><span class="token punctuation">(</span>View v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                MainActivity<span class="token punctuation">.</span>mIntance<span class="token punctuation">.</span><span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>把<code>MainActivity</code>中定义一个自己的静态变量实例<code>mIntance</code>，这样在<code>DetailActivity</code>以及任何界面都可以直接调用<code>MainActivity</code>中的方法。</p>
+<p>如果你是这样做的，那么恭喜你。。内存泄漏了！</p>
+<p><code>Double kill</code></p>
+<p>为什么捏？</p>
+<p>如上面所说，静态变量的生命周期从赋值开始一直到置空（null）或者app<strong>进程结束</strong>,也就是说这个<code>MainActivity</code>的实例一直存在得不到回收，所以产生了泄漏</p>
+<p>怎么解决呢？</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MainActivity</span> <span class="token keyword">extends</span> <span class="token class-name">AppCompatActivity</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> MainActivity mIntance<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onCreate</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> Bundle savedInstanceState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onCreate</span><span class="token punctuation">(</span>savedInstanceState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setContentView</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>layout<span class="token punctuation">.</span>activity_main<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        mIntance <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//...</span>
+    <span class="token punctuation">}</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onDestroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onDestroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        mIntance <span class="token operator">=</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>在<code>onDestroy</code>置空即可。</p>
+<p>当然我个人是不推荐这样做的。我现在是在按钮的点击事件里面去调用<code>MainActivity</code>的方法。那假如用户一直不点呢？那么这个MainActivity就会一直存在内存中。而<code>Activity</code>又是四大组件，可想而知它是个重量级的家伙。</p>
+<p>那么有什么好的解决方法呢？</p>
+<p>我们可以用第三方框架来解决这个问题，比如<code>EventBus</code>，如果你项目引入<code>RxJava</code>，那么你可以使用<code>RxBus</code>。在<code>MainActivity</code>注册订阅，然后在<code>DetailActivity</code>发消息通知<code>MainActivity</code>然后执行对应的方法，<strong>当然一定要在<code>onDestroy</code>的时候取消注册</strong>，不然还是会内存泄漏的！</p>
+<h4 id="静态变量使用错误之View"><a href="#静态变量使用错误之View" class="headerlink" title="静态变量使用错误之View"></a>静态变量使用错误之View</h4><p>同样的问题，我需要在<code>DetailActivity</code>界面去更新<code>MainActiviy</code>的<code>button</code>的文字。</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MainActivity</span> <span class="token keyword">extends</span> <span class="token class-name">AppCompatActivity</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> Button mBtn<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onCreate</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> Bundle savedInstanceState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onCreate</span><span class="token punctuation">(</span>savedInstanceState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setContentView</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>layout<span class="token punctuation">.</span>activity_main<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        mBtn<span class="token operator">=</span><span class="token function">findViewById</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>btn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DetailActivity</span> <span class="token keyword">extends</span> <span class="token class-name">AppCompatActivity</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onCreate</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> Bundle savedInstanceState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onCreate</span><span class="token punctuation">(</span>savedInstanceState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setContentView</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>layout<span class="token punctuation">.</span>activity_detail<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">findViewById</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>btnCommit<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setOnClickListener</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">View<span class="token punctuation">.</span>OnClickListener</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onClick</span><span class="token punctuation">(</span>View v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                MainActivity<span class="token punctuation">.</span>mBtn<span class="token punctuation">.</span><span class="token function">setText</span><span class="token punctuation">(</span><span class="token string">"我被改变了"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>如果你是这样做的  <code>Trible Kill!</code></p>
+<p>同理我们只需要在<code>onDestory</code>置空就可以了</p>
+<p>那么我们有了上面的经验，同样直接就可以用EventBus/RxBus搞定!</p>
+<h3 id="Handler泄漏"><a href="#Handler泄漏" class="headerlink" title="Handler泄漏"></a>Handler泄漏</h3><p>说起内存泄漏，那么一定跑不了<code>Handler</code>，因为我们日常写代码的时候经常会去这样写：</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MainActivity</span> <span class="token keyword">extends</span> <span class="token class-name">AppCompatActivity</span> <span class="token punctuation">{</span>
+    Handler mHandler<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Handler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleMessage</span><span class="token punctuation">(</span>Message msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">handleMessage</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//handle message...</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onCreate</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> Bundle savedInstanceState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onCreate</span><span class="token punctuation">(</span>savedInstanceState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setContentView</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>layout<span class="token punctuation">.</span>activity_main<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        mHandler<span class="token punctuation">.</span><span class="token function">postDelayed</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Runnable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                mHandler<span class="token punctuation">.</span><span class="token function">sendEmptyMessage</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">120000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+<p>在代码中可以看到延时2分钟给handler发送了一个空消息。看似没问题，那么如果此时用户点了返回退出了这个<code>Activity</code>，那么<code>Activity</code>2分钟内一直在内存中不能被回收，这个那么这个时候就产生泄漏</p>
+<p>如果你代码类似这样。。 <code>Ultra Kill!</code></p>
+<p>在我的<a href="http://www.weyye.me/detail/android-source-activity-oncreate/" target="_blank" rel="external">Android走进Framework之app是如何被启动的</a>里面说过当我们app启动时候<code>ActivityThread</code>会创建主线程的<code>Looper</code>对象，来进行消息队列的循环取出消息然后处理消息。发送消息的时候<code>Message</code>会持有<code>mHandler</code>的引用而<code>mHandler</code>又是一个匿名<code>Handler</code>类，匿名类是特殊内部类，而内部类是持有外部类实例的引用的。所以此时这个Handler持有了外部<code>Activity</code>的引用。这样Looper对象才可以取到<code>Message</code>然后交给对应的<code>Handler</code>去处理</p>
+<p><strong>Handler.java</strong></p>
+<pre class=" language-java"><code class="language-java">    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">enqueueMessage</span><span class="token punctuation">(</span>MessageQueue queue<span class="token punctuation">,</span> Message msg<span class="token punctuation">,</span> <span class="token keyword">long</span> uptimeMillis<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        msg<span class="token punctuation">.</span>target <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>mAsynchronous<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            msg<span class="token punctuation">.</span><span class="token function">setAsynchronous</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> queue<span class="token punctuation">.</span><span class="token function">enqueueMessage</span><span class="token punctuation">(</span>msg<span class="token punctuation">,</span> uptimeMillis<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>当我发送消息的时候最终会调用<code>enqueueMessage</code>，在这里讲this(Handler)赋值给了<code>Message</code>里面的<code>target</code>;此时就持有了Handler的引用了</p>
+<p>好了 搞清楚为什么会内存泄漏后，那我们怎么解决呢？</p>
+<pre class=" language-java"><code class="language-java">     <span class="token keyword">static</span>  Handler mHandler <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Handler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleMessage</span><span class="token punctuation">(</span>Message msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">handleMessage</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//handle message...</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>将<code>mHandler</code>改成静态的，<strong>因为静态内部类是不持有外部类的引用的</strong></p>
+<p>那就引入了另一问题：静态类怎么调用非静态的方法呢？当然加入构造方法传进来。比如这样？</p>
+<pre class=" language-java"><code class="language-java">    <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">MyHandler</span> <span class="token keyword">extends</span> <span class="token class-name">Handler</span> <span class="token punctuation">{</span>
+        MainActivity mActivity<span class="token punctuation">;</span>
+
+        <span class="token keyword">public</span> <span class="token function">MyHandler</span><span class="token punctuation">(</span>MainActivity activity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            mActivity <span class="token operator">=</span> activity<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleMessage</span><span class="token punctuation">(</span>Message msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">handleMessage</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            mActivity<span class="token punctuation">.</span><span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
+<p>错！虽然变成了静态的了，但是这样做跟之前做是一样的，传入进来的都是强引用，还是一样回收不了。</p>
+</blockquote>
+<p>那么到底该怎么做呢？ 应该传入一个弱引用的Activity，如下</p>
+<pre class=" language-java"><code class="language-java">    <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">MyHandler</span> <span class="token keyword">extends</span> <span class="token class-name">Handler</span> <span class="token punctuation">{</span>
+        <span class="token keyword">private</span> <span class="token keyword">final</span> WeakReference<span class="token operator">&lt;</span>MainActivity<span class="token operator">></span> mActivity<span class="token punctuation">;</span>
+
+        <span class="token keyword">public</span> <span class="token function">MyHandler</span><span class="token punctuation">(</span>MainActivity activity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            mActivity <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WeakReference</span><span class="token operator">&lt;</span>MainActivity<span class="token operator">></span><span class="token punctuation">(</span>activity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleMessage</span><span class="token punctuation">(</span>Message msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">handleMessage</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            mActivity<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>这样做就可以了。但是为什么要使用<code>WeakReference</code>呢?</p>
+<p>来一段4大引用的解释</p>
+<p><strong>StrongReference 强引用</strong>：</p>
+<p>回收时机：从不回收<br>使用：对象的一般保存<br>生命周期：JVM停止的时候才会终止（new出来的对应都是强引用）</p>
+<p><strong>SoftReference 软引用</strong><br>回收时机：当内存不足的时候<br>使用：SoftReference<string>结合ReferenceQueue构造有效期短<br>生命周期：内存不足时终止</string></p>
+<p><strong>WeakReference 弱引用</strong><br>回收时机：在垃圾回收的时候<br>使用：同软引用<br>生命周期：GC后终止</p>
+<p><strong>PhatomReference 虚引用</strong><br>回收时机：在垃圾回收的时候<br>使用：合ReferenceQueue来跟踪对象呗垃圾回收期回收的活动<br>生命周期:GC后终止</p>
+<p>当我们使用<code>WeakReference</code>，gc回收后那个<code>MainActivity</code>的引用也就不存在，那么<code>MainActivity</code>就可以了正常被回收了</p>
+<p>当然这样做就完美了嘛？</p>
+<p>No! 我们最好在<code>onDestory</code>移除消息，因为当你<code>Activity</code>退出后Message还在排队等待处理，而我们的<code>Activity</code>都关闭了，所以也就没必要处理了，最终如下</p>
+<pre class=" language-java"><code class="language-java">
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MainActivity</span> <span class="token keyword">extends</span> <span class="token class-name">AppCompatActivity</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> MyHandler mHandler <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyHandler</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">MyHandler</span> <span class="token keyword">extends</span> <span class="token class-name">Handler</span> <span class="token punctuation">{</span>
+        <span class="token keyword">private</span> <span class="token keyword">final</span> WeakReference<span class="token operator">&lt;</span>MainActivity<span class="token operator">></span> mActivity<span class="token punctuation">;</span>
+
+        <span class="token keyword">public</span> <span class="token function">MyHandler</span><span class="token punctuation">(</span>MainActivity activity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            mActivity <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WeakReference</span><span class="token operator">&lt;</span>MainActivity<span class="token operator">></span><span class="token punctuation">(</span>activity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleMessage</span><span class="token punctuation">(</span>Message msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">handleMessage</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            mActivity<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onCreate</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> Bundle savedInstanceState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onCreate</span><span class="token punctuation">(</span>savedInstanceState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setContentView</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>layout<span class="token punctuation">.</span>activity_main<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        mHandler<span class="token punctuation">.</span><span class="token function">postDelayed</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Runnable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                mHandler<span class="token punctuation">.</span><span class="token function">sendEmptyMessage</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//What建议定义常量，为了演示直接传0</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">120000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//todo</span>
+    <span class="token punctuation">}</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onDestroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onDestroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        mHandler<span class="token punctuation">.</span><span class="token function">removeMessages</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>完美！</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>看到上面几个内存泄漏的例子,在我们日常编码中也要好好注意了，例如：</p>
+<ul>
+<li>写单例的时候需要传Context要传入AppcationContext。</li>
+<li>不要尽量避免使用静态变量</li>
+<li>内部类是持有外部类的的引用的，而静态内部类不持有</li>
+<li>Handler正确使用</li>
+<li>4大引用的解释</li>
+</ul>
+<p>当然，这些例子都是比较常见的内存泄漏的地方，还有不常见的泄漏，这个时候就需要我们借助工具来查看逐一排除解决。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://zhuanlan.zhihu.com/p/23102625" target="_blank" rel="external">Java垃圾回收机制(GC)详解</a></p>
+<p><a href="http://www.cnblogs.com/whgw/archive/2011/09/29/2194997.html" target="_blank" rel="external">Java中堆内存和栈内存详解</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android走进Framework之AppCompatActivity.setContentView]]></title>
       <url>http://weyye.me/detail/framework-appcompatactivity-setcontentview/</url>
       <content type="html"><![CDATA[<blockquote>
