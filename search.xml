@@ -4,6 +4,125 @@
   
     
     <entry>
+      <title><![CDATA[自适应Tab宽度可以滑动文字逐渐变色的TabLayout]]></title>
+      <url>http://weyye.me/detail/color-track-tablayout/</url>
+      <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>TabLayout</code>相信大家都用过，2015年Google大会上发布了新的Android Support Design库里面包含了很多新的控件，其中就包含<code>TabLayout</code>，它可以配合<code>ViewPager</code>完成很好的效果。<br><a id="more"></a></p>
+<h2 id="需求1"><a href="#需求1" class="headerlink" title="需求1"></a>需求1</h2><p>有时候会遇到这种需求，例如内涵段子(弱弱的问一句：有段友么？)。</p>
+<p><img src="/img/QQ图片20170417152845.png" alt=""></p>
+<p>像类似于上面一样，很有很多个tab，文字内容不固定，这时候使用<code>TabLayout</code>就会出现以下情况</p>
+<p><img src="/img/QQ图片20170417164229.png" alt=""></p>
+<p>我们会发现文字与文字之间隔的很远，需要设置<code>tabPaddingStart</code>和<code>tabPaddingEnd</code>，但是布局填上去后发现并无卵用。。</p>
+<h2 id="需求2"><a href="#需求2" class="headerlink" title="需求2"></a>需求2</h2><p>一种类似于今日头条指示器，根据ViewPager的页面滑动，文字逐渐变色。详细效果请看<a href="https://github.com/yewei02538/TodayNews" target="_blank" rel="external">TodayNews</a></p>
+<h2 id="ColorTrackTabLayout"><a href="#ColorTrackTabLayout" class="headerlink" title="ColorTrackTabLayout"></a>ColorTrackTabLayout</h2><p>先看下效果</p>
+<p><img src="https://github.com/yewei02538/ColorTrackTabLayout/raw/master/screenshot/screenshot.gif" alt=""></p>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><p><a href="https://github.com/yewei02538/ColorTrackTabLayout" target="_blank" rel="external">https://github.com/yewei02538/ColorTrackTabLayout</a></p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>因为是继承TabLayout，所以用法跟TabLayout一模一样</p>
+<pre class=" language-java"><code class="language-java">        <span class="token comment" spellcheck="true">//隐藏Indicator</span>
+        mTab<span class="token punctuation">.</span><span class="token function">setSelectedTabIndicatorHeight</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//设置左右内边距</span>
+        mTab<span class="token punctuation">.</span><span class="token function">setTabPaddingLeftAndRight</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        mTab<span class="token punctuation">.</span><span class="token function">setupWithViewPager</span><span class="token punctuation">(</span>mViewPager<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p><code>ColorTrackLayout</code>主要是继承了TabLayout，对它做了一些扩展。滑动颜色渐变核心不懂的可以看下鸿洋大神的<a href="http://blog.csdn.net/lmj623565791/article/details/44098729" target="_blank" rel="external">Android 自定义控件玩转字体变色 打造炫酷ViewPager指示器</a>。</p>
+<p>既然是随着页面的滑动文字颜色渐变那么肯定少不了ViewPager的页面监听，这个在我们调用<code>setupWithViewPager</code>的时候TabLayout就已经添加监听。</p>
+<pre class=" language-java"><code class="language-java">    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">setupWithViewPager</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> <span class="token keyword">final</span> ViewPager viewPager<span class="token punctuation">,</span> <span class="token keyword">boolean</span> autoRefresh<span class="token punctuation">,</span>
+            <span class="token keyword">boolean</span> implicitSetup<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>viewPager <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            mViewPager <span class="token operator">=</span> viewPager<span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">// Add our custom OnPageChangeListener to the ViewPager</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>mPageChangeListener <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">//添加了滑动监听</span>
+                mPageChangeListener <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TabLayoutOnPageChangeListener</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            mPageChangeListener<span class="token punctuation">.</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            viewPager<span class="token punctuation">.</span><span class="token function">addOnPageChangeListener</span><span class="token punctuation">(</span>mPageChangeListener<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">// Now we'll add a tab selected listener to set ViewPager's current item</span>
+            mCurrentVpSelectedListener <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ViewPagerOnTabSelectedListener</span><span class="token punctuation">(</span>viewPager<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">addOnTabSelectedListener</span><span class="token punctuation">(</span>mCurrentVpSelectedListener<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">final</span> PagerAdapter adapter <span class="token operator">=</span> viewPager<span class="token punctuation">.</span><span class="token function">getAdapter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>adapter <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// Now we'll populate ourselves from the pager adapter, adding an observer if</span>
+                <span class="token comment" spellcheck="true">// autoRefresh is enabled</span>
+                <span class="token function">setPagerAdapter</span><span class="token punctuation">(</span>adapter<span class="token punctuation">,</span> autoRefresh<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token comment" spellcheck="true">// Add a listener so that we're notified of any adapter changes</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>mAdapterChangeListener <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                mAdapterChangeListener <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AdapterChangeListener</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            mAdapterChangeListener<span class="token punctuation">.</span><span class="token function">setAutoRefresh</span><span class="token punctuation">(</span>autoRefresh<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            viewPager<span class="token punctuation">.</span><span class="token function">addOnAdapterChangeListener</span><span class="token punctuation">(</span>mAdapterChangeListener<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">// Now update the scroll position to match the ViewPager's current item</span>
+            <span class="token function">setScrollPosition</span><span class="token punctuation">(</span>viewPager<span class="token punctuation">.</span><span class="token function">getCurrentItem</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0f</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// We've been given a null ViewPager so we need to clear out the internal state,</span>
+            <span class="token comment" spellcheck="true">// listeners and observers</span>
+            mViewPager <span class="token operator">=</span> null<span class="token punctuation">;</span>
+            <span class="token function">setPagerAdapter</span><span class="token punctuation">(</span>null<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>创建了mPageChangeListener并添加了监听<br><code>mPageChangeListener = new TabLayoutOnPageChangeListener(this);</code>，所以我们必须要重写<code>setupWithViewPager</code>删除掉原来的监听，换成我们自己的监听</p>
+<pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setupWithViewPager</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> ViewPager viewPager<span class="token punctuation">,</span> <span class="token keyword">boolean</span> autoRefresh<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">setupWithViewPager</span><span class="token punctuation">(</span>viewPager<span class="token punctuation">,</span> autoRefresh<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//通过反射找到mPageChangeListener</span>
+            Field field <span class="token operator">=</span> TabLayout<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span><span class="token string">"mPageChangeListener"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            field<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            TabLayoutOnPageChangeListener listener <span class="token operator">=</span> <span class="token punctuation">(</span>TabLayoutOnPageChangeListener<span class="token punctuation">)</span> field<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>listener <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">//删除自带监听</span>
+                viewPager<span class="token punctuation">.</span><span class="token function">removeOnPageChangeListener</span><span class="token punctuation">(</span>listener<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                mPageChangeListenter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ColorTrackTabLayoutOnPageChangeListener</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                mPageChangeListenter<span class="token punctuation">.</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                viewPager<span class="token punctuation">.</span><span class="token function">addOnPageChangeListener</span><span class="token punctuation">(</span>mPageChangeListenter<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>还需要做的一点就是把TabLayout每一个的Tab布局替换成我们的。怎么替换呢？重写<code>addTab</code>，在添加的时候改成我们的布局</p>
+<pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addTab</span><span class="token punctuation">(</span><span class="token annotation punctuation">@NonNull</span> Tab tab<span class="token punctuation">,</span> <span class="token keyword">int</span> position<span class="token punctuation">,</span> <span class="token keyword">boolean</span> setSelected<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ColorTrackView colorTrackView <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ColorTrackView</span><span class="token punctuation">(</span><span class="token function">getContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        colorTrackView<span class="token punctuation">.</span><span class="token function">setProgress</span><span class="token punctuation">(</span>setSelected <span class="token operator">?</span> <span class="token number">1</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        colorTrackView<span class="token punctuation">.</span><span class="token function">setText</span><span class="token punctuation">(</span>tab<span class="token punctuation">.</span><span class="token function">getText</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        colorTrackView<span class="token punctuation">.</span><span class="token function">setTextSize</span><span class="token punctuation">(</span>mTabTextSize<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        colorTrackView<span class="token punctuation">.</span><span class="token function">setTag</span><span class="token punctuation">(</span>position<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        colorTrackView<span class="token punctuation">.</span><span class="token function">setTextChangeColor</span><span class="token punctuation">(</span>mTabSelectedTextColor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        colorTrackView<span class="token punctuation">.</span><span class="token function">setTextOriginColor</span><span class="token punctuation">(</span>mTabTextColor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        LinearLayout<span class="token punctuation">.</span>LayoutParams layoutParams <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinearLayout<span class="token punctuation">.</span>LayoutParams</span><span class="token punctuation">(</span>LinearLayout<span class="token punctuation">.</span>LayoutParams<span class="token punctuation">.</span>WRAP_CONTENT<span class="token punctuation">,</span> LinearLayout<span class="token punctuation">.</span>LayoutParams<span class="token punctuation">.</span>WRAP_CONTENT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        colorTrackView<span class="token punctuation">.</span><span class="token function">setLayoutParams</span><span class="token punctuation">(</span>layoutParams<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        tab<span class="token punctuation">.</span><span class="token function">setCustomView</span><span class="token punctuation">(</span>colorTrackView<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">addTab</span><span class="token punctuation">(</span>tab<span class="token punctuation">,</span> position<span class="token punctuation">,</span> setSelected<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>position <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//默认选中第一个</span>
+            <span class="token function">setSelectedView</span><span class="token punctuation">(</span>position<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token function">setTabWidth</span><span class="token punctuation">(</span>position<span class="token punctuation">,</span> colorTrackView<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>其关键就是将我们的布局利用setCustomView方法来设置上去。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>喜欢的话记得给个star哦~</p>
+<h2 id="鸣谢"><a href="#鸣谢" class="headerlink" title="鸣谢"></a>鸣谢</h2><p><a href="https://github.com/hongyangAndroid/ColorTrackView" target="_blank" rel="external">ColorTrackView</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Android内存泄漏(一)——常见内存泄漏以及解决]]></title>
       <url>http://weyye.me/detail/android-memory-leak-explaination/</url>
       <content type="html"><![CDATA[<blockquote>

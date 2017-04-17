@@ -4,7 +4,7 @@
     <!-- Title -->
     
     <title>
-        adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新 | Wey Ye的博客
+        自适应Tab宽度可以滑动文字逐渐变色的TabLayout | Wey Ye的博客
     </title>
     
     <!-- Favicons -->
@@ -40,7 +40,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://weyye.me">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新 | Wey Ye的博客">
+    <meta property="og:title" content="自适应Tab宽度可以滑动文字逐渐变色的TabLayout | Wey Ye的博客">
     <meta property="og:description" content="null">
     
      <!--[if lte IE 9]>
@@ -222,7 +222,7 @@
 	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
 		for="post-toc-trigger-btn">
 			
-			
+			<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#需求1"><span class="post-toc-number">2.</span> <span class="post-toc-text">需求1</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#需求2"><span class="post-toc-number">3.</span> <span class="post-toc-text">需求2</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ColorTrackTabLayout"><span class="post-toc-number">4.</span> <span class="post-toc-text">ColorTrackTabLayout</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#源码"><span class="post-toc-number">5.</span> <span class="post-toc-text">源码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用"><span class="post-toc-number">6.</span> <span class="post-toc-text">使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#原理"><span class="post-toc-number">7.</span> <span class="post-toc-text">原理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最后"><span class="post-toc-number">8.</span> <span class="post-toc-text">最后</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#鸣谢"><span class="post-toc-number">9.</span> <span class="post-toc-text">鸣谢</span></a></li></ol>
 		
 <!--			<li class="mdl-menu__item">Some Action</li>-->
 	</ul>
@@ -256,7 +256,7 @@
 		
 	
         <p class="article-headline-p">
-            adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新
+            自适应Tab宽度可以滑动文字逐渐变色的TabLayout
         </p>
     </div>
 
@@ -274,7 +274,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Wey Ye</strong>
-        <span>2月 19, 2016</span>
+        <span>3月 29, 2017</span>
     </div>
     
     <div class="section-spacer"></div>
@@ -312,7 +312,7 @@
     <!-- Leancloud Views -->
     <a class="post_share-link" href="#">
         <li class="mdl-menu__item">
-            <span id="/detail/adapter-notifyDataSetChanged/" class="leancloud-views_num" data-flag-title="adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新">
+            <span id="/detail/color-track-tablayout/" class="leancloud-views_num" data-flag-title="自适应Tab宽度可以滑动文字逐渐变色的TabLayout">
      &nbsp;浏览量
 </span>
         </li>
@@ -322,42 +322,42 @@
     
 
     <!-- Share Twitter -->
-    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新&url=http://weyye.me//detail/adapter-notifyDataSetChanged/index.html&via=Wey Ye" target="_blank">
+    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=自适应Tab宽度可以滑动文字逐渐变色的TabLayout&url=http://weyye.me//detail/color-track-tablayout/index.html&via=Wey Ye" target="_blank">
         <li class="mdl-menu__item">
             分享到 Twitter
         </li>
     </a>
 
     <!-- Share Google+ -->
-    <a class="post_share-link" href="https://plus.google.com/share?url=http://weyye.me//detail/adapter-notifyDataSetChanged/index.html" target="_blank">
+    <a class="post_share-link" href="https://plus.google.com/share?url=http://weyye.me//detail/color-track-tablayout/index.html" target="_blank">
         <li class="mdl-menu__item">
             分享到 Google+
         </li>
     </a>
 
     <!-- Share Weibo -->
-    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新&url=http://weyye.me//detail/adapter-notifyDataSetChanged/index.html&pic=&searchPic=false&style=simple" target="_blank">
+    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=自适应Tab宽度可以滑动文字逐渐变色的TabLayout&url=http://weyye.me//detail/color-track-tablayout/index.html&pic=&searchPic=false&style=simple" target="_blank">
         <li class="mdl-menu__item">
             分享到微博
         </li>
     </a>
 
     <!-- Share LinkedIn -->
-    <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://weyye.me//detail/adapter-notifyDataSetChanged/index.html&title=adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新" target="_blank">
+    <a class="post_share-link" href="https://www.linkedin.com/shareArticle?mini=true&url=http://weyye.me//detail/color-track-tablayout/index.html&title=自适应Tab宽度可以滑动文字逐渐变色的TabLayout" target="_blank">
         <li class="mdl-menu__item">
             分享到 LinkedIn
         </li>
     </a>
 
     <!-- Share QQ -->
-    <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Wey Ye的博客&title=adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新&summary=null&pics=http://weyye.me/favicon.ico&url=http://weyye.me/detail/adapter-notifyDataSetChanged/index.html" target="_blank">
+    <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=Wey Ye的博客&title=自适应Tab宽度可以滑动文字逐渐变色的TabLayout&summary=null&pics=http://weyye.me/favicon.ico&url=http://weyye.me/detail/color-track-tablayout/index.html" target="_blank">
         <li class="mdl-menu__item">
             分享到 QQ
         </li>
     </a>
 
     <!-- Share Telegram -->
-    <a class="post_share-link" href="https://telegram.me/share/url?url=http://weyye.me/detail/adapter-notifyDataSetChanged/index.html&text=adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新" target="_blank">
+    <a class="post_share-link" href="https://telegram.me/share/url?url=http://weyye.me/detail/color-track-tablayout/index.html&text=自适应Tab宽度可以滑动文字逐渐变色的TabLayout" target="_blank">
         <li class="mdl-menu__item">
             分享到 Telegram
         </li>
@@ -370,15 +370,120 @@
                 <!-- Post Content -->
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
-		<p>今天做项目遇到个比较头疼的问题，adapter.notifyDataSetChanged没有反应，要触摸屏幕才可以改变数据，上网查资料有人说是给list集合赋值的时候地址改变了（要用list.addAll()），可是我并没有改变地址 ，只是手动改了一个item的数据而已，后来发现只要延迟刷新就可以了<br><a id="more"></a></p>
-<pre class=" language-java"><code class="language-java">handler<span class="token punctuation">.</span><span class="token function">postDelayed</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Runnable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
-            <span class="token annotation punctuation">@Override</span>  
-            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
-                adapter<span class="token punctuation">.</span><span class="token function">notifyDataSetChanged</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
-            <span class="token punctuation">}</span>  
-        <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>TabLayout</code>相信大家都用过，2015年Google大会上发布了新的Android Support Design库里面包含了很多新的控件，其中就包含<code>TabLayout</code>，它可以配合<code>ViewPager</code>完成很好的效果。<br><a id="more"></a></p>
+<h2 id="需求1"><a href="#需求1" class="headerlink" title="需求1"></a>需求1</h2><p>有时候会遇到这种需求，例如内涵段子(弱弱的问一句：有段友么？)。</p>
+<p><img src="/img/QQ图片20170417152845.png" alt=""></p>
+<p>像类似于上面一样，很有很多个tab，文字内容不固定，这时候使用<code>TabLayout</code>就会出现以下情况</p>
+<p><img src="/img/QQ图片20170417164229.png" alt=""></p>
+<p>我们会发现文字与文字之间隔的很远，需要设置<code>tabPaddingStart</code>和<code>tabPaddingEnd</code>，但是布局填上去后发现并无卵用。。</p>
+<h2 id="需求2"><a href="#需求2" class="headerlink" title="需求2"></a>需求2</h2><p>一种类似于今日头条指示器，根据ViewPager的页面滑动，文字逐渐变色。详细效果请看<a href="https://github.com/yewei02538/TodayNews" target="_blank" rel="external">TodayNews</a></p>
+<h2 id="ColorTrackTabLayout"><a href="#ColorTrackTabLayout" class="headerlink" title="ColorTrackTabLayout"></a>ColorTrackTabLayout</h2><p>先看下效果</p>
+<p><img src="https://github.com/yewei02538/ColorTrackTabLayout/raw/master/screenshot/screenshot.gif" alt=""></p>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><p><a href="https://github.com/yewei02538/ColorTrackTabLayout" target="_blank" rel="external">https://github.com/yewei02538/ColorTrackTabLayout</a></p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>因为是继承TabLayout，所以用法跟TabLayout一模一样</p>
+<pre class=" language-java"><code class="language-java">        <span class="token comment" spellcheck="true">//隐藏Indicator</span>
+        mTab<span class="token punctuation">.</span><span class="token function">setSelectedTabIndicatorHeight</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//设置左右内边距</span>
+        mTab<span class="token punctuation">.</span><span class="token function">setTabPaddingLeftAndRight</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        mTab<span class="token punctuation">.</span><span class="token function">setupWithViewPager</span><span class="token punctuation">(</span>mViewPager<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<div class="tip"><br>    转载请注明出处<br></div>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p><code>ColorTrackLayout</code>主要是继承了TabLayout，对它做了一些扩展。滑动颜色渐变核心不懂的可以看下鸿洋大神的<a href="http://blog.csdn.net/lmj623565791/article/details/44098729" target="_blank" rel="external">Android 自定义控件玩转字体变色 打造炫酷ViewPager指示器</a>。</p>
+<p>既然是随着页面的滑动文字颜色渐变那么肯定少不了ViewPager的页面监听，这个在我们调用<code>setupWithViewPager</code>的时候TabLayout就已经添加监听。</p>
+<pre class=" language-java"><code class="language-java">    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">setupWithViewPager</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> <span class="token keyword">final</span> ViewPager viewPager<span class="token punctuation">,</span> <span class="token keyword">boolean</span> autoRefresh<span class="token punctuation">,</span>
+            <span class="token keyword">boolean</span> implicitSetup<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>viewPager <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            mViewPager <span class="token operator">=</span> viewPager<span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">// Add our custom OnPageChangeListener to the ViewPager</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>mPageChangeListener <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">//添加了滑动监听</span>
+                mPageChangeListener <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TabLayoutOnPageChangeListener</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            mPageChangeListener<span class="token punctuation">.</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            viewPager<span class="token punctuation">.</span><span class="token function">addOnPageChangeListener</span><span class="token punctuation">(</span>mPageChangeListener<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">// Now we'll add a tab selected listener to set ViewPager's current item</span>
+            mCurrentVpSelectedListener <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ViewPagerOnTabSelectedListener</span><span class="token punctuation">(</span>viewPager<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">addOnTabSelectedListener</span><span class="token punctuation">(</span>mCurrentVpSelectedListener<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">final</span> PagerAdapter adapter <span class="token operator">=</span> viewPager<span class="token punctuation">.</span><span class="token function">getAdapter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>adapter <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// Now we'll populate ourselves from the pager adapter, adding an observer if</span>
+                <span class="token comment" spellcheck="true">// autoRefresh is enabled</span>
+                <span class="token function">setPagerAdapter</span><span class="token punctuation">(</span>adapter<span class="token punctuation">,</span> autoRefresh<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token comment" spellcheck="true">// Add a listener so that we're notified of any adapter changes</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>mAdapterChangeListener <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                mAdapterChangeListener <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AdapterChangeListener</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            mAdapterChangeListener<span class="token punctuation">.</span><span class="token function">setAutoRefresh</span><span class="token punctuation">(</span>autoRefresh<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            viewPager<span class="token punctuation">.</span><span class="token function">addOnAdapterChangeListener</span><span class="token punctuation">(</span>mAdapterChangeListener<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">// Now update the scroll position to match the ViewPager's current item</span>
+            <span class="token function">setScrollPosition</span><span class="token punctuation">(</span>viewPager<span class="token punctuation">.</span><span class="token function">getCurrentItem</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0f</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// We've been given a null ViewPager so we need to clear out the internal state,</span>
+            <span class="token comment" spellcheck="true">// listeners and observers</span>
+            mViewPager <span class="token operator">=</span> null<span class="token punctuation">;</span>
+            <span class="token function">setPagerAdapter</span><span class="token punctuation">(</span>null<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>创建了mPageChangeListener并添加了监听<br><code>mPageChangeListener = new TabLayoutOnPageChangeListener(this);</code>，所以我们必须要重写<code>setupWithViewPager</code>删除掉原来的监听，换成我们自己的监听</p>
+<pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setupWithViewPager</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Nullable</span> ViewPager viewPager<span class="token punctuation">,</span> <span class="token keyword">boolean</span> autoRefresh<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">setupWithViewPager</span><span class="token punctuation">(</span>viewPager<span class="token punctuation">,</span> autoRefresh<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//通过反射找到mPageChangeListener</span>
+            Field field <span class="token operator">=</span> TabLayout<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span><span class="token string">"mPageChangeListener"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            field<span class="token punctuation">.</span><span class="token function">setAccessible</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            TabLayoutOnPageChangeListener listener <span class="token operator">=</span> <span class="token punctuation">(</span>TabLayoutOnPageChangeListener<span class="token punctuation">)</span> field<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>listener <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">//删除自带监听</span>
+                viewPager<span class="token punctuation">.</span><span class="token function">removeOnPageChangeListener</span><span class="token punctuation">(</span>listener<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                mPageChangeListenter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ColorTrackTabLayoutOnPageChangeListener</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                mPageChangeListenter<span class="token punctuation">.</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                viewPager<span class="token punctuation">.</span><span class="token function">addOnPageChangeListener</span><span class="token punctuation">(</span>mPageChangeListenter<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>还需要做的一点就是把TabLayout每一个的Tab布局替换成我们的。怎么替换呢？重写<code>addTab</code>，在添加的时候改成我们的布局</p>
+<pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addTab</span><span class="token punctuation">(</span><span class="token annotation punctuation">@NonNull</span> Tab tab<span class="token punctuation">,</span> <span class="token keyword">int</span> position<span class="token punctuation">,</span> <span class="token keyword">boolean</span> setSelected<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ColorTrackView colorTrackView <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ColorTrackView</span><span class="token punctuation">(</span><span class="token function">getContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        colorTrackView<span class="token punctuation">.</span><span class="token function">setProgress</span><span class="token punctuation">(</span>setSelected <span class="token operator">?</span> <span class="token number">1</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        colorTrackView<span class="token punctuation">.</span><span class="token function">setText</span><span class="token punctuation">(</span>tab<span class="token punctuation">.</span><span class="token function">getText</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        colorTrackView<span class="token punctuation">.</span><span class="token function">setTextSize</span><span class="token punctuation">(</span>mTabTextSize<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        colorTrackView<span class="token punctuation">.</span><span class="token function">setTag</span><span class="token punctuation">(</span>position<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        colorTrackView<span class="token punctuation">.</span><span class="token function">setTextChangeColor</span><span class="token punctuation">(</span>mTabSelectedTextColor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        colorTrackView<span class="token punctuation">.</span><span class="token function">setTextOriginColor</span><span class="token punctuation">(</span>mTabTextColor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        LinearLayout<span class="token punctuation">.</span>LayoutParams layoutParams <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinearLayout<span class="token punctuation">.</span>LayoutParams</span><span class="token punctuation">(</span>LinearLayout<span class="token punctuation">.</span>LayoutParams<span class="token punctuation">.</span>WRAP_CONTENT<span class="token punctuation">,</span> LinearLayout<span class="token punctuation">.</span>LayoutParams<span class="token punctuation">.</span>WRAP_CONTENT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        colorTrackView<span class="token punctuation">.</span><span class="token function">setLayoutParams</span><span class="token punctuation">(</span>layoutParams<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        tab<span class="token punctuation">.</span><span class="token function">setCustomView</span><span class="token punctuation">(</span>colorTrackView<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">addTab</span><span class="token punctuation">(</span>tab<span class="token punctuation">,</span> position<span class="token punctuation">,</span> setSelected<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>position <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//默认选中第一个</span>
+            <span class="token function">setSelectedView</span><span class="token punctuation">(</span>position<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token function">setTabWidth</span><span class="token punctuation">(</span>position<span class="token punctuation">,</span> colorTrackView<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>其关键就是将我们的布局利用setCustomView方法来设置上去。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>喜欢的话记得给个star哦~</p>
+<h2 id="鸣谢"><a href="#鸣谢" class="headerlink" title="鸣谢"></a>鸣谢</h2><p><a href="https://github.com/hongyangAndroid/ColorTrackView" target="_blank" rel="external">ColorTrackView</a></p>
+
 	
 	
 	
@@ -406,9 +511,9 @@
 <div id="comments">
     <!-- 多说评论框 start -->
         <div class="ds-thread" 
-            data-thread-key="detail/adapter-notifyDataSetChanged/" 
-            data-url="http://weyye.me/detail/adapter-notifyDataSetChanged/"
-            data-title="adapter.notifyDataSetChanged没有反应，触摸滑动屏幕才刷新" data-author-key="1"></div>
+            data-thread-key="detail/color-track-tablayout/" 
+            data-url="http://weyye.me/detail/color-track-tablayout/"
+            data-title="自适应Tab宽度可以滑动文字逐渐变色的TabLayout" data-author-key="1"></div>
     <!-- 多说评论框 end -->
 </div>
 
@@ -424,21 +529,13 @@
     
     <!-- Prev Nav -->
     
-        <a href="/detail/sdk-so/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/detail/fragment-viewpager嵌套/" id="post_nav-older" class="next-content">
+        <a href="/detail/android-memory-leak-explaination/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
